@@ -1,8 +1,6 @@
 PFont f;
-// Variable to store text currently being typed
 String typing = "";
-// Variable to store saved text when return is hit
-String saved = "";
+String userName = "";
 
 void setup() 
 {
@@ -17,7 +15,6 @@ void draw()
   
   // Set the font and fill for text
   textFont(f);
-
   
   // Display everything
   fill(250);
@@ -28,23 +25,20 @@ void draw()
   
   fill(130, 130, 130);
   text(typing, 512, 300 + 75);
-  text(saved, indent, 130);
-  
 }
 
 void keyPressed()
 {
-  // If the return key is pressed, save the String and clear it
-  if (key == '\n' )
-  {
-    saved = typing;
-    // A String can be cleared by setting it equal to ""
-    typing = ""; 
+  if (key == ENTER || key == RETURN) {
+    userName = typing;
+    typing = "";
+    println("userName: " + userName);
   } 
-  else 
-  {
-    // Otherwise, concatenate the String
-    // Each character typed by the user is added to the end of the String variable.
-    typing = typing + key; 
+  else if (key != CODED) {
+    if (key == BACKSPACE) {
+      typing += " ";
+    } else {
+      typing = typing + key;
+    }
   }
 }
