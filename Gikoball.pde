@@ -2,9 +2,12 @@ PFont f;
 String typing = "";
 String userName = "";
 
+int SCREEN_WIDTH = 1024;
+int SCREEN_HEIGHT = 720;
+
 void setup() 
 {
-  size(1024,720);
+  size(SCREEN_WIDTH, SCREEN_HEIGHT);
   f = createFont("Arial", 16, true);
 }
 
@@ -33,12 +36,11 @@ void keyPressed()
     userName = typing;
     typing = "";
     println("userName: " + userName);
-  } 
-  else if (key != CODED) {
+  } else if (key != CODED) {
     if (key == BACKSPACE) {
       typing += " ";
     } else {
-      typing = typing + key;
+      typing += key;
     }
   }
 }
