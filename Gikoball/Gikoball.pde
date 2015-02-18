@@ -140,6 +140,9 @@ void draw()
   case STORY: 
     draw_story();
     break;
+  case GAME:
+    // TO DO : DENIS, put your CLASS.draw here
+    break;
   }
 }
 
@@ -152,6 +155,9 @@ void keyPressed()
   case GREETING: 
     break;
   case STORY: 
+    break;
+  case GAME:
+    // TO DO : DENIS, PUT your CLASS.keyPressed here
     break;
   }
 }
