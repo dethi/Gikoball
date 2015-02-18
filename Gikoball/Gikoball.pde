@@ -6,9 +6,6 @@ String userName = "";
 int starting_greeting_time;
 int count_down_greeting_launched = 0; 
 
-// STORY
-PImage img_story;
-
 // Story count down
 int story_countdown;
 int starting_time;
@@ -45,12 +42,10 @@ String story4 = "-Remember to collect food and Staffs\n"+
 "don't have time right now!!! So if we\n"+
 "meet in the city I will teach you then!\n";
 
-// BACKGROUND 
-PImage img_background;
 
 UIState currentUI = UIState.WELCOME;
 Welcome welcome = new Welcome();
-Background background = new Background();
+Ball theBall = new Ball(0, 0);
 
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
@@ -59,8 +54,6 @@ void setup()
 {
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
   f = createFont("Arial", 32, true);
-  img_story = loadImage("roshi.png");
-  img_background = loadImage("background.jpg");
 }
 
 void draw_menu_greeting()
@@ -71,12 +64,13 @@ void draw_menu_greeting()
     launch_greeting_countdown();
 
   background(0);
+
   fill(250);
   text("Hi "+userName+"!\n", 400 - 50, 100);
 
   t = (millis() - starting_greeting_time) / 1000;
   println(t);
-  if (t >= 2)
+  if (t >= 6)
   {
     currentUI = UIState.STORY;
     println("Story launched");
@@ -99,7 +93,7 @@ void launch_story_countdown()
 
 void draw_story()
 {
-  image(img_story, 0, 0);
+  background(0); 
 
   if (count_down_story_launched == 0)
     launch_story_countdown();
@@ -109,14 +103,14 @@ void draw_story()
     story_countdown = (millis() - starting_time) / 1000;
 
     f = createFont("Arial", 16, true);
-
-    if (story_countdown < 1)
+    
+    if (story_countdown < 4)
       text(story1, 400 - 300, 100);
-    else if (story_countdown >= 2 && story_countdown < 3)
+    else if (story_countdown >= 4 && story_countdown < 8)
     {
       text(story1, 400 - 300, 100);
       text(story2, 400 - 300, 150);
-    } else if (story_countdown >= 3 && story_countdown < 5)
+    } else if (story_countdown >= 8 && story_countdown < 12)
     {
       background(0);
 
@@ -146,9 +140,10 @@ void draw()
     break;
   case STORY: 
     draw_story();
+    currentUI = UIState.GAME;
     break;
   case GAME:
-    background.draw();
+    theBall.draw();
     // TO DO : DENIS, put your CLASS.draw here
     break;
   }
@@ -165,6 +160,7 @@ void keyPressed()
   case STORY: 
     break;
   case GAME:
+    theBall.keyPressed();
     // TO DO : DENIS, PUT your CLASS.keyPressed here
     break;
   }

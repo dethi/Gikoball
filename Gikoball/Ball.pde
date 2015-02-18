@@ -8,13 +8,20 @@ class Ball
   }
   
     void keyPressed() {
-      if(key == LEFT)
-        this.x--;
-      if(key == RIGHT)
-        this.x++;
+      if(key == CODED)
+      {
+        if(keyCode == LEFT)
+        {
+          this.x = this.x - 5;
+        }
+        if(keyCode == RIGHT)
+        {
+          this.x = this.x + 5;
+        }
+      }
     }
   
     void draw() {
-    rect (this.x, this.y, 50, 50); //need a sprite
+    ellipse(this.x, this.y, 50, 50); //need a sprite
   }
 }
