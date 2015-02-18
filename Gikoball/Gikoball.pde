@@ -14,24 +14,33 @@ int count_down_story_launched = 0;
 // Story String
 String story1 = "-C'mon Goku! The earth needs you!";
 
-String story2 = "-We don't have the whole day! \n"+
-"Freezer's minions have been hanging around freely\n"+
-" and making a mess over here. You are the only one who\n"+
-"can stop them. So get up on The Nimbus Cloud and go to the city\n"+
-"to get rid of the cruel minions. Take care, even being you this will\n"+
-"be a hard task.";
+String story2 = "-We don't have the whole day!\n"+
+"Freezer's minions have been hanging \n"+
+"around freely and making a mess over\n"+
+"here. You are the only one who can \n"+
+"stop them. So get up on The Nimbus \n"+
+"Cloud and go to the city to get rid\n"+
+"of the cruel minions. \n"+
+"Take care, even being you this will\n"+
+"be a hard task.\n";
 
 
-String story3 = "-What?! Broken?! How a magic cloud can be broken...?\n"+
-"Okay okay, then it will be even harder! You have to bounce around\n"+
-"trying not fall into the ground's holes those guys made. It will \n"+
-"be okay if you bounce in the ground on in the buildings but it's\n"+
-"not a great idea to touch the enemies... Better to kick them out!\n";
+String story3 = "-What?! Broken?! How a magic cloud\n"+ 
+"can be broken...?\n"+
+"Okay okay, then it will be even harder!\n"+
+"You have to bounce around trying not \n"+
+"fall into the ground's holes those \n"+
+"guys made. It will be okay if you \n"+
+"bounce in the ground or in the \n"+
+"buildings but it's not a great idea\n"+
+"to touch the enemies... Better to \n"+
+"kick them out!\n";
 
-String story4 = "-Remember to collect food and [whatever] to power yourself up!\n"+
-"I should teach you more fighting techniques, but we don't have time \n"+
-"rigth now!!! So if we meet in the city I will teach you then!\n";
-
+String story4 = "-Remember to collect food and Staffs\n"+
+"to power yourself up! I should teach\n"+
+"you more fighting techniques, but we\n"+
+"don't have time right now!!! So if we\n"+
+"meet in the city I will teach you then!\n";
 
 
 UIState currentUI = UIState.WELCOME;
@@ -103,13 +112,12 @@ void draw_story()
     } else if (story_countdown >= 8 && story_countdown < 12)
     {
       background(0);
-      text(story2, 400 - 300, 100);
-      text(story3, 400 - 300, 150);
+
+      text(story3, 400 - 300, 100);
     } else
     {
       background(0);
-      //text(story3, 400 - 300, 100);
-      //text(story4, 400 - 300, 150);
+      text(story4, 400 - 300, 100);
     }
   } else
   {
