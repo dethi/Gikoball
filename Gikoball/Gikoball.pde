@@ -11,6 +11,28 @@ int story_countdown;
 int starting_time;
 int count_down_story_launched = 0; 
 
+// Story String
+String story1 = "-C'mon Goku! The earth needs you!";
+
+String story2 = "-We don't have the whole day! \n"+
+"Freezer's minions have been hanging around freely\n"+
+" and making a mess over here. You are the only one who\n"+
+"can stop them. So get up on The Nimbus Cloud and go to the city\n"+
+"to get rid of the cruel minions. Take care, even being you this will\n"+
+"be a hard task.";
+
+
+String story3 = "-What?! Broken?! How a magic cloud can be broken...?\n"+
+"Okay okay, then it will be even harder! You have to bounce around\n"+
+"trying not fall into the ground's holes those guys made. It will \n"+
+"be okay if you bounce in the ground on in the buildings but it's\n"+
+"not a great idea to touch the enemies... Better to kick them out!\n";
+
+String story4 = "-Remember to collect food and [whatever] to power yourself up!\n"+
+"I should teach you more fighting techniques, but we don't have time \n"+
+"rigth now!!! So if we meet in the city I will teach you then!\n";
+
+
 
 UIState currentUI = UIState.WELCOME;
 Welcome welcome = new Welcome();
@@ -31,7 +53,6 @@ void draw_menu_greeting()
   if (count_down_greeting_launched == 0)
     launch_greeting_countdown();
 
-
   background(0);
 
   fill(250);
@@ -47,7 +68,7 @@ void draw_menu_greeting()
 }
 void launch_greeting_countdown()
 {
-  int count_down_greeting_launched = 1;
+  count_down_greeting_launched = 1;
   starting_greeting_time = millis();
 }
 
@@ -72,26 +93,24 @@ void draw_story()
     story_countdown = (millis() - starting_time) / 1000;
 
     if (story_countdown < 4)
-      text("Here is the story that we have to do", 512 - 50, 50);
+      text(story1, 512 - 50, 50);
     else if (story_countdown >= 4 && story_countdown < 8)
     {
-      text("Here is the story that we have to do", 512 - 50, 50);
-      text("Here is the story that we have to do", 512 - 50, 250);
+      text(story1, 512 - 50, 50);
+      text(story2, 512 - 50, 150);
     } else if (story_countdown >= 8 && story_countdown < 12)
     {
-      text("Here is the story that we have to do", 512 - 50, 50);
-      text("Here is the story that we have to do", 512 - 50, 250);
-      text("Here is the story that we have to do", 512 - 50, 450);
+      text(story1, 512 - 50, 50);
+      text(story2, 512 - 50, 150);
+      text(story3, 512 - 50, 350);
     } else
     {
-      text("Here is the story that we have to do", 512 - 50, 50);
-      text("Here is the story that we have to do", 512 - 50, 250);
-      text("Here is the story that we have to do", 512 - 50, 450);
-      text("Here is the story that we have to do", 512 - 50, 650);
+      text(story1, 512 - 50, 50);
+      text(story2, 512 - 50, 150);
+      text(story3, 512 - 50, 350);
+      text(story4, 512 - 50, 550);
     }
-  } 
-  
-  else
+  } else
   {
     currentUI = UIState.GAME;
     println("game launched");
