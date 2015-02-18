@@ -37,13 +37,13 @@ String story4 = "-Remember to collect food and [whatever] to power yourself up!\
 UIState currentUI = UIState.WELCOME;
 Welcome welcome = new Welcome();
 
-int SCREEN_WIDTH = 1024;
-int SCREEN_HEIGHT = 720;
+int SCREEN_WIDTH = 800;
+int SCREEN_HEIGHT = 600;
 
 void setup() 
 {
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
-  f = createFont("Arial", 16, true);
+  f = createFont("Arial", 32, true);
 }
 
 void draw_menu_greeting()
@@ -56,7 +56,7 @@ void draw_menu_greeting()
   background(0);
 
   fill(250);
-  text("Hi "+userName+"\n", 512 - 50, 50);
+  text("Hi "+userName+"!\n", 400 - 50, 100);
 
   t = (millis() - starting_greeting_time) / 1000;
   println(t);
@@ -92,29 +92,31 @@ void draw_story()
   {
     story_countdown = (millis() - starting_time) / 1000;
 
+    f = createFont("Arial", 16, true);
+    
     if (story_countdown < 4)
-      text(story1, 512 - 50, 50);
+      text(story1, 400 - 300, 100);
     else if (story_countdown >= 4 && story_countdown < 8)
     {
-      text(story1, 512 - 50, 50);
-      text(story2, 512 - 50, 150);
+      text(story1, 400 - 300, 100);
+      text(story2, 400 - 300, 150);
     } else if (story_countdown >= 8 && story_countdown < 12)
     {
-      text(story1, 512 - 50, 50);
-      text(story2, 512 - 50, 150);
-      text(story3, 512 - 50, 350);
+      background(0);
+      text(story2, 400 - 300, 100);
+      text(story3, 400 - 300, 150);
     } else
     {
-      text(story1, 512 - 50, 50);
-      text(story2, 512 - 50, 150);
-      text(story3, 512 - 50, 350);
-      text(story4, 512 - 50, 550);
+      background(0);
+      //text(story3, 400 - 300, 100);
+      //text(story4, 400 - 300, 150);
     }
   } else
   {
     currentUI = UIState.GAME;
     println("game launched");
   }
+  f = createFont("Arial", 32, true);
 }
 
 
