@@ -47,6 +47,7 @@ String story4 = "-Remember to collect food and Staffs\n"+
 
 // BACKGROUND 
 PImage img_background;
+PImage img_floor;
 
 
 UIState currentUI = UIState.WELCOME;
@@ -63,6 +64,7 @@ void setup()
   f = createFont("Arial", 32, true);
   img_story = loadImage("roshi.png");
   img_background = loadImage("background.jpg");
+  img_floor = loadImage("floor.png");
 }
 
 void draw_menu_greeting()
@@ -107,26 +109,23 @@ void draw_story()
   if (count_down_story_launched == 0)
     launch_story_countdown();
 
-  if (story_countdown <= 15)
+  if (story_countdown <= 7) 
   {
     story_countdown = (millis() - starting_time) / 1000;
 
     f = createFont("Arial", 16, true);
     
-    if (story_countdown < 4)
+    if (story_countdown < 1)
       text(story1, 400 - 300, 100);
-    else if (story_countdown >= 4 && story_countdown < 8)
+    else if (story_countdown >= 2 && story_countdown < 3)
     {
       text(story1, 400 - 300, 100);
       text(story2, 400 - 300, 150);
-    } else if (story_countdown >= 8 && story_countdown < 12)
+    } else if (story_countdown >= 4 && story_countdown < 5)
     {
-      background(0);
-
       text(story3, 400 - 300, 100);
     } else
     {
-      background(0);
       text(story4, 400 - 300, 100);
     }
   } else
