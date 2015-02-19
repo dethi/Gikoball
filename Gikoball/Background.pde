@@ -8,6 +8,7 @@ class Background
   void draw()
   {
     image(img_background, 0,0);
+    image(img_floor, 425, 0);
   }
 
   void keyPressed()
