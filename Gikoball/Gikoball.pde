@@ -49,7 +49,7 @@ String story4 = "-Remember to collect food and Staffs\n"+
 PImage img_background;
 
 
-UIState currentUI = UIState.WELCOME;
+UIState currentUI = UIState.WELCOME; //change to welcome to get the intro, GAME to get into the game directly
 Welcome welcome = new Welcome();
 Background background = new Background();
 Ball theBall = new Ball(0, 0);
