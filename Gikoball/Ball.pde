@@ -17,22 +17,22 @@ class Ball
   }
   
     void keyPressed() {
-      //if(key == CODED)
+      if(key == CODED)
       {
         if(keyCode == LEFT)
         {
-          this.x = this.x - 5;
+          this.x = this.x - 2;
         }
         if(keyCode == RIGHT)
         {
-          this.x = this.x + 5;
+          this.x = this.x + 2;
         }
         if(keyCode == DOWN)
         {
           if(this.stateBall == 2)//decelerates the ball when going up
             speedUp+= -1;
           if(this.stateBall == 1)//accelerates the ball when going down
-            speedDown+= 1;
+            speedDown+= 2;
         }
         if(keyCode == UP)
         {
@@ -50,22 +50,23 @@ class Ball
         //if(this.stateBall == 1)
         speedDown += naturalGravity;
       }
-        if(this.stateBall == 1)
-          this.y = this.y + speedDown;
-        else if(this.stateBall == 2)
-                this.y = this.y - speedUp;
       
-      if(this.y >= 600) //or change this to a method that gets the collision with the floor, set to screen height for now
+      if(this.y >= 425) //or change this to a method that gets the collision with the floor, set to screen height for now
       {
-        speedUp = speedDown;
+        speedUp = (int)(0.99*speedDown); //no infinite bounce, the ball gradually slows down
         this.stateBall = 2;
       }
       if(this.stateBall == 2)
       if(speedUp <= 0)
       {
         this.stateBall = 1;
-        speedDown = 1;
+        speedDown = 0;
       }
+      
+        if(this.stateBall == 1)
+          this.y = this.y + speedDown;
+        else if(this.stateBall == 2)
+                this.y = this.y - speedUp;
     }
   
     void draw() {

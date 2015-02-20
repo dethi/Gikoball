@@ -50,7 +50,7 @@ PImage img_background;
 PImage img_floor;
 
 
-UIState currentUI = UIState.WELCOME; //change to welcome to get the intro, GAME to get into the game directly
+UIState currentUI = UIState.GAME; //change to welcome to get the intro, GAME to get into the game directly
 Welcome welcome = new Welcome();
 Background background = new Background();
 Ball theBall = new Ball(0, 0);
@@ -153,7 +153,6 @@ void draw()
   case GAME:
     background.draw();
     theBall.draw();
-    // TO DO : DENIS, put your CLASS.draw here
     break;
   }
 }
@@ -170,7 +169,6 @@ void keyPressed()
     break;
   case GAME:
     theBall.keyPressed();
-    // TO DO : DENIS, PUT your CLASS.keyPressed here
     break;
   }
 }
