@@ -53,123 +53,123 @@ PImage img_floor;
 UIState currentUI = UIState.GAME; //change to welcome to get the intro, GAME to get into the game directly
 Welcome welcome = new Welcome();
 Background background = new Background();
-Ball theBall = new Ball(0, 0);
+Ball theBall = new Ball(50, 50);
 
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
 
 void setup() 
 {
-  size(SCREEN_WIDTH, SCREEN_HEIGHT);
-  f = createFont("Arial", 32, true);
-  img_story = loadImage("roshi.png");
-  img_background = loadImage("background.jpg");
-  img_floor = loadImage("floor.png");
+    size(SCREEN_WIDTH, SCREEN_HEIGHT);
+    f = createFont("Arial", 32, true);
+    img_story = loadImage("roshi.png");
+    img_background = loadImage("background.jpg");
+    img_floor = loadImage("floor.png");
 }
 
 void draw_menu_greeting()
 {
-  int t;
+    int t;
 
-  if (count_down_greeting_launched == 0)
-    launch_greeting_countdown();
+    if (count_down_greeting_launched == 0)
+        launch_greeting_countdown();
 
-  background(0);
+    background(0);
 
-  fill(250);
-  text("Hi "+userName+"!\n", 400 - 50, 100);
+    fill(250);
+    text("Hi "+userName+"!\n", 400 - 50, 100);
 
-  t = (millis() - starting_greeting_time) / 1000;
-  println(t);
-  if (t >= 6)
-  {
-    currentUI = UIState.STORY;
-    println("Story launched");
-  }
+    t = (millis() - starting_greeting_time) / 1000;
+    println(t);
+    if (t >= 6)
+    {
+        currentUI = UIState.STORY;
+        println("Story launched");
+    }
 }
 void launch_greeting_countdown()
 {
-  count_down_greeting_launched = 1;
-  starting_greeting_time = millis();
+    count_down_greeting_launched = 1;
+    starting_greeting_time = millis();
 }
 
 
 void launch_story_countdown()
 {
-  starting_time = millis();
-  count_down_story_launched = 1;
-  story_countdown = 0;
+    starting_time = millis();
+    count_down_story_launched = 1;
+    story_countdown = 0;
 }
 
 
 void draw_story()
 {
-  image(img_story, 0, 0);
+    image(img_story, 0, 0);
 
-  if (count_down_story_launched == 0)
-    launch_story_countdown();
+    if (count_down_story_launched == 0)
+        launch_story_countdown();
 
-  if (story_countdown <= 7) 
-  {
-    story_countdown = (millis() - starting_time) / 1000;
-
-    f = createFont("Arial", 16, true);
-    
-    if (story_countdown < 1)
-      text(story1, 400 - 300, 100);
-    else if (story_countdown >= 2 && story_countdown < 3)
+    if (story_countdown <= 7) 
     {
-      text(story1, 400 - 300, 100);
-      text(story2, 400 - 300, 150);
-    } else if (story_countdown >= 4 && story_countdown < 5)
-    {
-      text(story3, 400 - 300, 100);
+        story_countdown = (millis() - starting_time) / 1000;
+
+        f = createFont("Arial", 16, true);
+
+        if (story_countdown < 1)
+            text(story1, 400 - 300, 100);
+        else if (story_countdown >= 2 && story_countdown < 3)
+        {
+            text(story1, 400 - 300, 100);
+            text(story2, 400 - 300, 150);
+        } else if (story_countdown >= 4 && story_countdown < 5)
+        {
+            text(story3, 400 - 300, 100);
+        } else
+        {
+            text(story4, 400 - 300, 100);
+        }
     } else
     {
-      text(story4, 400 - 300, 100);
+        currentUI = UIState.GAME;
+        println("game launched");
     }
-  } else
-  {
-    currentUI = UIState.GAME;
-    println("game launched");
-  }
-  f = createFont("Arial", 32, true);
+    f = createFont("Arial", 32, true);
 }
 
 
 void draw()
 {
-  switch(currentUI) {
-  case WELCOME:
-    welcome.draw();
-    break;
-  case GREETING:
-    draw_menu_greeting();
-    break;
-  case STORY: 
-    draw_story();
-    //currentUI = UIState.GAME;
-    break;
-  case GAME:
-    background.draw();
-    theBall.draw();
-    break;
-  }
+    switch(currentUI) {
+        case WELCOME:
+            welcome.draw();
+            break;
+        case GREETING:
+            draw_menu_greeting();
+            break;
+        case STORY: 
+            draw_story();
+            //currentUI = UIState.GAME;
+            break;
+        case GAME:
+            background.draw();
+            theBall.draw();
+            break;
+    }
 }
 
 void keyPressed()
 {
-  switch(currentUI) {
-  case WELCOME:
-    welcome.keyPressed();
-    break;
-  case GREETING: 
-    break;
-  case STORY: 
-    break;
-  case GAME:
-    theBall.keyPressed();
-    break;
-  }
+    switch(currentUI) {
+        case WELCOME:
+            welcome.keyPressed();
+            break;
+        case GREETING: 
+            break;
+        case STORY: 
+            break;
+        case GAME:
+            theBall.keyPressed();
+            break;
+    }
 }
 

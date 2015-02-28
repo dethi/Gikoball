@@ -1,6 +1,6 @@
 enum UIState {
-  WELCOME,
-  GREETING,
-  STORY,
-  GAME
+    WELCOME,
+    GREETING,
+    STORY,
+    GAME
 }
