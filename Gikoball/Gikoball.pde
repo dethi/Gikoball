@@ -181,7 +181,8 @@ void draw()
 
 void keyPressed()
 {
-  switch(currentUI) {
+  switch(currentUI)
+  {
   case WELCOME:
     welcome.keyPressed();
     break;
