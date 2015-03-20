@@ -1,6 +1,6 @@
 class Background
 {
-  int shift =0;
+  int shift = 0;
   // Constructor
   Background()
   {

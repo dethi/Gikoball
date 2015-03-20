@@ -49,6 +49,19 @@ String story4 = "-Remember to collect food and Staffs\n"+
 PImage img_background;
 PImage img_floor;
 
+/**********************************************
+ ***              platforms stuff            ***
+ **********************************************/
+
+/* Platform sprites
+ * The platform names and looking and temporary.
+ */
+int number_platforms = 2;
+PImage green_platform;
+PImage red_platform;
+
+Platform[] platform_list = new Platform[2];
+
 
 UIState currentUI = UIState.GAME; //change to welcome to get the intro, GAME to get into the game directly
 Welcome welcome = new Welcome();
@@ -66,6 +79,11 @@ void setup()
   img_story = loadImage("roshi.png");
   img_background = loadImage("background.jpg");
   img_floor = loadImage("floor.png");
+  green_platform = loadImage("green_platform.png");
+  red_platform = loadImage("red_platform.png");
+
+  platform_list[0] = new Platform(10, 10, 100, 50, green_platform);
+  platform_list[1] = new Platform(250, 350, 75, 200, red_platform);
 }
 
 void draw_menu_greeting()
@@ -140,7 +158,8 @@ void draw_story()
 
 void draw()
 {
-  switch(currentUI) {
+  switch(currentUI) 
+  {
   case WELCOME:
     welcome.draw();
     break;
@@ -154,6 +173,8 @@ void draw()
   case GAME:
     background.draw();
     theBall.draw();
+    for(int i = 0; i < platform_list.length; ++i)
+      platform_list[i].draw();
     break;
   }
 }
