@@ -47,10 +47,10 @@ class Platform
     else
       return false;
   }
-  
+
   void draw()
   {
-     image(this.platform_image, this.x, this.y); 
+    image(this.platform_image, this.x, this.y);
   }
 }
 
