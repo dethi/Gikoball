@@ -31,30 +31,34 @@ class Ball
     }
 
     void Gravity(){
-        if(this.y >= 425){ //or change this to a method that gets the collision with the floor, set to screen height for now
+        if(this.y >= 425)
+        { //or change this to a method that gets the collision with the floor, set to screen height for now
             this.y = 424;
             speedY = -speedY*COEFF_FROTTEMENT; //no infinite bounce, the ball gradually slows down
         }
-        else if(this.y <= 0){ //or change this to a method that gets the collision with the floor, set to screen height for now
+        else if(this.y <= 0)
+        { //or change this to a method that gets the collision with the floor, set to screen height for now
             this.y = 1;
             speedY = -speedY*COEFF_FROTTEMENT; //no infinite bounce, the ball gradually slows down
         }
-        if(this.x <= 0){ //or change this to a method that gets the collision with the floor, set to screen height for now
+        if(this.x <= 0)
+        { //or change this to a method that gets the collision with the floor, set to screen height for now
             this.x = 1;
             speedX = -speedX*COEFF_FROTTEMENT; 
         }
-        else if(this.x > 800){ //or change this to a method that gets the collision with the floor, set to screen height for now
+        else if(this.x > 800)
+        { //or change this to a method that gets the collision with the floor, set to screen height for now
             this.x = 799;
             speedX = -speedX*COEFF_FROTTEMENT; 
         }
-
-        speedY += (9.81*WEIGHT/1000);
+        
+        speedY += (9.81 * WEIGHT / 1000);
         this.x -= speedX; 
         this.y += speedY;
-
     }
 
-    void draw() {
+    void draw() 
+    {
         Gravity();
         ellipse(this.x, this.y, 50, 50); //need a sprite
     }

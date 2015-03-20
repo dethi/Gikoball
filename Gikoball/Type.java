@@ -1,4 +1,5 @@
-enum UIState {
+enum UIState 
+{
     WELCOME,
     GREETING,
     STORY,
