@@ -8,7 +8,9 @@ class Ball
   int nb_collisions = 0;
   // FUCKING RADIUS GUY !! BD
   int radius = 50;
-
+  int t = 0;
+  float gravityPower = 0.97;
+  
   Ball(int x, int y)
   {
     this.x = x;
@@ -24,13 +26,13 @@ class Ball
       switch(keyCode) 
       {
       case LEFT:
-        speedX += 1;
+        speedX += 0.5;
         break;
       case RIGHT:
-        speedX -= 1;
+        speedX -= 0.5;
         break;
       case DOWN:
-        speedY -= 1.1;
+        speedY += 0.5;
         break;
       }
     }
@@ -40,7 +42,7 @@ class Ball
     if (this.y >= 425)
     { //or change this to a method that gets the collision with the floor, set to screen height for now
       this.y = 424;
-      speedY = -speedY * COEFF_FROTTEMENT; //no infinite bounce, the ball gradually slows down
+      speedY = -speedY /** COEFF_FROTTEMENT*/; //no infinite bounce, the ball gradually slows down
     } else if (this.y <= 0)
     { //or change this to a method that gets the collision with the floor, set to screen height for now
       this.y = 1;
@@ -55,8 +57,17 @@ class Ball
       this.x = 799;
       speedX = -speedX * COEFF_FROTTEMENT;
     }
+    
+    t++;
+    if(t==5)
+    {
+      speedY = speedY * gravityPower;
+      t = 0;
+    }
 
     speedY += (9.81 * WEIGHT / 1000);
+    
+    speedX = speedX * 0.97;
     this.x -= speedX; 
     this.y += speedY;
   }
@@ -73,9 +84,9 @@ class Ball
       platform_list[i].platform_width, platform_list[i].platform_height))
       {
         ++nb_collisions;
-        println("COLLISIONS N° "+nb_collisions);
-        println("platform "+i+" x = " + platform_list[i].x + " y = "+ platform_list[i].y);
-        println("ball x = "+this.x+" y = "+this.y);
+        //println("COLLISIONS N° "+nb_collisions);
+        //println("platform "+i+" x = " + platform_list[i].x + " y = "+ platform_list[i].y);
+        //println("ball x = "+this.x+" y = "+this.y);
       }
     }
   }

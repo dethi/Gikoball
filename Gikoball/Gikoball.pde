@@ -158,6 +158,8 @@ void draw_story()
 
 void draw()
 {
+  if(keyPressed)
+    keyPress();
   switch(currentUI) 
   {
   case WELCOME:
@@ -179,7 +181,7 @@ void draw()
   }
 }
 
-void keyPressed()
+void keyPress() //the method keyPressed is bullshit
 {
   switch(currentUI)
   {
