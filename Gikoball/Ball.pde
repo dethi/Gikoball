@@ -6,7 +6,7 @@ class Ball
   int acceleration = 1;
   float COEFF_FROTTEMENT = 0.80;
   int nb_collisions = 0;
-  float radius = 50;
+  float radius = 25;
   int t = 0;
   float gravityPower = 0.97;
 
@@ -76,49 +76,53 @@ class Ball
     Gravity();
     //todo, need a sprite, add an animated sprite!
     // MAKE ONE WITH PAINT, WESH ! BD
-    ellipse(this.x, this.y, radius, radius);
+    ellipse(this.x, this.y, 2 * radius, 2 * radius);
   }
 
   /* params:
-   circleX - center x coordinate for circle
-   circleY - center y coordinate for circle
-   radius  - radius of circle
-   rectangleX - top left corner X coordinate
-   rectangleY - top left corner Y coordinate
-   rectangleWidth - width of rectangle
-   rectangleHeight - and the height
+   
+   platform_x - top left corner X coordinate
+   platform_y - top left corner Y coordinate
+   platform_width - width of rectangle
+   platform_height - and the height
    */
 
-  boolean isCollidingCircleRectangle(
-  float circleX, 
-  float circleY, 
-  float radius, 
+  boolean is_ball_collinding_with_platform(
   float rectangleX, 
   float rectangleY, 
-  float rectangleWidth, 
-  float rectangleHeight)
+  float platform_width, 
+  float platform_height)
   {
-    float circleDistanceX = abs(circleX - rectangleX - rectangleWidth/2);
-    float circleDistanceY = abs(circleY - rectangleY - rectangleHeight/2);
+    float distance_x = abs(this.x - rectangleX - platform_width / 2);
+    float distance_y = abs(this.y - rectangleY - platform_height / 2);
 
-    if (circleDistanceX > (rectangleWidth/2 + radius)) { 
+    if (distance_x > (platform_width / 2 + this.radius))
       return false;
-    }
-    if (circleDistanceY > (rectangleHeight/2 + radius)) { 
+    if (distance_y > (platform_height/2 + this.radius)) 
       return false;
-    }
-
-    if (circleDistanceX <= (rectangleWidth/2)) { 
+    if (distance_x <= (platform_width/2))
       return true;
-    }
-    if (circleDistanceY <= (rectangleHeight/2)) { 
+    if (distance_y <= (platform_height/2))
       return true;
+
+
+    float corner_distance_sq = pow(distance_x - platform_width/2, 2) +
+      pow(distance_y - platform_height/2, 2);
+
+    return (corner_distance_sq <= pow(radius, 2));
+  }
+
+  void collides(Platform[] platform_list)
+  {
+    for (int i = 0; i < platform_list.length; ++i)
+    {
+      if (is_ball_collinding_with_platform(platform_list[i].x, 
+      platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height))
+      {
+        this.x += -1;
+        speedX = -speedX * COEFF_FROTTEMENT;
+      }
     }
-
-    float cornerDistance_sq = pow(circleDistanceX - rectangleWidth/2, 2) +
-      pow(circleDistanceY - rectangleHeight/2, 2);
-
-    return (cornerDistance_sq <= pow(radius, 2));
   }
 }
 

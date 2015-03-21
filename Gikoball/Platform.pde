@@ -17,7 +17,7 @@ class Platform
   PImage platform_image;
 
   // Contructor of the object platform
-  Platform(float x, float y, float platform_weight, float platform_height, 
+  Platform(float x, float y, float platform_width, float platform_height, 
   PImage platform_image)
   {
     this.x = x;

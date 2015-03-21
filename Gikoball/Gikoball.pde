@@ -174,31 +174,13 @@ void draw()
     break;
   case GAME:
     background.draw();
+    //theBall.collides(platform_list);
     theBall.draw();
-    for (int i = 0; i < platform_list.length; ++i)
-    {
-      // Print positions of each platforms
-      println("platform "+i+" x = " + platform_list[i].x + " y = "+ platform_list[i].y);
-      println("ball x = "+theBall.x+" y = "+theBall.y);
-
-      // If there is a collision, print with which one.
-      if (theBall.isCollidingCircleRectangle(theBall.x, theBall.y, theBall.radius, platform_list[i].x, 
-      platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height))
-      {
-        ++nb_collisions;
-        println("COLLISIONS N° "+nb_collisions);
-        println("platform "+i+" x = " + platform_list[i].x + " y = "+ platform_list[i].y);
-        println("ball x = "+theBall.x+" y = "+theBall.y);
-      }
-    }
-
-
     for (int i = 0; i < platform_list.length; ++i)
       platform_list[i].draw();
     break;
   }
 }
-
 void keyPressed() //the method keyPressed is bullshit
 {
   switch(currentUI)
