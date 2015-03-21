@@ -19,10 +19,14 @@ class Ball
     speedY = 0;
     this.radius = radius;
 
-    right = x - radius;
-    left = x + radius;
+    left = x - radius;
+    right = x + radius;
     top = y - radius;
     bottom = y + radius;
+
+    println("ball");
+    println("x :"+x+" y :"+y+" radius :"+this.radius+" width "+2 * this.radius);
+    println("left :"+left+" right :"+right+" top :"+top+" bottom :"+bottom);
   }
 
   void keyPressed() 
@@ -136,21 +140,23 @@ class Ball
   {
     // Ball is on the right of the platform 
     if (this.left >= platform.right && this.top <= platform.bottom &&
-      this.bottom >= platform.top)
+      this.bottom >= platform.top && this.top <= platform.bottom)
     {
+      println("The ball is on the right of the platform");
       ++this.x;
       speedX = -speedX * COEFF_FROTTEMENT;
     }
     // Ball is on the left of the platform
     else if (this.right <= platform.left && this.top <= platform.bottom &&
-      this.bottom >= platform.top)
+      this.bottom >= platform.top && this.top <= platform.bottom)
     {
+      println("The ball is on the left of the platform");
       --this.x;
       speedX = -speedX * COEFF_FROTTEMENT;
     }
     // Ball is on the top of the platform
-    else if (this.right >= platform.left && this.left <= platform.right &&
-      this.bottom <= platform.top)
+    else if (this.bottom <= platform.top && this.top <= platform.top &&
+      this.left <= platform.right && this.right >= platform.left)
     {
       speedY = -speedY;
       println("The ball is on the top");

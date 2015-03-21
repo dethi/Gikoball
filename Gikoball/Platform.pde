@@ -36,6 +36,9 @@ class Platform
     right = x + platform_width;
     top = y;
     bottom = y + platform_height;
+    
+    println("x :"+x+" y :"+y+" width "+this.platform_width+" height :"+this.platform_height);
+    println("left :"+left+" right :"+right+" top :"+top+" bottom :"+bottom);
   }
 
   void draw()
