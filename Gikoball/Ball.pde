@@ -1,16 +1,15 @@
 class Ball
 {
-  int x, y;
+  float x, y;
   float speedX, speedY;
   int WEIGHT = 50;
   int acceleration = 1;
   float COEFF_FROTTEMENT = 0.80;
   int nb_collisions = 0;
-  // FUCKING RADIUS GUY !! BD
-  int radius = 50;
+  float radius = 50;
   int t = 0;
   float gravityPower = 0.97;
-  
+
   Ball(int x, int y)
   {
     this.x = x;
@@ -57,16 +56,16 @@ class Ball
       this.x = 799;
       speedX = -speedX * COEFF_FROTTEMENT;
     }
-    
+
     t++;
-    if(t==5)
+    if (t==5)
     {
       speedY = speedY * gravityPower;
       t = 0;
     }
 
     speedY += (9.81 * WEIGHT / 1000);
-    
+
     speedX = speedX * 0.97;
     this.x -= speedX; 
     this.y += speedY;
@@ -78,20 +77,9 @@ class Ball
     //todo, need a sprite, add an animated sprite!
     // MAKE ONE WITH PAINT, WESH ! BD
     ellipse(this.x, this.y, radius, radius);
-    for (int i = 0; i < 2; ++i)
-    {
-      if (is_ball_colliding_platform(platform_list[i].x, platform_list[i].y, 
-      platform_list[i].platform_width, platform_list[i].platform_height))
-      {
-        ++nb_collisions;
-        //println("COLLISIONS N° "+nb_collisions);
-        //println("platform "+i+" x = " + platform_list[i].x + " y = "+ platform_list[i].y);
-        //println("ball x = "+this.x+" y = "+this.y);
-      }
-    }
   }
 
- /* params:
+  /* params:
    circleX - center x coordinate for circle
    circleY - center y coordinate for circle
    radius  - radius of circle
@@ -101,26 +89,36 @@ class Ball
    rectangleHeight - and the height
    */
 
-  boolean is_ball_colliding_platform
-    (int rectangle_x, int rectangle_y, int rectangle_width, int rectangle_height)  
+  boolean isCollidingCircleRectangle(
+  float circleX, 
+  float circleY, 
+  float radius, 
+  float rectangleX, 
+  float rectangleY, 
+  float rectangleWidth, 
+  float rectangleHeight)
   {
-    rectangle_y = rectangle_y + rectangle_height;
-    int circle_distance_x = abs(this.x - rectangle_x - rectangle_width / 2);
-    int circle_distance_y = abs(this.y - rectangle_y - rectangle_height / 2);
+    float circleDistanceX = abs(circleX - rectangleX - rectangleWidth/2);
+    float circleDistanceY = abs(circleY - rectangleY - rectangleHeight/2);
 
-    if (circle_distance_x > (rectangle_width / 2 + this.radius))
+    if (circleDistanceX > (rectangleWidth/2 + radius)) { 
       return false;
-    if (circle_distance_y > (rectangle_height / 2 + this.radius))
+    }
+    if (circleDistanceY > (rectangleHeight/2 + radius)) { 
       return false;
-    if (circle_distance_x <= (rectangle_width / 2))
-      return true;
-    if (circle_distance_y <= (rectangle_height / 2))
-      return true;
+    }
 
-    float corner_distance_sq = pow(circle_distance_x - rectangle_width / 2, 2) +
-      pow(circle_distance_y - rectangle_height / 2, 2);
+    if (circleDistanceX <= (rectangleWidth/2)) { 
+      return true;
+    }
+    if (circleDistanceY <= (rectangleHeight/2)) { 
+      return true;
+    }
 
-    return (corner_distance_sq <= pow(radius, 2));
+    float cornerDistance_sq = pow(circleDistanceX - rectangleWidth/2, 2) +
+      pow(circleDistanceY - rectangleHeight/2, 2);
+
+    return (cornerDistance_sq <= pow(radius, 2));
   }
 }
 

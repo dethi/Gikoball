@@ -61,7 +61,7 @@ PImage green_platform;
 PImage red_platform;
 
 Platform[] platform_list = new Platform[2];
-
+int nb_collisions = 0;
 
 UIState currentUI = UIState.GAME; //change to welcome to get the intro, GAME to get into the game directly
 Welcome welcome = new Welcome();
@@ -158,7 +158,7 @@ void draw_story()
 
 void draw()
 {
-  if(keyPressed && currentUI == UIState.GAME)
+  if (keyPressed && currentUI == UIState.GAME)
     theBall.keyPressed();
   switch(currentUI) 
   {
@@ -175,7 +175,25 @@ void draw()
   case GAME:
     background.draw();
     theBall.draw();
-    for(int i = 0; i < platform_list.length; ++i)
+    for (int i = 0; i < platform_list.length; ++i)
+    {
+      // Print positions of each platforms
+      println("platform "+i+" x = " + platform_list[i].x + " y = "+ platform_list[i].y);
+      println("ball x = "+theBall.x+" y = "+theBall.y);
+
+      // If there is a collision, print with which one.
+      if (theBall.isCollidingCircleRectangle(theBall.x, theBall.y, theBall.radius, platform_list[i].x, 
+      platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height))
+      {
+        ++nb_collisions;
+        println("COLLISIONS N° "+nb_collisions);
+        println("platform "+i+" x = " + platform_list[i].x + " y = "+ platform_list[i].y);
+        println("ball x = "+theBall.x+" y = "+theBall.y);
+      }
+    }
+
+
+    for (int i = 0; i < platform_list.length; ++i)
       platform_list[i].draw();
     break;
   }
