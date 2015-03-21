@@ -158,8 +158,8 @@ void draw_story()
 
 void draw()
 {
-  if(keyPressed)
-    keyPress();
+  if(keyPressed && currentUI == UIState.GAME)
+    theBall.keyPressed();
   switch(currentUI) 
   {
   case WELCOME:
@@ -181,7 +181,7 @@ void draw()
   }
 }
 
-void keyPress() //the method keyPressed is bullshit
+void keyPressed() //the method keyPressed is bullshit
 {
   switch(currentUI)
   {
@@ -193,7 +193,6 @@ void keyPress() //the method keyPressed is bullshit
   case STORY: 
     break;
   case GAME:
-    theBall.keyPressed();
     break;
   }
 }
