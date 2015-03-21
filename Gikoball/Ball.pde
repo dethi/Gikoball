@@ -23,7 +23,7 @@ class Ball
   {
     if (key == CODED)
     {
-      switch(keyCode) 
+      switch(keyCode)//todo, change this switch (you should be able to move + accelerate in same time)
       {
       case LEFT:
         speedX += 0.5;
@@ -75,7 +75,7 @@ class Ball
   void draw() 
   {
     Gravity();
-    //need a sprite
+    //todo, need a sprite, add an animated sprite!
     // MAKE ONE WITH PAINT, WESH ! BD
     ellipse(this.x, this.y, radius, radius);
     for (int i = 0; i < 2; ++i)
