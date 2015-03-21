@@ -1,21 +1,28 @@
 class Ball
 {
   float x, y;
+  float right, left, bottom, top;
   float speedX, speedY;
   int WEIGHT = 50;
   int acceleration = 1;
   float COEFF_FROTTEMENT = 0.80;
   int nb_collisions = 0;
-  float radius = 25;
+  float radius;
   int t = 0;
   float gravityPower = 0.97;
 
-  Ball(int x, int y)
+  Ball(int x, int y, int radius)
   {
     this.x = x;
     this.y = y;
     speedX = 0;
     speedY = 0;
+    this.radius = radius;
+
+    right = x - radius;
+    left = x + radius;
+    top = y - radius;
+    bottom = y + radius;
   }
 
   void keyPressed() 
@@ -87,6 +94,19 @@ class Ball
    platform_height - and the height
    */
 
+  void update(Platform[] platform_list)
+  {
+    update_position(); 
+    collides(platform_list);
+  }
+  void update_position()
+  {
+    right = x - radius;
+    left = x + radius;
+    top = y - radius;
+    bottom = y + radius;
+  }
+
   boolean is_ball_collinding_with_platform(
   float rectangleX, 
   float rectangleY, 
@@ -112,6 +132,38 @@ class Ball
     return (corner_distance_sq <= pow(radius, 2));
   }
 
+  void update_position_collision(Platform platform)
+  {
+    // Ball is on the right of the platform 
+    if (this.left >= platform.right && this.top <= platform.bottom &&
+      this.bottom >= platform.top)
+    {
+      ++this.x;
+      speedX = -speedX * COEFF_FROTTEMENT;
+    }
+    // Ball is on the left of the platform
+    else if (this.right <= platform.left && this.top <= platform.bottom &&
+      this.bottom >= platform.top)
+    {
+      --this.x;
+      speedX = -speedX * COEFF_FROTTEMENT;
+    }
+    // Ball is on the top of the platform
+    else if (this.right >= platform.left && this.left <= platform.right &&
+      this.bottom <= platform.top)
+    {
+      speedY = -speedY;
+      println("The ball is on the top");
+    }
+    // Ball is on the bottom of the platform
+    else if (this.right >= platform.left && this.left <= platform.right &&
+      this.top >= platform.bottom)
+    {
+      println("The ball is on the bottom");
+      speedY = -speedY;
+    }
+  }
+
   void collides(Platform[] platform_list)
   {
     for (int i = 0; i < platform_list.length; ++i)
@@ -119,8 +171,8 @@ class Ball
       if (is_ball_collinding_with_platform(platform_list[i].x, 
       platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height))
       {
-        this.x += -1;
-        speedX = -speedX * COEFF_FROTTEMENT;
+        // A collision is detected between the ball and platform_list[i].
+        update_position_collision(platform_list[i]);
       }
     }
   }

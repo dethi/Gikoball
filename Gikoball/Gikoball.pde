@@ -66,7 +66,7 @@ int nb_collisions = 0;
 UIState currentUI = UIState.GAME; //change to welcome to get the intro, GAME to get into the game directly
 Welcome welcome = new Welcome();
 Background background = new Background();
-Ball theBall = new Ball(50, 50);
+Ball theBall = new Ball(50, 50, 25);
 
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
@@ -174,7 +174,7 @@ void draw()
     break;
   case GAME:
     background.draw();
-    //theBall.collides(platform_list);
+    theBall.update(platform_list);
     theBall.draw();
     for (int i = 0; i < platform_list.length; ++i)
       platform_list[i].draw();
