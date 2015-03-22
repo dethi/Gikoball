@@ -82,9 +82,10 @@ class Ball
     this.y += speedY;
   }
 
-  void draw() 
+  void draw(Platform[] platform_list) 
   {
     Gravity();
+    update(platform_list);
     //todo, need a sprite, add an animated sprite!
     // MAKE ONE WITH PAINT, WESH ! BD
     ellipse(this.x, this.y, 2 * radius, 2 * radius);
@@ -105,8 +106,8 @@ class Ball
   }
   void update_position()
   {
-    right = x - radius;
-    left = x + radius;
+    right = x + radius;
+    left = x - radius;
     top = y - radius;
     bottom = y + radius;
   }
@@ -139,34 +140,72 @@ class Ball
   void update_position_collision(Platform platform)
   {
     // Ball is on the right of the platform 
-    if (this.left >= platform.right && this.top <= platform.bottom &&
-      this.bottom >= platform.top && this.top <= platform.bottom)
+    //println(this.left >= platform.right);
+    if(this.x <= platform.left + abs(speedX) && this.y <= platform.top + abs(speedY))
+    {//top left corner
+      println("The ball is on the top left corner of the platform");
+      speedX = abs(speedX) * COEFF_FROTTEMENT;
+      speedY = -abs(speedY) * COEFF_FROTTEMENT;
+      this.x -= speedX+1;
+      this.y += speedY-1;
+    }
+    else if(this.x >= platform.right - abs(speedX) && this.y <= platform.top + abs(speedY))
+    {//top right corner
+      println("The ball is on the top right corner of the platform");
+      speedX = -abs(speedX) * COEFF_FROTTEMENT;
+      speedY = -abs(speedY) * COEFF_FROTTEMENT;
+      this.x -= speedX-1;
+      this.y += speedY-1;
+    }
+    else if(this.x <= platform.left + abs(speedX) && this.y >= platform.bottom - abs(speedY))
+    {//bottom left corner
+      println("The ball is on the bottom left corner of the platform");
+      speedX = abs(speedX) * COEFF_FROTTEMENT;
+      speedY = abs(speedY);
+      this.x -= speedX+1;
+      this.y += speedY+1;
+    }
+    else if(this.x >= platform.right - abs(speedX) && this.y >= platform.bottom - abs(speedY))
+    {//bottom right corner
+      println("The ball is on the bottom right corner of the platform");
+      speedX = -abs(speedX) * COEFF_FROTTEMENT;
+      speedY = abs(speedY);
+      this.x -= speedX-1;
+      this.y += speedY+1;
+    }
+    else 
+    if (this.left >= platform.right - abs(speedX)/* && this.top <= platform.bottom &&
+      this.bottom >= platform.top && this.top <= platform.bottom*/)
     {
       println("The ball is on the right of the platform");
-      ++this.x;
-      speedX = -speedX * COEFF_FROTTEMENT;
+      //++this.x;
+      speedX = -abs(speedX)/* * COEFF_FROTTEMENT*/;
+      this.x -= speedX+1;
     }
     // Ball is on the left of the platform
-    else if (this.right <= platform.left && this.top <= platform.bottom &&
-      this.bottom >= platform.top && this.top <= platform.bottom)
+    else if (this.right <= platform.left + abs(speedX)/* && this.top <= platform.bottom &&
+      this.bottom >= platform.top && this.top <= platform.bottom*/)
     {
       println("The ball is on the left of the platform");
-      --this.x;
-      speedX = -speedX * COEFF_FROTTEMENT;
+      //--this.x;
+      speedX = abs(speedX)/* * COEFF_FROTTEMENT*/;
+      this.x -= speedX+1;
     }
     // Ball is on the top of the platform
-    else if (this.bottom <= platform.top && this.top <= platform.top &&
-      this.left <= platform.right && this.right >= platform.left)
+    else if (this.bottom <= platform.top + abs(speedY)/*&& this.top <= platform.top &&
+      this.left <= platform.right && this.right >= platform.left*/)
     {
-      speedY = -speedY;
       println("The ball is on the top");
+      speedY = -abs(speedY) * COEFF_FROTTEMENT;
+      this.y += speedY-1;
     }
     // Ball is on the bottom of the platform
-    else if (this.right >= platform.left && this.left <= platform.right &&
-      this.top >= platform.bottom)
+    else if (/*this.right >= platform.left && this.left <= platform.right &&*/
+      this.top >= platform.bottom - abs(speedY))
     {
       println("The ball is on the bottom");
-      speedY = -speedY;
+      speedY = abs(speedY);
+      this.y += speedY+1;
     }
   }
 
