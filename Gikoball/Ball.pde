@@ -5,13 +5,13 @@ class Ball
   float speedX, speedY;
   int WEIGHT = 50;
   int acceleration = 1;
-  float COEFF_FROTTEMENT = 0.97;
+  float COEFF_FROTTEMENT = 0.80;
   int nb_collisions = 0;
   float radius;
   int t = 0;
   float gravityPower = 0.97;
   PImage skin;
-
+  
   //movement of the ball
   boolean downPressed = false;
   boolean leftPressed = false;
@@ -47,7 +47,7 @@ class Ball
         downPressed = true;
     }
   }
-
+  
   void keyReleased()
   {
     if (key == CODED) {
@@ -60,7 +60,7 @@ class Ball
       }
     }
   }
-
+  
   void setSkin(PImage skin) //possibility to change the skin;
   {
     this.skin = skin;
@@ -78,7 +78,7 @@ class Ball
       speedX -= 0.5;
     }
   }
-
+  
   void Gravity() {
     if (this.y >= 425)
     { //or change this to a method that gets the collision with the floor, set to screen height for now
@@ -113,15 +113,16 @@ class Ball
     this.y += speedY;
   }
 
-  void draw(Platform[] platform_list) 
+  void draw(Platform[] platform_list/*, int shift*/) 
   {
-    moveBall();
     Gravity();
     update(platform_list);
     //todo, need a sprite, add an animated sprite!
     // MAKE ONE WITH PAINT, WESH ! BD
+    
     //ellipse(this.x, this.y, 2 * radius+20, 2 * radius+20);
-    image(this.skin, x-radius, y-radius, radius*2, radius*2);
+    image(this.skin, x-radius, y-radius, radius*2, radius*2);    
+    //image(this.skin, x-radius - shift, y-radius, radius*2, radius*2);    
   }
 
   /* params:
@@ -240,7 +241,7 @@ class Ball
 
   void collides(Platform[] platform_list)
   {
-    for (int i = 0; i < platform_list.length; ++i)
+    for (int i = 0; i < platform_list.length-1; ++i)
     {
       if (is_ball_collinding_with_platform(platform_list[i].x, 
       platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height))
