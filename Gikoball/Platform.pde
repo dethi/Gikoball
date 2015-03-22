@@ -20,12 +20,11 @@ class Platform
   float top;
   float bottom;
   // Sprite of the platform
-  //String platform_image;
-  PImage platform_image;
+  String platform_image;
 
   // Contructor of the object platform
   Platform(float x, float y, float platform_width, float platform_height, 
-  PImage platform_image/*String platform_image*/)
+  String platform_image)
   {
     this.x = x;
     this.y = y;
@@ -40,16 +39,13 @@ class Platform
     
     println("x :"+x+" y :"+y+" width "+this.platform_width+" height :"+this.platform_height);
     println("left :"+left+" right :"+right+" top :"+top+" bottom :"+bottom);
-    
   }
 
-  void draw(/*int shift*/)
+  void draw(int shift)
   {
-    image(this.platform_image, this.x, this.y);
-    /*
     PImage p_image=loadImage(platform_image);
     image(p_image, this.x - shift, this.y);
-    */
+    //image(this.platform_image, this.x, this.y);
   }
 }
 

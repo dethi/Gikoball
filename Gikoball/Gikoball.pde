@@ -57,12 +57,14 @@ PImage img_floor;
 /* Platform sprites
  * The platform names and looking and temporary.
  */
+int number_platforms = 2;
 PImage green_platform;
 PImage red_platform;
 String level_file="level_1.csv"; 
 
 Table level;
-Platform[] platform_list=new Platform[2];
+
+Platform[] platform_list = new Platform[2];
 int nb_collisions = 0;
 
 UIState currentUI = UIState.GAME; //change to welcome to get the intro, GAME to get into the game directly
@@ -73,46 +75,41 @@ Ball theBall = new Ball(50, 100, 25/*, skinBall*/);
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
 int shift = 0;
-int level_length=1600; //just to initialize
+int level_length=16000; //just to initialize
+
 
 
 void setup() 
-{  
-  
+{
   level = loadTable(level_file, "header");
   int n_platforms=level.getRowCount(); 
-  /*
-  platform_list = new Platform[n_platforms];
-  */
+  platform_list = new Platform[n_platforms-2];//-2 title and length
   
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
   f = createFont("Arial", 32, true);
   img_story = loadImage("roshi.png");
   img_background = loadImage("background.jpg");
   img_floor = loadImage("floor.png");
-  
   green_platform = loadImage("green_platform.png");
   red_platform = loadImage("red_platform.png");
-  
+  theBall.setSkin(loadImage("ball.png"));
+  //skinBall = loadImage("ball.png");
   
   TableRow row = level.getRow(0);
   level_length = row.getInt("x");
-  /*
+  
   for(int i=1;i<n_platforms-1;i++) { //-1 because of the firts non-platform row
     row = level.getRow(i);
     int x = row.getInt("x");
     int y = row.getInt("y");
     int platform_height = row.getInt("platform_height");
     int platform_width = row.getInt("platform_width");
-    //String platform_image = row.getString("platform_image");
+    String platform_image = row.getString("platform_image");
     println(i+" "+x+" "+y+" "+platform_height +" "+platform_width);
         
-    platform_list[i-1] = new Platform(x,y,platform_height,platform_width, green_platform);    
+    platform_list[i-1] = new Platform(x,y,platform_height,platform_width, platform_image);    
   }
-  */
-  platform_list[0] = new Platform(10, 10, 100, 50, green_platform);
-  platform_list[1] = new Platform(250, 350, 75, 200, red_platform);
-
+  
 }
 
 void draw_menu_greeting()
@@ -203,13 +200,12 @@ void draw()
     break;
   case GAME:
     background.draw();
-    /*
     if (theBall.x - shift > 700) {
       if (shift + 800<level_length)
-        shift++;
+        shift+=5;
     } else if (theBall.x - shift < 100){
       if (shift > 0)
-        shift--;
+        shift-=5;
     }
         
     theBall.draw(platform_list, shift);
@@ -218,12 +214,13 @@ void draw()
       platform_list[i].draw(shift);
     break;
   }
-  */ 
-   theBall.draw(platform_list);
-   for (int i = 0; i < platform_list.length; ++i)
-     platform_list[i].draw();
-   break;
+    /*
+    theBall.draw(platform_list);
+    for (int i = 0; i < platform_list.length; ++i)
+      platform_list[i].draw();
+    break;    
   }
+  */
 }
 void keyPressed() //the method keyPressed is bullshit
 {
