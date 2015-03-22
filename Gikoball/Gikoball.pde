@@ -200,10 +200,10 @@ void draw()
     break;
   case GAME:
     background.draw();
-    if (theBall.x - shift > 700) {
+    if (theBall.x > 700) {
       if (shift + 800<level_length)
         shift+=5;
-    } else if (theBall.x - shift < 100){
+    } else if (theBall.x < 100){
       if (shift > 0)
         shift-=5;
     }
@@ -214,13 +214,6 @@ void draw()
       platform_list[i].draw(shift);
     break;
   }
-    /*
-    theBall.draw(platform_list);
-    for (int i = 0; i < platform_list.length; ++i)
-      platform_list[i].draw();
-    break;    
-  }
-  */
 }
 void keyPressed() //the method keyPressed is bullshit
 {

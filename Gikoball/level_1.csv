@@ -1,5 +1,5 @@
 x,y,platform_height,platform_width,platform_image
-40000
+1600
 40,100,50,30,green_platform.png
 500,300,40,50,red_platform.png
 700,100,200,30,green_platform.png

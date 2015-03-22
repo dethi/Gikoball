@@ -121,8 +121,7 @@ class Ball
     //todo, need a sprite, add an animated sprite!
     // MAKE ONE WITH PAINT, WESH ! BD
     //ellipse(this.x, this.y, 2 * radius+20, 2 * radius+20);
-    //image(this.skin, x-radius, y-radius, radius*2, radius*2);
-    image(this.skin, x-radius - shift, y-radius, radius*2, radius*2); 
+    image(this.skin, x-radius, y-radius, radius*2, radius*2); 
   }
 
   /* params:
