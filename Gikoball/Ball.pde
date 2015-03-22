@@ -5,13 +5,19 @@ class Ball
   float speedX, speedY;
   int WEIGHT = 50;
   int acceleration = 1;
-  float COEFF_FROTTEMENT = 0.80;
+  float COEFF_FROTTEMENT = 0.97;
   int nb_collisions = 0;
   float radius;
   int t = 0;
   float gravityPower = 0.97;
+  PImage skin;
 
-  Ball(int x, int y, int radius)
+  //movement of the ball
+  boolean downPressed = false;
+  boolean leftPressed = false;
+  boolean rightPressed = false;
+
+  Ball(int x, int y, int radius/*, PImage skin*/)
   {
     this.x = x;
     this.y = y;
@@ -33,18 +39,43 @@ class Ball
   {
     if (key == CODED)
     {
-      switch(keyCode)//todo, change this switch (you should be able to move + accelerate in same time)
-      {
-      case LEFT:
-        speedX += 0.5;
-        break;
-      case RIGHT:
-        speedX -= 0.5;
-        break;
-      case DOWN:
-        speedY += 0.5;
-        break;
+      if (keyCode==LEFT)
+        leftPressed = true;
+      if (keyCode==RIGHT)
+        rightPressed = true;
+      if (keyCode==DOWN)
+        downPressed = true;
+    }
+  }
+
+  void keyReleased()
+  {
+    if (key == CODED) {
+      if (keyCode == DOWN) {
+        downPressed = false;
+      } else if (keyCode == LEFT) {
+        leftPressed = false;
+      } else if (keyCode == RIGHT) {
+        rightPressed = false;
       }
+    }
+  }
+
+  void setSkin(PImage skin) //possibility to change the skin;
+  {
+    this.skin = skin;
+  }
+
+  void moveBall()
+  {
+    if (downPressed) {
+      speedY += 0.5;
+    }
+    if (leftPressed) {
+      speedX += 0.5;
+    }
+    if (rightPressed) {
+      speedX -= 0.5;
     }
   }
 
@@ -52,11 +83,11 @@ class Ball
     if (this.y >= 425)
     { //or change this to a method that gets the collision with the floor, set to screen height for now
       this.y = 424;
-      speedY = -speedY /** COEFF_FROTTEMENT*/; //no infinite bounce, the ball gradually slows down
+      speedY = -speedY * COEFF_FROTTEMENT; //no infinite bounce, the ball gradually slows down
     } else if (this.y <= 0)
     { //or change this to a method that gets the collision with the floor, set to screen height for now
       this.y = 1;
-      speedY = -speedY * COEFF_FROTTEMENT; //no infinite bounce, the ball gradually slows down
+      speedY = -speedY/* * COEFF_FROTTEMENT*/; //no infinite bounce, the ball gradually slows down
     }
     if (this.x <= 0)
     { //or change this to a method that gets the collision with the floor, set to screen height for now
@@ -84,11 +115,13 @@ class Ball
 
   void draw(Platform[] platform_list) 
   {
+    moveBall();
     Gravity();
     update(platform_list);
     //todo, need a sprite, add an animated sprite!
     // MAKE ONE WITH PAINT, WESH ! BD
-    ellipse(this.x, this.y, 2 * radius, 2 * radius);
+    //ellipse(this.x, this.y, 2 * radius+20, 2 * radius+20);
+    image(this.skin, x-radius, y-radius, radius*2, radius*2);
   }
 
   /* params:
@@ -141,41 +174,37 @@ class Ball
   {
     // Ball is on the right of the platform 
     //println(this.left >= platform.right);
-    if(this.x <= platform.left + abs(speedX) && this.y <= platform.top + abs(speedY))
+    if (this.x <= platform.left + abs(speedX) && this.y <= platform.top + abs(speedY))
     {//top left corner
       println("The ball is on the top left corner of the platform");
       speedX = abs(speedX) * COEFF_FROTTEMENT;
       speedY = -abs(speedY) * COEFF_FROTTEMENT;
       this.x -= speedX+1;
       this.y += speedY-1;
-    }
-    else if(this.x >= platform.right - abs(speedX) && this.y <= platform.top + abs(speedY))
+    } else if (this.x >= platform.right - abs(speedX) && this.y <= platform.top + abs(speedY))
     {//top right corner
       println("The ball is on the top right corner of the platform");
       speedX = -abs(speedX) * COEFF_FROTTEMENT;
       speedY = -abs(speedY) * COEFF_FROTTEMENT;
       this.x -= speedX-1;
       this.y += speedY-1;
-    }
-    else if(this.x <= platform.left + abs(speedX) && this.y >= platform.bottom - abs(speedY))
+    } else if (this.x <= platform.left + abs(speedX) && this.y >= platform.bottom - abs(speedY))
     {//bottom left corner
       println("The ball is on the bottom left corner of the platform");
       speedX = abs(speedX) * COEFF_FROTTEMENT;
       speedY = abs(speedY);
       this.x -= speedX+1;
       this.y += speedY+1;
-    }
-    else if(this.x >= platform.right - abs(speedX) && this.y >= platform.bottom - abs(speedY))
+    } else if (this.x >= platform.right - abs(speedX) && this.y >= platform.bottom - abs(speedY))
     {//bottom right corner
       println("The ball is on the bottom right corner of the platform");
       speedX = -abs(speedX) * COEFF_FROTTEMENT;
       speedY = abs(speedY);
       this.x -= speedX-1;
       this.y += speedY+1;
-    }
-    else 
-    if (this.left >= platform.right - abs(speedX)/* && this.top <= platform.bottom &&
-      this.bottom >= platform.top && this.top <= platform.bottom*/)
+    } else 
+      if (this.left >= platform.right - abs(speedX)/* && this.top <= platform.bottom &&
+     this.bottom >= platform.top && this.top <= platform.bottom*/)
     {
       println("The ball is on the right of the platform");
       //++this.x;
@@ -184,7 +213,7 @@ class Ball
     }
     // Ball is on the left of the platform
     else if (this.right <= platform.left + abs(speedX)/* && this.top <= platform.bottom &&
-      this.bottom >= platform.top && this.top <= platform.bottom*/)
+     this.bottom >= platform.top && this.top <= platform.bottom*/)
     {
       println("The ball is on the left of the platform");
       //--this.x;
@@ -193,7 +222,7 @@ class Ball
     }
     // Ball is on the top of the platform
     else if (this.bottom <= platform.top + abs(speedY)/*&& this.top <= platform.top &&
-      this.left <= platform.right && this.right >= platform.left*/)
+     this.left <= platform.right && this.right >= platform.left*/)
     {
       println("The ball is on the top");
       speedY = -abs(speedY) * COEFF_FROTTEMENT;
@@ -201,7 +230,7 @@ class Ball
     }
     // Ball is on the bottom of the platform
     else if (/*this.right >= platform.left && this.left <= platform.right &&*/
-      this.top >= platform.bottom - abs(speedY))
+    this.top >= platform.bottom - abs(speedY))
     {
       println("The ball is on the bottom");
       speedY = abs(speedY);

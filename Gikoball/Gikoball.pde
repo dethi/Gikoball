@@ -48,6 +48,7 @@ String story4 = "-Remember to collect food and Staffs\n"+
 // BACKGROUND 
 PImage img_background;
 PImage img_floor;
+//PImage skinBall;
 
 /**********************************************
  ***              platforms stuff            ***
@@ -66,7 +67,7 @@ int nb_collisions = 0;
 UIState currentUI = UIState.GAME; //change to welcome to get the intro, GAME to get into the game directly
 Welcome welcome = new Welcome();
 Background background = new Background();
-Ball theBall = new Ball(50, 100, 25);
+Ball theBall = new Ball(50, 100, 25/*, skinBall*/);
 
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
@@ -81,6 +82,8 @@ void setup()
   img_floor = loadImage("floor.png");
   green_platform = loadImage("green_platform.png");
   red_platform = loadImage("red_platform.png");
+  theBall.setSkin(loadImage("ball.png"));
+  //skinBall = loadImage("ball.png");
 
   platform_list[0] = new Platform(10, 10, 100, 50, green_platform);
   platform_list[1] = new Platform(250, 350, 75, 200, red_platform);
@@ -196,3 +199,12 @@ void keyPressed() //the method keyPressed is bullshit
   }
 }
 
+void keyReleased()
+{
+  switch(currentUI)
+  {
+  case GAME:
+    theBall.keyReleased();
+    break;
+  }
+}
