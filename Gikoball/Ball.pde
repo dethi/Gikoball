@@ -121,6 +121,7 @@ class Ball
   {
     moveBall();
     Gravity();
+    x+= shift;
     update(platform_list);
     //todo, need a sprite, add an animated sprite!
     // MAKE ONE WITH PAINT, WESH ! BD
