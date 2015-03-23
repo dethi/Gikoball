@@ -191,6 +191,30 @@ void draw_story()
   f = createFont("Arial", 32, true);
 }
 
+void scrolling() //maybe in another class instead of a function?
+{
+    if (theBall.x > 550) {    
+      if (shift + 800<level_length) {
+        /*if (theBall.x > 750)
+         theBall.setX(750);*/
+        if (theBall.speedX<0) //scroll if it is moving forward
+        {
+          shift+=abs(theBall.speedX);
+          theBall.setX(theBall.getX() + theBall.speedX);
+        }
+      }
+    } else if (theBall.x < 250) {      
+      if (shift > 0) {
+        /*if (theBall.x < 50)
+         theBall.setX(50);*/
+        if (theBall.speedX>0) //scroll if it is moving backward
+        {
+          shift-=abs(theBall.speedX);   
+          theBall.setX(theBall.getX() + theBall.speedX);
+        }
+      }
+    }
+}
 
 void draw()
 {
@@ -210,46 +234,15 @@ void draw()
     break;
   case GAME:
     background.draw();
-<<<<<<< HEAD
-    if (theBall.x > 650) {    
-      if (shift + 800<level_length) {
-        if (theBall.x > 750)
-          theBall.setX(750);          
-        if (theBall.speedX<0) //scroll if it is moving forward 
-          shift+=abs(theBall.speedX);
-      }
-    } else if (theBall.x < 150) {      
-      if (shift > 0) {
-        if (theBall.x < 50)
-          theBall.setX(50);
-        if (theBall.speedX>0) //scroll if it is moving backward 
-          shift-=abs(theBall.speedX);
-=======
-    println(theBall.speedX);
-    if (theBall.x > 550) {    
-      if (shift + 800<level_length){
-          if (theBall.x > 700)
-            theBall.setX(700);          
-          if (theBall.speedX<0) //scroll if it is moving forward 
-            shift+=abs(theBall.speedX);        
-      }
-    } else if (theBall.x < 200){      
-      if (shift > 0) {
-          if (theBall.x < 100)
-            theBall.setX(100);
-          if (theBall.speedX>0) //scroll if it is moving backward 
-            shift-=abs(theBall.speedX);          
->>>>>>> 5e07f827a27ef20a352ed1afa4176479e6f4fd59
-      }
-    }
+    scrolling();
 
     theBall.draw(platform_list, shift);
 
     for (int i = 0; i < platform_list.length; ++i)
       platform_list[i].draw(shift);
     break;
-  case ENDING:
-    ending.draw();
+    case ENDING:
+      ending.draw();
   }
 }
 void keyPressed() //the method keyPressed is bullshit
