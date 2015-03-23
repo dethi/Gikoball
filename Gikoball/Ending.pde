@@ -15,7 +15,7 @@ class Ending
   {
     if (key == 's')
     {
-      currentUI = UISTATE.WELCOME;
+      currentUI = UIState.WELCOME;
     }
   }
 }
