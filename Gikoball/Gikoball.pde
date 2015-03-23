@@ -57,14 +57,13 @@ PImage img_floor;
 /* Platform sprites
  * The platform names and looking and temporary.
  */
-int number_platforms = 2;
 PImage green_platform;
 PImage red_platform;
 String level_file="level_1.csv"; 
 
 Table level;
 
-Platform[] platform_list = new Platform[2];
+Platform[] platform_list = new Platform[2];//needs to be for the f*cking initializ of ball
 int nb_collisions = 0;
 
 UIState currentUI = UIState.GAME; //change to welcome to get the intro, GAME to get into the game directly
@@ -75,15 +74,14 @@ Ball theBall = new Ball(50, 100, 25/*, skinBall*/);
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
 int shift = 0;
-int level_length=16000; //just to initialize
-
+int level_length=1600; //just to initialize
 
 
 void setup() 
 {
   level = loadTable(level_file, "header");
-  int n_platforms=level.getRowCount(); 
-  platform_list = new Platform[n_platforms-2];//-2 title and length
+  int n_platforms=level.getRowCount()-2;//-2 title and length
+  platform_list = new Platform[n_platforms];
   
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
   f = createFont("Arial", 32, true);
@@ -98,7 +96,7 @@ void setup()
   TableRow row = level.getRow(0);
   level_length = row.getInt("x");
   
-  for(int i=1;i<n_platforms-1;i++) { //-1 because of the firts non-platform row
+  for(int i=1;i<=n_platforms;i++) {
     row = level.getRow(i);
     int x = row.getInt("x");
     int y = row.getInt("y");
@@ -107,7 +105,7 @@ void setup()
     String platform_image = row.getString("platform_image");
     println(i+" "+x+" "+y+" "+platform_height +" "+platform_width);
         
-    platform_list[i-1] = new Platform(x,y,platform_height,platform_width, platform_image);    
+    platform_list[i-1] = new Platform(x,y,platform_width,platform_height, platform_image);    
   }
   
 }
@@ -200,12 +198,20 @@ void draw()
     break;
   case GAME:
     background.draw();
-    if (theBall.x > 700) {
-      if (shift + 800<level_length)
-        shift+=5;
-    } else if (theBall.x < 100){
-      if (shift > 0)
-        shift-=5;
+    if (theBall.x > 650) {    
+      if (shift + 800<level_length){
+          if (theBall.x > 750)
+            theBall.setX(750);          
+          if (theBall.speedX<0) //scroll if it is moving forward 
+            shift+=abs(theBall.speedX);        
+      }
+    } else if (theBall.x < 150){      
+      if (shift > 0) {
+          if (theBall.x < 50)
+            theBall.setX(50);
+          if (theBall.speedX>0) //scroll if it is moving backward 
+            shift-=abs(theBall.speedX);          
+      }
     }
         
     theBall.draw(platform_list, shift);

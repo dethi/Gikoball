@@ -61,6 +61,10 @@ class Ball
     }
   }
 
+  void setX(float x) {
+    this.x=x;
+  }
+  
   void setSkin(PImage skin) //possibility to change the skin;
   {
     this.skin = skin;

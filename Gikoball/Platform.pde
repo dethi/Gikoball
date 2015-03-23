@@ -43,9 +43,7 @@ class Platform
 
   void draw(int shift)
   {
-    PImage p_image=loadImage(platform_image);
-    image(p_image, this.x - shift, this.y);
-    //image(this.platform_image, this.x, this.y);
+    image(loadImage(this.platform_image), this.x - shift, this.y);
   }
 }
 
