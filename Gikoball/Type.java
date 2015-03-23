@@ -3,5 +3,13 @@ enum UIState
     WELCOME,
     GREETING,
     STORY,
-    GAME
+    GAME,
+    ENDING,
+}
+
+
+enum ENDING_STATE
+{
+  GAME_OVER, 
+  WIN,
 }
