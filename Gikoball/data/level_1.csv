@@ -4,6 +4,6 @@ x,y,platform_width,platform_height,platform_image
 40,100,100,50,green_platform.png
 200,100,75,200,red_platform.png
 700,100,100,50,green_platform.png
-1200,100,75,200,red_platform.png
-1000,50,75,200,red_platform.png
+1000,100,75,200,red_platform.png
 1595,100,100,50,green_platform.png
+
