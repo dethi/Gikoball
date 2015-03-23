@@ -64,7 +64,7 @@ class Ball
   void setX(float x) {
     this.x=x;
   }
-  
+
   void setSkin(PImage skin) //possibility to change the skin;
   {
     this.skin = skin;
@@ -127,7 +127,7 @@ class Ball
     //todo, need a sprite, add an animated sprite!
     // MAKE ONE WITH PAINT, WESH ! BD
     //ellipse(this.x, this.y, 2 * radius+20, 2 * radius+20);
-    image(this.skin, x-radius, y-radius, radius*2, radius*2); 
+    image(this.skin, x-radius, y-radius, radius*2, radius*2);
   }
 
   /* params:
@@ -249,10 +249,17 @@ class Ball
     for (int i = 0; i < platform_list.length-1; ++i)
     {
       if (is_ball_collinding_with_platform(platform_list[i].x, 
-      platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height))
+      platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height) && platform_list[i].platform_image.equals("end_level.png") == false)
       {
         // A collision is detected between the ball and platform_list[i].
         update_position_collision(platform_list[i]);
+      }
+      else if (is_ball_collinding_with_platform(platform_list[i].x, 
+      platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height) && platform_list[i].platform_image.equals("end_level.png"))
+      {
+         currentUI = UIState.ENDING;
+         ending_state = ENDING_STATE.WIN;
+         restart = 1;
       }
     }
   }

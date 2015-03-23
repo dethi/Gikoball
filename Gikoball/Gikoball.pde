@@ -9,6 +9,8 @@ int count_down_greeting_launched = 0;
 // STORY
 PImage img_story;
 
+int restart = 0;
+
 // Story count down
 int story_countdown;
 int starting_time;
@@ -78,6 +80,7 @@ Ball theBall = new Ball(50, 100, 25/*, skinBall*/);
 PImage congratulations_screen;
 PImage gameover_screen;
 Ending ending;
+ENDING_STATE ending_state;
 
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
@@ -119,6 +122,7 @@ void setup()
     congratulations_screen = loadImage("congratulations.jpg");
     gameover_screen = loadImage("gameover.jpg");
     ending = new Ending(gameover_screen);
+    ending_state = ENDING_STATE.GAME_OVER;
   }
 }
 
@@ -187,6 +191,13 @@ void draw_story()
   {
     currentUI = UIState.GAME;
     println("game launched");
+    if (restart == 1)
+    {
+      println("restart");
+      theBall.x = 50;
+      theBall.y = 100;
+      restart = 0;
+    }
   }
   f = createFont("Arial", 32, true);
 }
@@ -209,8 +220,13 @@ void draw()
     //currentUI = UIState.GAME;
     break;
   case GAME:
+    /*if (restart == 1)
+     {
+     theBall.x = 25;
+     theBall.y = 300;
+     restart = 0;
+     }*/
     background.draw();
-<<<<<<< HEAD
     if (theBall.x > 650) {    
       if (shift + 800<level_length) {
         if (theBall.x > 750)
@@ -224,22 +240,6 @@ void draw()
           theBall.setX(50);
         if (theBall.speedX>0) //scroll if it is moving backward 
           shift-=abs(theBall.speedX);
-=======
-    println(theBall.speedX);
-    if (theBall.x > 550) {    
-      if (shift + 800<level_length){
-          if (theBall.x > 700)
-            theBall.setX(700);          
-          if (theBall.speedX<0) //scroll if it is moving forward 
-            shift+=abs(theBall.speedX);        
-      }
-    } else if (theBall.x < 200){      
-      if (shift > 0) {
-          if (theBall.x < 100)
-            theBall.setX(100);
-          if (theBall.speedX>0) //scroll if it is moving backward 
-            shift-=abs(theBall.speedX);          
->>>>>>> 5e07f827a27ef20a352ed1afa4176479e6f4fd59
       }
     }
 
@@ -249,7 +249,13 @@ void draw()
       platform_list[i].draw(shift);
     break;
   case ENDING:
+    if (ending_state == ENDING_STATE.GAME_OVER)
+      ending.ending_screen = gameover_screen;
+    else
+      ending.ending_screen = congratulations_screen;
     ending.draw();
+    println("ENDING !!");
+    break;
   }
 }
 void keyPressed() //the method keyPressed is bullshit
@@ -264,6 +270,9 @@ void keyPressed() //the method keyPressed is bullshit
   case STORY: 
     break;
   case GAME:
+    break;
+  case ENDING:
+    ending.keyPressed();
     break;
   }
 }

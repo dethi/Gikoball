@@ -43,7 +43,7 @@ class Platform
 
   void draw(int shift)
   {
-    image(loadImage(this.platform_image), this.x - shift, this.y);
+    image(loadImage(this.platform_image), this.x - shift, this.y, platform_width, platform_height);
   }
 }
 
