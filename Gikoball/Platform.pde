@@ -37,13 +37,13 @@ class Platform
     top = y;
     bottom = y + platform_height;
     
-    println("x :"+x+" y :"+y+" width "+this.platform_width+" height :"+this.platform_height);
-    println("left :"+left+" right :"+right+" top :"+top+" bottom :"+bottom);
+    //println("x :"+x+" y :"+y+" width "+this.platform_width+" height :"+this.platform_height);
+    //println("left :"+left+" right :"+right+" top :"+top+" bottom :"+bottom);
   }
 
   void draw(int shift)
   {
-    println(this.platform_image);
+    //println(this.platform_image);
     image(loadImage(this.platform_image), this.x - shift, this.y, platform_width, platform_height);
   }
 }

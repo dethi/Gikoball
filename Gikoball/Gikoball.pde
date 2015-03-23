@@ -115,8 +115,8 @@ void setup()
     int platform_height = row.getInt("platform_height");
     int platform_width = row.getInt("platform_width");
     String platform_image = row.getString("platform_image");
-    println(i+" "+x+" "+y+" "+platform_height +" "+platform_width);
-    println(i);
+    //println(i+" "+x+" "+y+" "+platform_height +" "+platform_width);
+    //println(i);
     platform_list[i-1] = new Platform(x, y, platform_width, platform_height, platform_image);
   }
   // ENDING SCREEN
@@ -139,7 +139,7 @@ void draw_menu_greeting()
   text("Hi "+userName+"!\n", 400 - 50, 100);
 
   t = (millis() - starting_greeting_time) / 1000;
-  println(t);
+  //println(t);
   if (t >= 6)
   {
     currentUI = UIState.STORY;
