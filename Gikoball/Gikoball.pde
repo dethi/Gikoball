@@ -88,8 +88,8 @@ int level_length=1600; //just to initialize
 void setup() 
 {
   level = loadTable(level_file, "header");
-  int n_platforms=level.getRowCount()-2;//-2 title and length
-  platform_list = new Platform[n_platforms];
+  int n_platforms=level.getRowCount();
+  platform_list = new Platform[n_platforms-1];//-1 for length
 
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
   f = createFont("Arial", 32, true);
@@ -103,8 +103,9 @@ void setup()
 
   TableRow row = level.getRow(0);
   level_length = row.getInt("x");
+  println(level_length);
 
-  for (int i=1; i<=n_platforms; i++) {
+  for (int i=1; i<n_platforms; i++) {
     row = level.getRow(i);
     int x = row.getInt("x");
     int y = row.getInt("y");
@@ -114,12 +115,12 @@ void setup()
     println(i+" "+x+" "+y+" "+platform_height +" "+platform_width);
 
     platform_list[i-1] = new Platform(x, y, platform_width, platform_height, platform_image);
-
+  }
     // ENDING SCREEN
     congratulations_screen = loadImage("congratulations.jpg");
     gameover_screen = loadImage("gameover.jpg");
     ending = new Ending(gameover_screen);
-  }
+
 }
 
 void draw_menu_greeting()
