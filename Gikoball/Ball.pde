@@ -64,17 +64,14 @@ class Ball
   void setX(float x) {
     this.x=x;
   }
-
-
   
-  float getX() {
-    return this.x;
-  }
-  
-
   void setSkin(PImage skin) //possibility to change the skin;
   {
     this.skin = skin;
+  }
+  
+  float getX() {
+    return this.x;
   }
 
   void moveBall()
@@ -93,6 +90,7 @@ class Ball
   }
 
   void Gravity() {
+/*
     if (this.y >= 425)
     { //or change this to a method that gets the collision with the floor, set to screen height for now
       this.y = 424;
@@ -101,7 +99,7 @@ class Ball
     { //or change this to a method that gets the collision with the floor, set to screen height for now
       this.y = 1;
       speedY = -speedY/* * COEFF_FROTTEMENT*/; //no infinite bounce, the ball gradually slows down
-    }
+/*    } */
     if (this.x <= 0)
     { //or change this to a method that gets the collision with the floor, set to screen height for now
       this.x = 1;
@@ -111,7 +109,7 @@ class Ball
       this.x = 799;
       speedX = -speedX * COEFF_FROTTEMENT;
     }
-
+   
     t++;
     if (t==5)
     {

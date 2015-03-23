@@ -116,7 +116,7 @@ void setup()
     int platform_width = row.getInt("platform_width");
     String platform_image = row.getString("platform_image");
     println(i+" "+x+" "+y+" "+platform_height +" "+platform_width);
-
+    println(i);
     platform_list[i-1] = new Platform(x, y, platform_width, platform_height, platform_image);
   }
   // ENDING SCREEN
@@ -206,8 +206,6 @@ void scrolling() //maybe in another class instead of a function?
 {
   if (theBall.x > 550) {    
     if (shift + 800<level_length) {
-      /*if (theBall.x > 750)
-       theBall.setX(750);*/
       if (theBall.speedX<0) //scroll if it is moving forward
       {
         shift+=abs(theBall.speedX);
@@ -216,8 +214,6 @@ void scrolling() //maybe in another class instead of a function?
     }
   } else if (theBall.x < 250) {      
     if (shift > 0) {
-      /*if (theBall.x < 50)
-       theBall.setX(50);*/
       if (theBall.speedX>0) //scroll if it is moving backward
       {
         shift-=abs(theBall.speedX);   
@@ -251,22 +247,6 @@ void draw()
      restart = 0;
      }*/
     background.draw();
-
-    if (theBall.x > 650) {    
-      if (shift + 800<level_length) {
-        if (theBall.x > 750)
-          theBall.setX(750);          
-        if (theBall.speedX<0) //scroll if it is moving forward 
-          shift+=abs(theBall.speedX);
-      }
-    } else if (theBall.x < 150) {      
-      if (shift > 0) {
-        if (theBall.x < 50)
-          theBall.setX(50);
-        if (theBall.speedX>0) //scroll if it is moving backward 
-          shift-=abs(theBall.speedX);
-      }
-    }
     scrolling();
 
     theBall.draw(platform_list, shift);
