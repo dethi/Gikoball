@@ -91,8 +91,8 @@ int level_length=1600; //just to initialize
 void setup() 
 {
   level = loadTable(level_file, "header");
-  int n_platforms=level.getRowCount()-2;//-2 title and length
-  platform_list = new Platform[n_platforms];
+  int n_platforms=level.getRowCount();
+  platform_list = new Platform[n_platforms-1];//-1 for length
 
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
   f = createFont("Arial", 32, true);
@@ -106,8 +106,9 @@ void setup()
 
   TableRow row = level.getRow(0);
   level_length = row.getInt("x");
+  println(level_length);
 
-  for (int i=1; i<=n_platforms; i++) {
+  for (int i=1; i<n_platforms; i++) {
     row = level.getRow(i);
     int x = row.getInt("x");
     int y = row.getInt("y");
@@ -117,13 +118,17 @@ void setup()
     println(i+" "+x+" "+y+" "+platform_height +" "+platform_width);
 
     platform_list[i-1] = new Platform(x, y, platform_width, platform_height, platform_image);
-
+  }
     // ENDING SCREEN
     congratulations_screen = loadImage("congratulations.jpg");
     gameover_screen = loadImage("gameover.jpg");
     ending = new Ending(gameover_screen);
+<<<<<<< HEAD
     ending_state = ENDING_STATE.GAME_OVER;
   }
+=======
+
+>>>>>>> 70c6394a1ed07887c7eb237b95040c412d1e9b90
 }
 
 void draw_menu_greeting()
@@ -202,6 +207,30 @@ void draw_story()
   f = createFont("Arial", 32, true);
 }
 
+void scrolling() //maybe in another class instead of a function?
+{
+    if (theBall.x > 550) {    
+      if (shift + 800<level_length) {
+        /*if (theBall.x > 750)
+         theBall.setX(750);*/
+        if (theBall.speedX<0) //scroll if it is moving forward
+        {
+          shift+=abs(theBall.speedX);
+          theBall.setX(theBall.getX() + theBall.speedX);
+        }
+      }
+    } else if (theBall.x < 250) {      
+      if (shift > 0) {
+        /*if (theBall.x < 50)
+         theBall.setX(50);*/
+        if (theBall.speedX>0) //scroll if it is moving backward
+        {
+          shift-=abs(theBall.speedX);   
+          theBall.setX(theBall.getX() + theBall.speedX);
+        }
+      }
+    }
+}
 
 void draw()
 {
@@ -227,6 +256,7 @@ void draw()
      restart = 0;
      }*/
     background.draw();
+<<<<<<< HEAD
     if (theBall.x > 650) {    
       if (shift + 800<level_length) {
         if (theBall.x > 750)
@@ -242,12 +272,16 @@ void draw()
           shift-=abs(theBall.speedX);
       }
     }
+=======
+    scrolling();
+>>>>>>> 70c6394a1ed07887c7eb237b95040c412d1e9b90
 
     theBall.draw(platform_list, shift);
 
     for (int i = 0; i < platform_list.length; ++i)
       platform_list[i].draw(shift);
     break;
+<<<<<<< HEAD
   case ENDING:
     if (ending_state == ENDING_STATE.GAME_OVER)
       ending.ending_screen = gameover_screen;
@@ -256,6 +290,10 @@ void draw()
     ending.draw();
     println("ENDING !!");
     break;
+=======
+    case ENDING:
+      ending.draw();
+>>>>>>> 70c6394a1ed07887c7eb237b95040c412d1e9b90
   }
 }
 void keyPressed() //the method keyPressed is bullshit

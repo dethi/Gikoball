@@ -64,7 +64,15 @@ class Ball
   void setX(float x) {
     this.x=x;
   }
+<<<<<<< HEAD
 
+=======
+  
+  float getX() {
+    return this.x;
+  }
+  
+>>>>>>> 70c6394a1ed07887c7eb237b95040c412d1e9b90
   void setSkin(PImage skin) //possibility to change the skin;
   {
     this.skin = skin;
@@ -76,9 +84,11 @@ class Ball
       speedY += 0.5;
     }
     if (leftPressed) {
+      if(speedX <= 10)
       speedX += 0.5;
     }
     if (rightPressed) {
+      if(speedX >= -10)
       speedX -= 0.5;
     }
   }
