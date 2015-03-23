@@ -30,9 +30,9 @@ class Ball
     top = y - radius;
     bottom = y + radius;
 
-    println("ball");
-    println("x :"+x+" y :"+y+" radius :"+this.radius+" width "+2 * this.radius);
-    println("left :"+left+" right :"+right+" top :"+top+" bottom :"+bottom);
+    //println("ball");
+    //println("x :"+x+" y :"+y+" radius :"+this.radius+" width "+2 * this.radius);
+    //println("left :"+left+" right :"+right+" top :"+top+" bottom :"+bottom);
   }
 
   void keyPressed() 
@@ -180,28 +180,28 @@ class Ball
     //println(this.left >= platform.right);
     if (this.x <= platform.left + abs(speedX) && this.y <= platform.top + abs(speedY))
     {//top left corner
-      println("The ball is on the top left corner of the platform");
+      //println("The ball is on the top left corner of the platform");
       speedX = abs(speedX) * COEFF_FROTTEMENT;
       speedY = -abs(speedY) * COEFF_FROTTEMENT;
       this.x -= speedX+1;
       this.y += speedY-1;
     } else if (this.x >= platform.right - abs(speedX) && this.y <= platform.top + abs(speedY))
     {//top right corner
-      println("The ball is on the top right corner of the platform");
+      //println("The ball is on the top right corner of the platform");
       speedX = -abs(speedX) * COEFF_FROTTEMENT;
       speedY = -abs(speedY) * COEFF_FROTTEMENT;
       this.x -= speedX-1;
       this.y += speedY-1;
     } else if (this.x <= platform.left + abs(speedX) && this.y >= platform.bottom - abs(speedY))
     {//bottom left corner
-      println("The ball is on the bottom left corner of the platform");
+      //println("The ball is on the bottom left corner of the platform");
       speedX = abs(speedX) * COEFF_FROTTEMENT;
       speedY = abs(speedY);
       this.x -= speedX+1;
       this.y += speedY+1;
     } else if (this.x >= platform.right - abs(speedX) && this.y >= platform.bottom - abs(speedY))
     {//bottom right corner
-      println("The ball is on the bottom right corner of the platform");
+      //println("The ball is on the bottom right corner of the platform");
       speedX = -abs(speedX) * COEFF_FROTTEMENT;
       speedY = abs(speedY);
       this.x -= speedX-1;
@@ -210,7 +210,7 @@ class Ball
       if (this.left >= platform.right - abs(speedX)/* && this.top <= platform.bottom &&
      this.bottom >= platform.top && this.top <= platform.bottom*/)
     {
-      println("The ball is on the right of the platform");
+      //println("The ball is on the right of the platform");
       //++this.x;
       speedX = -abs(speedX)/* * COEFF_FROTTEMENT*/;
       this.x -= speedX+1;
@@ -219,7 +219,7 @@ class Ball
     else if (this.right <= platform.left + abs(speedX)/* && this.top <= platform.bottom &&
      this.bottom >= platform.top && this.top <= platform.bottom*/)
     {
-      println("The ball is on the left of the platform");
+      //println("The ball is on the left of the platform");
       //--this.x;
       speedX = abs(speedX)/* * COEFF_FROTTEMENT*/;
       this.x -= speedX+1;
@@ -228,7 +228,7 @@ class Ball
     else if (this.bottom <= platform.top + abs(speedY)/*&& this.top <= platform.top &&
      this.left <= platform.right && this.right >= platform.left*/)
     {
-      println("The ball is on the top");
+      //println("The ball is on the top");
       speedY = -abs(speedY) * COEFF_FROTTEMENT;
       this.y += speedY-1;
     }
@@ -236,7 +236,7 @@ class Ball
     else if (/*this.right >= platform.left && this.left <= platform.right &&*/
     this.top >= platform.bottom - abs(speedY))
     {
-      println("The ball is on the bottom");
+      //println("The ball is on the bottom");
       speedY = abs(speedY);
       this.y += speedY+1;
     }
