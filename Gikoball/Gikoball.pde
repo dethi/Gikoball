@@ -71,6 +71,14 @@ Welcome welcome = new Welcome();
 Background background = new Background();
 Ball theBall = new Ball(50, 100, 25/*, skinBall*/);
 
+
+/* 
+ * Ending screen
+ */
+PImage congratulations_screen;
+PImage gameover_screen;
+Ending ending;
+
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
 int shift = 0;
@@ -82,7 +90,7 @@ void setup()
   level = loadTable(level_file, "header");
   int n_platforms=level.getRowCount()-2;//-2 title and length
   platform_list = new Platform[n_platforms];
-  
+
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
   f = createFont("Arial", 32, true);
   img_story = loadImage("roshi.png");
@@ -92,11 +100,11 @@ void setup()
   red_platform = loadImage("red_platform.png");
   theBall.setSkin(loadImage("ball.png"));
   //skinBall = loadImage("ball.png");
-  
+
   TableRow row = level.getRow(0);
   level_length = row.getInt("x");
-  
-  for(int i=1;i<=n_platforms;i++) {
+
+  for (int i=1; i<=n_platforms; i++) {
     row = level.getRow(i);
     int x = row.getInt("x");
     int y = row.getInt("y");
@@ -104,10 +112,14 @@ void setup()
     int platform_width = row.getInt("platform_width");
     String platform_image = row.getString("platform_image");
     println(i+" "+x+" "+y+" "+platform_height +" "+platform_width);
-        
-    platform_list[i-1] = new Platform(x,y,platform_width,platform_height, platform_image);    
+
+    platform_list[i-1] = new Platform(x, y, platform_width, platform_height, platform_image);
+
+    // ENDING SCREEN
+    congratulations_screen = loadImage("congratulations.jpg");
+    gameover_screen = loadImage("gameover.jpg");
+    ending = new Ending(gameover_screen);
   }
-  
 }
 
 void draw_menu_greeting()
@@ -199,26 +211,28 @@ void draw()
   case GAME:
     background.draw();
     if (theBall.x > 650) {    
-      if (shift + 800<level_length){
-          if (theBall.x > 750)
-            theBall.setX(750);          
-          if (theBall.speedX<0) //scroll if it is moving forward 
-            shift+=abs(theBall.speedX);        
+      if (shift + 800<level_length) {
+        if (theBall.x > 750)
+          theBall.setX(750);          
+        if (theBall.speedX<0) //scroll if it is moving forward 
+          shift+=abs(theBall.speedX);
       }
-    } else if (theBall.x < 150){      
+    } else if (theBall.x < 150) {      
       if (shift > 0) {
-          if (theBall.x < 50)
-            theBall.setX(50);
-          if (theBall.speedX>0) //scroll if it is moving backward 
-            shift-=abs(theBall.speedX);          
+        if (theBall.x < 50)
+          theBall.setX(50);
+        if (theBall.speedX>0) //scroll if it is moving backward 
+          shift-=abs(theBall.speedX);
       }
     }
-        
+
     theBall.draw(platform_list, shift);
-    
+
     for (int i = 0; i < platform_list.length; ++i)
       platform_list[i].draw(shift);
     break;
+  case ENDING:
+    ending.draw();
   }
 }
 void keyPressed() //the method keyPressed is bullshit
@@ -246,3 +260,4 @@ void keyReleased()
     break;
   }
 }
+
