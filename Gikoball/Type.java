@@ -7,9 +7,8 @@ enum UIState
     ENDING,
 }
 
-
 enum ENDING_STATE
 {
-  GAME_OVER, 
-  WIN,
+    GAME_OVER, 
+    WIN,
 }

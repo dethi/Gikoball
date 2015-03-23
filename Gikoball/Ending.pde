@@ -1,22 +1,23 @@
 class Ending
 {
-  PImage ending_screen;
-  Ending(PImage screen)
-  {
-    this.ending_screen = screen;
-  }
+    PImage ending_screen;
 
-  void draw()
-  {
-    image(ending_screen, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-  }
-
-  void keyPressed()
-  {
-    if (key == 's')
+    Ending(PImage screen)
     {
-      currentUI = UIState.WELCOME;
+        this.ending_screen = screen;
     }
-  }
+
+    void draw()
+    {
+        image(ending_screen, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
+
+    void keyPressed()
+    {
+        if (key == 's')
+        {
+            currentUI = UIState.GAME;
+        }
+    }
 }
 
