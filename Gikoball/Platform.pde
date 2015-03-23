@@ -37,14 +37,14 @@ class Platform
     top = y;
     bottom = y + platform_height;
     
-    println("x :"+x+" y :"+y+" width "+this.platform_width+" height :"+this.platform_height);
-    println("left :"+left+" right :"+right+" top :"+top+" bottom :"+bottom);
+    //println("x :"+x+" y :"+y+" width "+this.platform_width+" height :"+this.platform_height);
+    //println("left :"+left+" right :"+right+" top :"+top+" bottom :"+bottom);
   }
 
   void draw(int shift)
   {
     PImage p_image=loadImage(platform_image);
-    image(p_image, this.x - shift, this.y);
+    image(p_image, this.x - shift, this.y, this.platform_width, this.platform_height);
     //image(this.platform_image, this.x, this.y);
   }
 }

@@ -98,18 +98,24 @@ void setup()
   TableRow row = level.getRow(0);
   level_length = row.getInt("x");
   
-  for(int i=1;i<n_platforms-1;i++) { //-1 because of the firts non-platform row
+  for(int i=1; i < n_platforms-1; i++) { //-1 because of the firts non-platform row
     row = level.getRow(i);
     int x = row.getInt("x");
     int y = row.getInt("y");
     int platform_height = row.getInt("platform_height");
     int platform_width = row.getInt("platform_width");
     String platform_image = row.getString("platform_image");
-    println(i+" "+x+" "+y+" "+platform_height +" "+platform_width);
+    //println(i+" "+x+" "+y+" "+platform_height +" "+platform_width);
         
     platform_list[i-1] = new Platform(x,y,platform_height,platform_width, platform_image);    
   }
   
+  /*for(int i = 0; i < platform_list.length; ++i)
+  {
+     println("platform n°"+(i+1)+" x = "+platform_list[i].x+" y = "+platform_list[i].y+" width = "+platform_list[i].platform_width+" height = "+platform_list[i].platform_height);
+     println("platform n°"+(i+1)+" left = "+platform_list[i].left+" right = "+platform_list[i].right+" top = "+platform_list[i].top+" bottom = "+platform_list[i].bottom);
+  }
+  */
 }
 
 void draw_menu_greeting()
@@ -129,7 +135,7 @@ void draw_menu_greeting()
   if (t >= 6)
   {
     currentUI = UIState.STORY;
-    println("Story launched");
+    //println("Story launched");
   }
 }
 void launch_greeting_countdown()
@@ -176,7 +182,7 @@ void draw_story()
   } else
   {
     currentUI = UIState.GAME;
-    println("game launched");
+    //println("game launched");
   }
   f = createFont("Arial", 32, true);
 }
