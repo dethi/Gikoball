@@ -123,6 +123,7 @@ class Ball
     Gravity();
     x+= shift;
     update(platform_list);
+    x-= shift;
     //todo, need a sprite, add an animated sprite!
     // MAKE ONE WITH PAINT, WESH ! BD
     //ellipse(this.x, this.y, 2 * radius+20, 2 * radius+20);
