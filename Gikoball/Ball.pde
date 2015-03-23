@@ -64,12 +64,12 @@ class Ball
   void setX(float x) {
     this.x=x;
   }
-  
+
   void setSkin(PImage skin) //possibility to change the skin;
   {
     this.skin = skin;
   }
-  
+
   float getX() {
     return this.x;
   }
@@ -80,26 +80,26 @@ class Ball
       speedY += 0.5;
     }
     if (leftPressed) {
-      if(speedX <= 10)
-      speedX += 0.5;
+      if (speedX <= 10)
+        speedX += 0.5;
     }
     if (rightPressed) {
-      if(speedX >= -10)
-      speedX -= 0.5;
+      if (speedX >= -10)
+        speedX -= 0.5;
     }
   }
 
   void Gravity() {
-/*
+    /*
     if (this.y >= 425)
-    { //or change this to a method that gets the collision with the floor, set to screen height for now
-      this.y = 424;
-      speedY = -speedY * COEFF_FROTTEMENT; //no infinite bounce, the ball gradually slows down
-    } else if (this.y <= 0)
-    { //or change this to a method that gets the collision with the floor, set to screen height for now
-      this.y = 1;
-      speedY = -speedY/* * COEFF_FROTTEMENT*/; //no infinite bounce, the ball gradually slows down
-/*    } */
+     { //or change this to a method that gets the collision with the floor, set to screen height for now
+     this.y = 424;
+     speedY = -speedY * COEFF_FROTTEMENT; //no infinite bounce, the ball gradually slows down
+     } else if (this.y <= 0)
+     { //or change this to a method that gets the collision with the floor, set to screen height for now
+     this.y = 1;
+     speedY = -speedY/* * COEFF_FROTTEMENT*/    ; //no infinite bounce, the ball gradually slows down
+    /*    } */
     if (this.x <= 0)
     { //or change this to a method that gets the collision with the floor, set to screen height for now
       this.x = 1;
@@ -109,7 +109,7 @@ class Ball
       this.x = 799;
       speedX = -speedX * COEFF_FROTTEMENT;
     }
-   
+
     t++;
     if (t==5)
     {
@@ -260,14 +260,23 @@ class Ball
       {
         // A collision is detected between the ball and platform_list[i].
         update_position_collision(platform_list[i]);
-      }
-      else if (is_ball_collinding_with_platform(platform_list[i].x, 
+      } else if (is_ball_collinding_with_platform(platform_list[i].x, 
       platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height) && platform_list[i].platform_image.equals("end_level.png"))
       {
-         currentUI = UIState.ENDING;
-         ending_state = ENDING_STATE.WIN;
-         restart = 1;
+        currentUI = UIState.ENDING;
+        ending_state = ENDING_STATE.WIN;
+        restart = 1;
       }
+    }
+  }
+
+  void check_loose()
+  {
+    if (this.y >= SCREEN_HEIGHT)
+    {
+      currentUI = UIState.ENDING;
+      ending_state = ENDING_STATE.GAME_OVER;
+      restart = 1;
     }
   }
 }

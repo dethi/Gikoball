@@ -68,7 +68,7 @@ Table level;
 Platform[] platform_list = new Platform[2];//needs to be for the f*cking initializ of ball
 int nb_collisions = 0;
 
-UIState currentUI = UIState.GAME; //change to welcome to get the intro, GAME to get into the game directly
+UIState currentUI = UIState.WELCOME; //change to welcome to get the intro, GAME to get into the game directly
 Welcome welcome = new Welcome();
 Background background = new Background();
 Ball theBall = new Ball(50, 100, 25/*, skinBall*/);
@@ -168,7 +168,7 @@ void draw_story()
   if (count_down_story_launched == 0)
     launch_story_countdown();
 
-  if (story_countdown <= 7) 
+  if (story_countdown <= 20) 
   {
     story_countdown = (millis() - starting_time) / 1000;
 
@@ -176,11 +176,11 @@ void draw_story()
 
     if (story_countdown < 1)
       text(story1, 400 - 300, 100);
-    else if (story_countdown >= 2 && story_countdown < 3)
+    else if (story_countdown >= 6 && story_countdown < 12)
     {
       text(story1, 400 - 300, 100);
       text(story2, 400 - 300, 150);
-    } else if (story_countdown >= 4 && story_countdown < 5)
+    } else if (story_countdown >= 13 && story_countdown < 20)
     {
       text(story3, 400 - 300, 100);
     } else
@@ -240,27 +240,25 @@ void draw()
     //currentUI = UIState.GAME;
     break;
   case GAME:
-    /*if (restart == 1)
-     {
-     theBall.x = 25;
-     theBall.y = 300;
-     restart = 0;
-     }*/
     background.draw();
     scrolling();
-
+    theBall.check_loose();
     theBall.draw(platform_list, shift);
 
     for (int i = 0; i < platform_list.length; ++i)
       platform_list[i].draw(shift);
     break;
-    case ENDING:
+  case ENDING:
     if (ending_state == ENDING_STATE.GAME_OVER)
       ending.ending_screen = gameover_screen;
     else
       ending.ending_screen = congratulations_screen;
     ending.draw();
-    println("ENDING !!");
+    shift = 0;
+    theBall.speedX = 0;
+    theBall.speedY = 0;
+    theBall.x = 30;
+    theBall.y = 100;
     break;
   }
 }
@@ -289,6 +287,10 @@ void keyReleased()
   {
   case GAME:
     theBall.keyReleased();
+    break;
+  case ENDING:
+    theBall.keyReleased();
+    shift = 0;
     break;
   }
 }

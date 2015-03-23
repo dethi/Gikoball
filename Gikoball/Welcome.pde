@@ -13,7 +13,7 @@ class Welcome
     textFont(f);
     fill(250);
 
-    text("Welcome to Ballzy game !!", 400-200, 100);
+    text("Welcome to our game !!", 400-200, 100);
 
     fill(255);
     rect(300, 400-100, 400, 50);
