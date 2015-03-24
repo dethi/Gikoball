@@ -168,21 +168,21 @@ void draw_story()
     if (count_down_story_launched == 0)
         launch_story_countdown();
 
-    if (story_countdown <= 20) {
+    if (story_countdown <= 30) {
         story_countdown = (millis() - starting_time) / 1000;
 
         f = createFont("Arial", 16, true);
 
-        if (story_countdown < 1)
+        if (story_countdown < 3)
             text(story1, 400 - 300, 100);
-        else if (story_countdown >= 6 && story_countdown < 12)
+        else if (story_countdown >= 4 && story_countdown < 12)
         {
             text(story1, 400 - 300, 100);
             text(story2, 400 - 300, 150);
-        } else if (story_countdown >= 13 && story_countdown < 20)
+        } else if (story_countdown >= 13 && story_countdown < 22)
         {
             text(story3, 400 - 300, 100);
-        } else
+        } else if(story_countdown >= 23)
         {
             text(story4, 400 - 300, 100);
         }
