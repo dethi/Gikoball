@@ -113,7 +113,9 @@ void setup()
   green_platform = loadImage("green_platform.png");
   red_platform = loadImage("red_platform.png");
   theBall.setSkin(loadImage("ball.png"));
-  //skinBall = loadImage("ball.png");
+  enemy1_image = loadImage("enemy1.png");
+  enemy2_image = loadImage("enemy2.png"); 
+    //skinBall = loadImage("ball.png");
 
   TableRow row = level.getRow(0);
   level_length = row.getInt("x");
