@@ -108,7 +108,7 @@ void setup()
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
   f = createFont("Arial", 32, true);
   img_story = loadImage("roshi.png");
-  img_background = loadImage("background.jpg");
+  img_background = loadImage("background2.jpg");
   img_floor = loadImage("floor.png");
   green_platform = loadImage("green_platform.png");
   red_platform = loadImage("red_platform.png");

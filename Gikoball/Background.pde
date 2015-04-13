@@ -7,7 +7,7 @@ class Background
 
     void draw()
     {
-        image(img_background, 0, 0);
+        image(img_background, 0-shift, 0);
     }
 }
 
