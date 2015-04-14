@@ -75,7 +75,7 @@ UIState currentUI = UIState.GAME;
 Welcome welcome = new Welcome();
 Background background = new Background();
 Ball theBall = new Ball(50, 100, 25/*, skinBall*/);
-
+Attack atk_ki = new Attack(100, 100, 30, 30, "atk_ki.png");
 
 /**********************************************
  ***              Enemies stuff             ***
@@ -256,6 +256,8 @@ void draw()
     scrolling();
     theBall.check_loose();
     theBall.draw(platform_list, shift);
+    if (atk_ki.thrown) {      
+      atk_ki.draw(platform_list, shift);
 
     for (int i = 0; i < platform_list.length; ++i)
       platform_list[i].draw(shift);
@@ -287,6 +289,12 @@ void keyPressed() //the method keyPressed is bullshit
   case STORY: 
     break;
   case GAME:
+    if ((key=='x'||key=='X')&& !atk_ki.thrown) {
+      println("boom");
+      atk_ki.thrown=true;
+      atk_ki.setX(theBall.x);
+      atk_ki.setY(theBall.y);
+    }
     break;
   case ENDING:
     ending.keyPressed();

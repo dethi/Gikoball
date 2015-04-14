@@ -40,7 +40,7 @@ class Bullet
     void draw(int shift)
   {
     update();
-    image(loadImage(this.enemy_image), this.x - shift, this.y, this.enemy_width, this.enemy_height);
+    //image(loadImage(this.enemy_image), this.x - shift, this.y, this.enemy_width, this.enemy_height);
   }
   
   void update()
