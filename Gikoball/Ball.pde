@@ -131,6 +131,11 @@ class Ball
         x+= shift;
         update(platform_list);
         x-= shift;
+        
+       //Extras 
+       image(loadImage("baner_01.png"), 5,30,100,50);
+        if (condition1)
+          image(loadImage("pu_01.png"), 105,45,30,30);
         //todo, need a sprite, add an animated sprite!
         // MAKE ONE WITH PAINT, WESH ! BD
         //ellipse(this.x, this.y, 2 * radius+20, 2 * radius+20);
@@ -255,18 +260,33 @@ class Ball
     {
         for (int i = 0; i < platform_list.length; ++i)
         {
-            if (is_ball_collinding_with_platform(platform_list[i].x, 
-                        platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height) && platform_list[i].platform_image.equals("end_level.png") == false)
+              if (is_ball_collinding_with_platform(platform_list[i].x, 
+                        platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height)      && platform_list[i].platform_image.equals("end_level.png") == false)
             {
                 // A collision is detected between the ball and platform_list[i].
+                if (platform_list[i].platform_image.equals("end_level.png")&&condition1) {
+                  currentUI = UIState.ENDING;
+                  ending_state = ENDING_STATE.WIN;
+                  restart = 1;
+                } else if (platform_list[i].platform_image.equals("pu_01.png") == true) { 
+                  this.condition1=true;
+                  this.skin=loadImage("ball2.png");
+                  //"erasing" the 
+                  platform_list[i].platform_image="empty.png";
+                  platform_list[i].platform_width=1;
+                  platform_list[i].platform_height=1;                      
+                } else if (platform_list[i].platform_image.equals("pu_02.png") == true) {
+                   this.condition2=true;
+                   /*
+                   things, like enabling the kamehameha
+                   */
+                } else if (platform_list[i].platform_image.equals("empty.png") == true) {
+                  /* nothing */
+                } else {
                 update_position_collision(platform_list[i]);
-            } else if (is_ball_collinding_with_platform(platform_list[i].x, 
-                        platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height) && platform_list[i].platform_image.equals("end_level.png"))
-            {
-                currentUI = UIState.ENDING;
-                ending_state = ENDING_STATE.WIN;
-                restart = 1;
-            }
+                
+                }
+            } 
         }
     }
 
