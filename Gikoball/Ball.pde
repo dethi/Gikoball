@@ -269,7 +269,7 @@ class Ball
                         platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height))
             {
                 // A collision is detected between the ball and platform_list[i].
-                if (platform_list[i].platform_image.equals("end_level.png")&&false) {
+                if (platform_list[i].platform_image.equals("end_level.png")) {
                   currentUI = UIState.ENDING;
                   ending_state = ENDING_STATE.WIN;
                   restart = 1;

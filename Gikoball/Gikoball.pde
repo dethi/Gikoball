@@ -293,7 +293,7 @@ void draw()
       platform_list[i].draw(shift);
     for (int i = 0; i < nb_enemies1; ++i)
     {
-      enemy1_list[i].draw(shift, theBall.x);
+      enemy1_list[i].draw(shift, theBall.x, bullet_image);
     }
     break;
   case ENDING:

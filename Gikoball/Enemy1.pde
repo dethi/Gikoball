@@ -12,12 +12,14 @@ class Enemy1
   float enemy_height;
   boolean is_attacking;
   String enemy_image;
-  int nb_bullets = 3;
-  Bullet[] bullet_list;
+  int nb_max_bullets = 3;
+  int nb_bullets;
+  ArrayList<Bullet> bullet_list;
   int t;
   float speed_y;
   float gravityPower = 0.97;
   int WEIGHT = 50;
+  int tmp_fire;
   Enemy1(float x, float y, float enemy_width, float enemy_height, 
   String enemy_image)
   {
@@ -38,8 +40,10 @@ class Enemy1
     // Relevant for fights
     number_hp = 3;
     is_attacking = false;
-    bullet_list = new Bullet[nb_bullets];
+    bullet_list = new ArrayList<Bullet>();
+    nb_bullets = 0;
     t = 0;
+    tmp_fire = 0;
   }
 
   // If the enemy and the ball are close enough, the enemy will attack
@@ -51,17 +55,24 @@ class Enemy1
       is_attacking = false;
   }
 
-  void draw(int shift, float ball_x)
+  void draw(int shift, float ball_x, PImage bullet_image)
   {
-    update(ball_x);
+    update(ball_x, bullet_image);
     image(loadImage(this.enemy_image), this.x - shift, this.y, this.enemy_width, this.enemy_height);
-    //for (int i = 0; i < nb_bullets; ++i)
-     // bullet_list[i].draw(shift);
+    for (int i = 0; i < bullet_list.size (); ++i)
+      bullet_list.get(i).draw(shift);
   }
 
-  void update(float ball_x)
+  void update(float ball_x, PImage bullet_image)
   {
+    ++tmp_fire;
     update_is_attacking(ball_x);
+    if (tmp_fire >= 50)
+    {
+      tmp_fire = 0;
+      attack(ball_x, bullet_image);
+    }
+    remove_bullets();
   }
 
   void gravity()
@@ -77,32 +88,50 @@ class Enemy1
     this.y += speed_y;
   }
 
-  void attack(float ball_x)
+  void attack(float ball_x, PImage bullet_image)
   {
     if (is_attacking)
     {
       if (ball_x < this.x)
-        ;// Attack left
+        fire(0, bullet_image);// Attack left
       else
-        ;// Attack right
+        fire(1, bullet_image);// Attack right
     }
   }
 
-  void fire(int direction)
+  void fire(int direction, PImage bullet_image)
   {
     /*
      * If direction ==  0 then fire_to_left
      *   Else if direction == 1 then fire_to_right
      * Else, f*ck off
      */
-    if (direction == 1)
+    if (direction == 0)
     {
-      // New bullet on the left
-      // Give velocity to the bullet
+      if (bullet_list.size() < nb_max_bullets)
+      {
+        bullet_list.add(new Bullet(this.x - 100, this.y, 50.0, 25.0, 
+        "bullet.png", (-9.0)));
+      }
     } else
     {
-      // new bullet on the right
-      // Give velocity to the bullet
+      if (bullet_list.size() < nb_max_bullets)
+      {
+        bullet_list.add(new Bullet(this.x - 100, this.y, 50.0, 25.0, 
+        "bullet.png", (9.0)));
+      }
+    }
+  }
+
+  void remove_bullets()
+  {
+    for (int i = 0; i < bullet_list.size (); ++i)
+    {
+      if (bullet_list.get(i).to_remove)
+      {
+        bullet_list.remove(i);
+        println("true");
+      }
     }
   }
 }

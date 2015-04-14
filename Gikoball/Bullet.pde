@@ -1,6 +1,7 @@
 class Bullet
 {
   // Postions
+  float initial_x;
   float x;
   float y; 
   float left;
@@ -18,6 +19,8 @@ class Bullet
   Bullet(float x, float y, float bullet_width, float bullet_height, 
   String bullet_image, float velocity)
   {
+    initial_x = x;
+
     // Coordonnates
     this.x = x;
     this.y = y;
@@ -36,17 +39,27 @@ class Bullet
     has_reached = false;
     to_remove = false;
   }
-  
-    void draw(int shift)
+
+  void draw(int shift)
   {
     update();
     image(loadImage(this.bullet_image), this.x - shift, this.y, this.bullet_width, this.bullet_height);
   }
-  
+
   void update()
   {
-   if(has_reached)
-    to_remove = true; 
+    update_has_reached();
+    if (has_reached)
+      to_remove = true;
+    this.x += velocity_x;
+  }
+  void update_has_reached()
+  {
+    if (dist(initial_x, y, x, y) > 700)
+    {
+      has_reached = true;
+     println(initial_x + " " + x); 
+    }
   }
 }
 
