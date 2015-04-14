@@ -12,7 +12,12 @@ class Enemy1
   float enemy_height;
   boolean is_attacking;
   String enemy_image;
-
+  int nb_bullets = 3;
+  Bullet[] bullet_list;
+  int t;
+  float speed_y;
+  float gravityPower = 0.97;
+  int WEIGHT = 50;
   Enemy1(float x, float y, float enemy_width, float enemy_height, 
   String enemy_image)
   {
@@ -33,6 +38,8 @@ class Enemy1
     // Relevant for fights
     number_hp = 3;
     is_attacking = false;
+    bullet_list = new Bullet[nb_bullets];
+    t = 0;
   }
 
   // If the enemy and the ball are close enough, the enemy will attack
@@ -44,15 +51,31 @@ class Enemy1
       is_attacking = false;
   }
 
-  void draw(int shift)
+  void draw(int shift, float ball_x)
   {
-    update();
+    update(ball_x);
+    println("is beig drawn");
     image(loadImage(this.enemy_image), this.x - shift, this.y, this.enemy_width, this.enemy_height);
+    //for (int i = 0; i < nb_bullets; ++i)
+     // bullet_list[i].draw(shift);
   }
 
   void update(float ball_x)
   {
     update_is_attacking(ball_x);
+  }
+
+  void gravity()
+  {
+    t++;
+    if (t==5)
+    {
+      speed_y = speed_y * gravityPower;
+      t = 0;
+    }
+
+    speed_y += (9.81 * WEIGHT / 1000);
+    this.y += speed_y;
   }
 
   void attack(float ball_x)

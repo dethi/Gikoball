@@ -253,7 +253,7 @@ class Ball
 
     void collides(Platform[] platform_list)
     {
-        for (int i = 0; i < platform_list.length; ++i)
+        for (int i = 0; i < nb_platforms; ++i)
         {
             if (is_ball_collinding_with_platform(platform_list[i].x, 
                         platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height) && platform_list[i].platform_image.equals("end_level.png") == false)

@@ -61,6 +61,7 @@ PImage img_floor;
 PImage green_platform;
 PImage red_platform;
 String level_file="level_1.csv"; 
+int nb_platforms;
 
 Table level;
 
@@ -69,7 +70,7 @@ int nb_collisions = 0;
 
 /*
 * Comment / uncomment on of both for debugging or presentation
-*/
+ */
 //UIState currentUI = UIState.WELCOME;
 UIState currentUI = UIState.GAME;
 Welcome welcome = new Welcome();
@@ -82,8 +83,10 @@ Attack atk_ki = new Attack(100, 100, 30, 30, "atk_ki.png");
  **********************************************/
 PImage enemy1_image;
 PImage enemy2_image;
+PImage bullet_image;
 
-
+Enemy1[] enemy1_list;
+int nb_enemies1 = 2;
 
 /* 
  * Ending screen
@@ -102,9 +105,9 @@ int level_length=1600; //just to initialize
 void setup() 
 {
   level = loadTable(level_file, "header");
-  int n_platforms=level.getRowCount();
-  platform_list = new Platform[n_platforms-1];//-1 for length
-
+  int n_lines=level.getRowCount();
+  platform_list = new Platform[n_lines - 1];//-1 for length
+  nb_platforms = 0;
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
   f = createFont("Arial", 32, true);
   img_story = loadImage("roshi.png");
@@ -114,14 +117,19 @@ void setup()
   red_platform = loadImage("red_platform.png");
   theBall.setSkin(loadImage("ball.png"));
   enemy1_image = loadImage("enemy1.png");
-  enemy2_image = loadImage("enemy2.png"); 
-    //skinBall = loadImage("ball.png");
+  enemy2_image = loadImage("enemy2.png");
+  bullet_image = loadImage("bullet.png");
+  //skinBall = loadImage("ball.png");
 
+  enemy1_list = new Enemy1[10];
   TableRow row = level.getRow(0);
   level_length = row.getInt("x");
   println(level_length);
 
-  for (int i=1; i<n_platforms; i++) {
+  int enemy_shift = 0;
+  for (int i=1; i< n_lines; i++)
+  {
+    println("line number " + (i) + " is read");
     row = level.getRow(i);
     int x = row.getInt("x");
     int y = row.getInt("y");
@@ -130,7 +138,31 @@ void setup()
     String platform_image = row.getString("platform_image");
     //println(i+" "+x+" "+y+" "+platform_height +" "+platform_width);
     //println(i);
-    platform_list[i-1] = new Platform(x, y, platform_width, platform_height, platform_image);
+    if (platform_image.equals("enemy1.png") == false && platform_image.equals("enemy2.png") == false)
+    {
+      platform_list[i - 1 - enemy_shift] = new Platform(x, y, platform_width, platform_height, platform_image);
+      ++nb_platforms;
+    } else
+      ++enemy_shift;
+  }
+
+  // Load the enemy1 only
+  int platform_shift = 0;
+  for (int i = 1; i < n_lines; ++i)
+  {
+    println("line number " + i + " is read");
+    row = level.getRow(i);
+    int x = row.getInt("x");
+    int y = row.getInt("y");
+    int enemy_height = row.getInt("platform_height");
+    int enemy_width = row.getInt("platform_width");
+    String enemy_image = row.getString("platform_image");
+    if (enemy_image.equals("enemy1.png"))
+    {
+      enemy1_list[i - 1 - platform_shift] = new Enemy1(x, y, enemy_width, enemy_height, enemy_image);
+      println(i - platform_shift + "new enemy1 loaded at index "+ (i-1 - platform_shift));
+    } else
+      ++platform_shift;
   }
 
   // ENDING SCREEN
@@ -256,11 +288,15 @@ void draw()
     scrolling();
     theBall.check_loose();
     theBall.draw(platform_list, shift);
-    if (atk_ki.thrown) {      
+    if (atk_ki.thrown)
       atk_ki.draw(platform_list, shift);
 
-    for (int i = 0; i < platform_list.length; ++i)
+    for (int i = 0; i < nb_platforms; ++i)
       platform_list[i].draw(shift);
+    for (int i = 0; i < nb_enemies1; ++i)
+    {
+      enemy1_list[i].draw(shift, theBall.x);
+    }
     break;
   case ENDING:
     if (ending_state == ENDING_STATE.GAME_OVER)
