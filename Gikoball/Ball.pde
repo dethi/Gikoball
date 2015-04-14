@@ -261,7 +261,7 @@ class Ball
         for (int i = 0; i < platform_list.length; ++i)
         {
               if (is_ball_collinding_with_platform(platform_list[i].x, 
-                        platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height)      && platform_list[i].platform_image.equals("end_level.png") == false)
+                        platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height))
             {
                 // A collision is detected between the ball and platform_list[i].
                 if (platform_list[i].platform_image.equals("end_level.png")&&condition1) {
@@ -283,8 +283,7 @@ class Ball
                 } else if (platform_list[i].platform_image.equals("empty.png") == true) {
                   /* nothing */
                 } else {
-                update_position_collision(platform_list[i]);
-                
+                update_position_collision(platform_list[i]);                
                 }
             } 
         }
