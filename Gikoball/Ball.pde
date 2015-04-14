@@ -11,6 +11,9 @@ class Ball
     int t = 0;
     float gravityPower = 0.97;
     PImage skin;
+    
+    boolean condition1;
+    boolean condition2;
 
     //movement of the ball
     boolean downPressed = false;
@@ -19,6 +22,8 @@ class Ball
 
     Ball(int x, int y, int radius/*, PImage skin*/)
     {
+        condition1 = false;
+        condition2 = false;
         this.x = x;
         this.y = y;
         speedX = 0;
@@ -264,7 +269,7 @@ class Ball
                         platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height))
             {
                 // A collision is detected between the ball and platform_list[i].
-                if (platform_list[i].platform_image.equals("end_level.png")&&condition1) {
+                if (platform_list[i].platform_image.equals("end_level.png")&&false) {
                   currentUI = UIState.ENDING;
                   ending_state = ENDING_STATE.WIN;
                   restart = 1;

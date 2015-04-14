@@ -54,7 +54,6 @@ class Enemy1
   void draw(int shift, float ball_x)
   {
     update(ball_x);
-    println("is beig drawn");
     image(loadImage(this.enemy_image), this.x - shift, this.y, this.enemy_width, this.enemy_height);
     //for (int i = 0; i < nb_bullets; ++i)
      // bullet_list[i].draw(shift);

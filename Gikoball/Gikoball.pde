@@ -136,8 +136,6 @@ void setup()
     int platform_height = row.getInt("platform_height");
     int platform_width = row.getInt("platform_width");
     String platform_image = row.getString("platform_image");
-    //println(i+" "+x+" "+y+" "+platform_height +" "+platform_width);
-    //println(i);
     if (platform_image.equals("enemy1.png") == false && platform_image.equals("enemy2.png") == false)
     {
       platform_list[i - 1 - enemy_shift] = new Platform(x, y, platform_width, platform_height, platform_image);

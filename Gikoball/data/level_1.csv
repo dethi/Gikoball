@@ -2,11 +2,8 @@ x,y,platform_width,platform_height,platform_image
 1600
 40,400,100,50,green_platform.png
 300,100,100,100,red_platform.png
-<<<<<<< HEAD
 350,250,100,100,enemy1.png
-=======
 200,400,30,30,pu_01.png
->>>>>>> cad9e34155679953cf4a69ec09fba8f9d06944f2
 700,400,100,100,green_platform.png
 750,350,100,100,enemy1.png
 1000,300,100,100,red_platform.png
