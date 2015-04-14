@@ -20,6 +20,7 @@ class Enemy1
   float gravityPower = 0.97;
   int WEIGHT = 50;
   int tmp_fire;
+  boolean to_add;
   Enemy1(float x, float y, float enemy_width, float enemy_height, 
   String enemy_image)
   {
@@ -31,6 +32,7 @@ class Enemy1
     // Sprite
     this.enemy_image = enemy_image;
 
+    to_add = true;
     // Positions for collisions
     left = x;
     right = x + enemy_width;
@@ -55,12 +57,14 @@ class Enemy1
       is_attacking = false;
   }
 
-  void draw(int shift, float ball_x, PImage bullet_image)
+  void draw(int shift, float ball_x, PImage bullet_image, Platform[] platforms)
   {
     update(ball_x, bullet_image);
+    if (tmp_fire % 40 == 0)
+      println(this.x);
     image(loadImage(this.enemy_image), this.x - shift, this.y, this.enemy_width, this.enemy_height);
     for (int i = 0; i < bullet_list.size (); ++i)
-      bullet_list.get(i).draw(shift);
+      bullet_list.get(i).draw(shift, platforms);
   }
 
   void update(float ball_x, PImage bullet_image)
@@ -93,9 +97,14 @@ class Enemy1
     if (is_attacking)
     {
       if (ball_x < this.x)
+      {
         fire(0, bullet_image);// Attack left
-      else
+        println("Will attack left. x= "+this.x+" ball_x : "+ball_x);
+      } else
+      {
         fire(1, bullet_image);// Attack right
+        println("Will attack right. x= "+this.x+" ball_x : "+ball_x);
+      }
     }
   }
 
@@ -117,7 +126,7 @@ class Enemy1
     {
       if (bullet_list.size() < nb_max_bullets)
       {
-        bullet_list.add(new Bullet(this.x - 100, this.y, 50.0, 25.0, 
+        bullet_list.add(new Bullet(this.x + 100, this.y, 50.0, 25.0, 
         "bullet.png", (9.0)));
       }
     }
@@ -128,10 +137,7 @@ class Enemy1
     for (int i = 0; i < bullet_list.size (); ++i)
     {
       if (bullet_list.get(i).to_remove)
-      {
         bullet_list.remove(i);
-        println("true");
-      }
     }
   }
 }

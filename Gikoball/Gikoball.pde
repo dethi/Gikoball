@@ -87,6 +87,7 @@ PImage bullet_image;
 
 Enemy1[] enemy1_list;
 int nb_enemies1 = 2;
+ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
 /* 
  * Ending screen
@@ -265,6 +266,25 @@ void scrolling() //maybe in another class instead of a function?
   }
 }
 
+void update_bullet_list()
+{
+  for (int i = 0; i < nb_enemies1; ++i)
+  {
+    for (int j = 0; j < enemy1_list[i].bullet_list.size (); ++j)
+    {
+      bullets.add(enemy1_list[i].bullet_list.get(j));
+      println("added bullet");
+    }
+  }
+}
+
+void remove_bullet_list()
+{
+  for (int j = bullets.size () - 1; j >= 1; --j)
+    bullets.remove(j);
+}
+
+
 void draw()
 {
   if (keyPressed && currentUI == UIState.GAME)
@@ -289,12 +309,26 @@ void draw()
     if (atk_ki.thrown)
       atk_ki.draw(platform_list, shift);
 
+    update_bullet_list();
     for (int i = 0; i < nb_platforms; ++i)
       platform_list[i].draw(shift);
     for (int i = 0; i < nb_enemies1; ++i)
     {
-      enemy1_list[i].draw(shift, theBall.x, bullet_image);
+      enemy1_list[i].draw(shift, theBall.x, bullet_image, platform_list);
     }
+
+    for (int i = 0; i < bullets.size (); ++i)
+    {
+      if (theBall.is_ball_collinding_with_platform(bullets.get(i).x, bullets.get(i).y, 
+      bullets.get(i).bullet_width, bullets.get(i).bullet_height))
+      {
+        --theBall.nb_lives;
+      }
+    }
+
+
+
+    remove_bullet_list();
     break;
   case ENDING:
     if (ending_state == ENDING_STATE.GAME_OVER)

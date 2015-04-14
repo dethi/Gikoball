@@ -40,26 +40,52 @@ class Bullet
     to_remove = false;
   }
 
-  void draw(int shift)
+  void draw(int shift, Platform[] platforms)
   {
-    update();
+    update(platforms);
     image(loadImage(this.bullet_image), this.x - shift, this.y, this.bullet_width, this.bullet_height);
   }
 
-  void update()
+  void update(Platform[] platforms)
   {
     update_has_reached();
     if (has_reached)
       to_remove = true;
     this.x += velocity_x;
+    for (int i = 0; i < nb_platforms; ++i)
+    {
+      if (is_collinding_with_platform(platform_list[i].x, 
+      platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height))
+        has_reached = true;
+    }
   }
   void update_has_reached()
   {
     if (dist(initial_x, y, x, y) > 700)
-    {
       has_reached = true;
-     println(initial_x + " " + x); 
-    }
+  }
+  boolean is_collinding_with_platform(
+  float rectangleX, 
+  float rectangleY, 
+  float platform_width, 
+  float platform_height)
+  {
+    float distance_x = abs((this.x+this.bullet_width/2) - rectangleX - platform_width / 2);
+    float distance_y = abs((this.y+this.bullet_height/2) - rectangleY - platform_height / 2);
+
+    if (distance_x > (platform_width / 2 + this.bullet_width/2))
+      return false;
+    if (distance_y > (platform_height/2 + this.bullet_height/2)) 
+      return false;
+    if (distance_x <= (platform_width/2))
+      return true;
+    if (distance_y <= (platform_height/2))
+      return true;
+
+    float corner_distance_sq = pow(distance_x - platform_width/2, 2) +
+      pow(distance_y - platform_height/2, 2);
+
+    return (corner_distance_sq <= pow(this.bullet_width/2, 2));
   }
 }
 
