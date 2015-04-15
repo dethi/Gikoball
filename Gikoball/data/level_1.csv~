@@ -1,7 +1,6 @@
 x,y,platform_width,platform_height,platform_image
 1600
 40,400,100,50,green_platform.png
-
 200,400,30,30,pu_01.png
 300,100,100,100,red_platform.png
 350,250,100,100,enemy1.png

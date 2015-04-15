@@ -87,8 +87,9 @@ PImage enemy2_image;
 PImage bullet_image;
 
 Enemy1[] enemy1_list;
-int nb_enemies1 = 2;
+int nb_enemies1 = 0;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+ArrayList<Enemy2> enemy2 = new ArrayList<Enemy2>();
 
 /* 
  * Ending screen
@@ -161,9 +162,30 @@ void setup()
     {
       enemy1_list[i - 1 - platform_shift] = new Enemy1(x, y, enemy_width, enemy_height, enemy_image);
       println(i - platform_shift + "new enemy1 loaded at index "+ (i-1 - platform_shift));
+      ++nb_enemies1;
     } else
       ++platform_shift;
   }
+  //Load the enemy2 only
+  platform_shift = 0;
+  for (int i = 1; i < n_lines; ++i)
+  {
+    println("line number " + i + " is read");
+    row = level.getRow(i);
+    int x = row.getInt("x");
+    int y = row.getInt("y");
+    int enemy_height = row.getInt("platform_height");
+    int enemy_width = row.getInt("platform_width");
+    String enemy_image = row.getString("platform_image");
+    if (enemy_image.equals("enemy2.png"))
+    {
+      enemy2.add(new Enemy2(x, y, enemy_width, enemy_height, enemy_image));
+    } else
+      ++platform_shift;
+  }
+
+
+
 
   // ENDING SCREEN
   congratulations_screen = loadImage("congratulations.jpg");
@@ -282,6 +304,15 @@ void remove_bullet_list()
     bullets.remove(j);
 }
 
+void remove_enemy2()
+{
+  for (int i = 0; i < enemy2.size (); i++)
+  {
+    if (enemy2.get(i).to_remove)
+      enemy2.remove(i);
+  }
+}
+
 void draw()
 {
   if (keyPressed && currentUI == UIState.GAME)
@@ -312,8 +343,11 @@ void draw()
     for (int i = 0; i < nb_platforms; ++i)
       platform_list[i].draw(shift);
     for (int i = 0; i < nb_enemies1; ++i)
-    {
       enemy1_list[i].draw(shift, theBall.x, bullet_image, platform_list);
+    for (int i = 0; i < enemy2.size (); ++i)
+    {
+      enemy2.get(i).draw(shift);
+      enemy2.get(i).update(platform_list, nb_platforms, theBall, atk_ki);
     }
 
     for (int i = 0; i < bullets.size (); ++i)
@@ -326,7 +360,7 @@ void draw()
     }
 
 
-
+    remove_enemy2();
     remove_bullet_list();
     break;
   case ENDING:
