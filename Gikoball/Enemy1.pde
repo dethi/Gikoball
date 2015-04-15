@@ -60,8 +60,6 @@ class Enemy1
   void draw(int shift, float ball_x, PImage bullet_image, Platform[] platforms)
   {
     update(ball_x, bullet_image);
-    if (tmp_fire % 40 == 0)
-      println(this.x);
     image(loadImage(this.enemy_image), this.x - shift, this.y, this.enemy_width, this.enemy_height);
     for (int i = 0; i < bullet_list.size (); ++i)
       bullet_list.get(i).draw(shift, platforms);
@@ -119,14 +117,14 @@ class Enemy1
     {
       if (bullet_list.size() < nb_max_bullets)
       {
-        bullet_list.add(new Bullet(this.x - 100, this.y, 50.0, 25.0, 
+        bullet_list.add(new Bullet(this.x - 100, this.y, 15.0, 15.0, 
         "bullet.png", (-9.0)));
       }
     } else
     {
       if (bullet_list.size() < nb_max_bullets)
       {
-        bullet_list.add(new Bullet(this.x + 100, this.y, 50.0, 25.0, 
+        bullet_list.add(new Bullet(this.x + 100, this.y, 15.0, 15.0, 
         "bullet.png", (9.0)));
       }
     }

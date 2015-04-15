@@ -272,10 +272,7 @@ void update_bullet_list()
   for (int i = 0; i < nb_enemies1; ++i)
   {
     for (int j = 0; j < enemy1_list[i].bullet_list.size (); ++j)
-    {
       bullets.add(enemy1_list[i].bullet_list.get(j));
-      println("added bullet");
-    }
   }
 }
 
