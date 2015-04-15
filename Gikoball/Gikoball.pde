@@ -74,6 +74,7 @@ int nb_collisions = 0;
 //UIState currentUI = UIState.WELCOME;
 UIState currentUI = UIState.GAME;
 Welcome welcome = new Welcome();
+Score score = new Score();
 Background background = new Background();
 Ball theBall = new Ball(50, 100, 25/*, skinBall*/);
 Attack atk_ki = new Attack(100, 100, 30, 30, "atk_ki.png");
@@ -284,7 +285,6 @@ void remove_bullet_list()
     bullets.remove(j);
 }
 
-
 void draw()
 {
   if (keyPressed && currentUI == UIState.GAME)
@@ -304,6 +304,8 @@ void draw()
   case GAME:
     background.draw();
     scrolling();
+    score.printScore();
+    //score.addScore(100, int(theBall.x)+10,int(theBall.y)+10);
     theBall.check_loose();
     theBall.draw(platform_list, shift);
     if (atk_ki.thrown)

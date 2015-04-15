@@ -1,7 +1,7 @@
 class Ball
 {
   float x, y;
-  float right, left, bottom, top;
+  float right, left, bottom, top;  
   float speedX, speedY;
   int WEIGHT = 50;
   int acceleration = 1;
