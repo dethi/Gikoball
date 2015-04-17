@@ -16,7 +16,11 @@ class Ending
     {
         if (key == 's')
         {
-            currentUI = UIState.GAME;
+          currentUI = UIState.GAME;
+          atk_ki.thrown = false;
+          theBall.reborn();
+          load_level(level_file);
+          println("Restarted");
         }
     }
 }

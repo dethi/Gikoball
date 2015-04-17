@@ -65,7 +65,6 @@ String level_file="level_1.csv";
 Table level;
 
 ArrayList<Platform> platform_list = new ArrayList<Platform>();//needs to be for the f*cking initializ of ball
-int nb_collisions = 0;
 
 /*
 * Comment / uncomment on of both for debugging or presentation
@@ -86,7 +85,6 @@ PImage enemy2_image;
 PImage bullet_image;
 
 ArrayList<Enemy1> enemy1_list=new ArrayList<Enemy1>();
-int nb_enemies1 = 0;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy2> enemy2_list = new ArrayList<Enemy2>();
 
@@ -106,8 +104,7 @@ int level_length=1600; //just to initialize
 
 void setup() 
 {
-  level = loadTable(level_file, "header");
-  int n_lines=level.getRowCount();
+  load_level(level_file);  
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
   f = createFont("Arial", 32, true);
   img_story = loadImage("roshi.png");
@@ -119,14 +116,27 @@ void setup()
   enemy1_image = loadImage("enemy1.png");
   enemy2_image = loadImage("enemy2.png");
   bullet_image = loadImage("bullet.png");
-  //skinBall = loadImage("ball.png");
 
+  // ENDING SCREEN
+  congratulations_screen = loadImage("congratulations.jpg");
+  gameover_screen = loadImage("gameover.jpg");
+  ending = new Ending(gameover_screen);
+  ending_state = ENDING_STATE.GAME_OVER;
+}
+
+void load_level(String level_f) {  
+  platform_list = new ArrayList<Platform>();
+  enemy1_list=new ArrayList<Enemy1>();
+  bullets = new ArrayList<Bullet>();
+  enemy2_list = new ArrayList<Enemy2>();
+  
+  level = loadTable(level_f, "header");
+  
   TableRow row = level.getRow(0);
   level_length = row.getInt("x");
   println(level_length);
 
-  int enemy_shift = 0;
-  for (int i=1; i< n_lines; i++)
+  for (int i=1; i< level.getRowCount(); i++)
   {
     println("line number " + (i) + " is read");
     row = level.getRow(i);
@@ -137,21 +147,18 @@ void setup()
     String p_image = row.getString("platform_image");
     if (p_image.equals("enemy1.png") == false && p_image.equals("enemy2.png") == false)
     {
+      println("platform");
       platform_list.add(new Platform(x, y, p_width, p_height, p_image));
     } else if (p_image.equals("enemy1.png"))
     {
+      println("enemy1");
        enemy1_list.add(new Enemy1(x, y, p_width, p_height, p_image));
     } else if (p_image.equals("enemy2.png")) 
     {
+      println("enemy2");
       enemy2_list.add(new Enemy2(x, y, p_width, p_height, p_image));
     }
   }
-
-  // ENDING SCREEN
-  congratulations_screen = loadImage("congratulations.jpg");
-  gameover_screen = loadImage("gameover.jpg");
-  ending = new Ending(gameover_screen);
-  ending_state = ENDING_STATE.GAME_OVER;
 }
 
 void draw_menu_greeting()
@@ -223,6 +230,7 @@ void draw_story()
       theBall.x = 50;
       theBall.y = 100;
       restart = 0;
+      theBall.nb_lives=1;
     }
   }
   f = createFont("Arial", 32, true);
@@ -251,7 +259,7 @@ void scrolling() //maybe in another class instead of a function?
 
 void update_bullet_list()
 {
-  for (int i = 0; i < nb_enemies1; ++i)
+  for (int i = 0; i < enemy1_list.size(); ++i)
   {
     for (int j = 0; j < enemy1_list.get(i).bullet_list.size(); ++j)
       bullets.add(enemy1_list.get(i).bullet_list.get(j));
@@ -268,8 +276,10 @@ void remove_enemy2()
 {
   for (int i = 0; i < enemy2_list.size (); i++)
   {
-    if (enemy2_list.get(i).to_remove)
+    if (enemy2_list.get(i).to_remove) {
       enemy2_list.remove(i);
+      println("toRemove");
+    }
   }
 }
 
@@ -302,7 +312,7 @@ void draw()
     update_bullet_list();
     for (int i = 0; i < platform_list.size(); ++i)
       platform_list.get(i).draw(shift);
-    for (int i = 0; i < nb_enemies1; ++i)
+    for (int i = 0; i < enemy1_list.size(); ++i)
       enemy1_list.get(i).draw(shift, theBall.x, bullet_image, platform_list);
     for (int i = 0; i < enemy2_list.size (); ++i)
     {
@@ -329,11 +339,6 @@ void draw()
     else
       ending.ending_screen = congratulations_screen;
     ending.draw();
-    shift = 0;
-    theBall.speedX = 0;
-    theBall.speedY = 0;
-    theBall.x = 30;
-    theBall.y = 100;
     break;
   }
 }

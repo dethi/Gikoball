@@ -42,7 +42,19 @@ class Ball
     //println("x :"+x+" y :"+y+" radius :"+this.radius+" width "+2 * this.radius);
     //println("left :"+left+" right :"+right+" top :"+top+" bottom :"+bottom);
   }
-
+  
+  void reborn() 
+  {
+    shift = 0;
+    this.speedX = 0;
+    this.speedY = 0;
+    this.x = 30;
+    this.y = 100;
+    this.nb_lives=1;
+    this.condition1=false;
+    this.condition2=false;    
+    /* We need to also reboot enemies and collections*/
+  }
   void keyPressed() 
   {
     if (key == CODED)
@@ -306,6 +318,7 @@ class Ball
   {
     if (this.y >= SCREEN_HEIGHT || nb_lives <= 0)
     {
+      println("--Lose");
       currentUI = UIState.ENDING;
       ending_state = ENDING_STATE.GAME_OVER;
       restart = 1;
