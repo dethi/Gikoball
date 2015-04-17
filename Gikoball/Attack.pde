@@ -40,7 +40,7 @@ class Attack
         this.y=y;
     }
     
-    void draw(Platform[] platform_list, int shift) 
+    void draw(ArrayList<Platform> platform_list, int shift) 
     {
         this.x+= shift;
         update(platform_list);
@@ -50,7 +50,7 @@ class Attack
             this.thrown=false;
     }
     
-    void update(Platform[] platform_list)
+    void update(ArrayList<Platform> platform_list)
     {
         update_position(); 
         collides(platform_list);
@@ -68,26 +68,37 @@ class Attack
         this.x+=this.speedX;
     }
     
-    void collides(Platform[] platform_list)
+    void collides(ArrayList<Platform> platform_list)
     {
-        for (int i = 0; i < platform_list.length; ++i)
+      //platform collisions
+        for (int i = 0; i < platform_list.size(); i++)
         {
-            if (is_atk_collinding_with_platform(platform_list[i].x, platform_list[i].y,
-            platform_list[i].platform_width, platform_list[i].platform_height))
+            if (is_atk_collinding_with_platform(platform_list.get(i).x, platform_list.get(i).y,
+              platform_list.get(i).platform_width, platform_list.get(i).platform_height))
             {
-                if (platform_list[i].platform_image.equals("green_platform.png") ||
-                platform_list[i].platform_image.equals("red_platform.png")/*|| etc*/) {
-                //dissapear
-                  this.thrown=false;
-                  
-                } else if (platform_list[i].platform_image.equals("enemy_01.png") ||
-                platform_list[i].platform_image.equals("enemy_02.png")/*|| etc*/) {
-                  //deals this.damage
-                  /*Insert enemies begging for merci here*/
-                  
-                }              
+                //dissapear, no problem if the platform is floor, end, bonus, wotevah
+                  this.thrown=false;                            
             }
         }
+        
+        //enemy1 collision
+        for (int i=0; i<enemy1_list.size(); i++) {
+          if (is_atk_collinding_with_platform(enemy1_list.get(i).x, enemy1_list.get(i).y,
+            enemy1_list.get(i).enemy_width, enemy1_list.get(i).enemy_height))
+            {
+              //Time to kill
+            }        
+        }
+        
+        //enemy2 collision
+        for (int i=0; i<enemy2_list.size(); i++) {
+          if (is_atk_collinding_with_platform(enemy2_list.get(i).x, enemy2_list.get(i).y,
+            enemy2_list.get(i).enemy_width, enemy2_list.get(i).enemy_height))
+            {
+              //Time to kill
+            }       
+        }
+        
     }
     
     boolean is_atk_collinding_with_platform(

@@ -132,7 +132,7 @@ class Ball
     this.y += speedY;
   }
 
-  void draw(Platform[] platform_list, int shift) 
+  void draw(ArrayList<Platform> platform_list, int shift) 
   {
     moveBall();
     Gravity();
@@ -144,9 +144,7 @@ class Ball
     image(loadImage("baner_01.png"), 5, 30, 100, 50);
     if (condition1)
       image(loadImage("pu_01.png"), 105, 45, 30, 30);
-    //todo, need a sprite, add an animated sprite!
-    // MAKE ONE WITH PAINT, WESH ! BD
-    //ellipse(this.x, this.y, 2 * radius+20, 2 * radius+20);
+
     image(this.skin, x - radius, y-radius, radius*2, radius*2);
   }
 
@@ -158,11 +156,12 @@ class Ball
    platform_height - and the height
    */
 
-  void update(Platform[] platform_list)
+  void update(ArrayList<Platform> platform_list)
   {
     update_position(); 
     collides(platform_list);
   }
+  
   void update_position()
   {
     right = x + radius;
@@ -264,35 +263,41 @@ class Ball
     }
   }
 
-  void collides(Platform[] platform_list)
+  void collides(ArrayList<Platform> platform_list)
   {
-    for (int i = 0; i < nb_platforms; ++i)
+    for (int i = 0; i < platform_list.size(); ++i)
     {
-      if (is_ball_collinding_with_platform(platform_list[i].x, 
-      platform_list[i].y, platform_list[i].platform_width, platform_list[i].platform_height))
+      if (is_ball_collinding_with_platform(platform_list.get(i).x, 
+        platform_list.get(i).y, platform_list.get(i).platform_width, platform_list.get(i).platform_height))
       {
         // A collision is detected between the ball and platform_list[i].
-        if (platform_list[i].platform_image.equals("end_level.png")) {
+        if (platform_list.get(i).platform_image.equals("end_level.png") &&condition1) 
+        {
           currentUI = UIState.ENDING;
           ending_state = ENDING_STATE.WIN;
           restart = 1;
-        } else if (platform_list[i].platform_image.equals("pu_01.png") == true) { 
+        } else if (platform_list.get(i).platform_image.equals("pu_01.png") == true) 
+        { 
           this.condition1=true;
           this.skin=loadImage("ball2.png");
           //"erasing" the 
-          platform_list[i].platform_image="empty.png";
-          platform_list[i].platform_width=1;
-          platform_list[i].platform_height=1;
-        } else if (platform_list[i].platform_image.equals("pu_02.png") == true) {
+          platform_list.get(i).platform_image="empty.png";
+          platform_list.get(i).platform_width=1;
+          platform_list.get(i).platform_height=1;
+        } else if (platform_list.get(i).platform_image.equals("pu_02.png") == true) 
+        {
           this.condition2=true;
           /*
                    things, like enabling the kamehameha
            */
-        } else if (platform_list[i].platform_image.equals("empty.png") == true) {
+        } else if (platform_list.get(i).platform_image.equals("empty.png") == true) 
+        {
           /* nothing */
-        } else {
-          update_position_collision(platform_list[i]);
+        } else 
+        {
+          update_position_collision(platform_list.get(i));
         }
+        
       }
     }
   }
