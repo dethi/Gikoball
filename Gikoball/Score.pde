@@ -35,9 +35,10 @@ class Score
       if(scoreAnimation.get(i+3) == 0)
       {
         scoreAnimation.remove(i);
-        scoreAnimation.remove(i+1);
-        scoreAnimation.remove(i+2);
-        scoreAnimation.remove(i+3);
+        scoreAnimation.remove(i);
+        scoreAnimation.remove(i);
+        scoreAnimation.remove(i);
+        i-=4;
       }
     }
   }
