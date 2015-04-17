@@ -40,6 +40,12 @@ class Attack
         this.y=y;
     }
     
+    void remove() {
+      this.thrown=false;
+      this.x=0;
+      this.y=0;
+    }
+    
     void draw(ArrayList<Platform> platform_list, int shift) 
     {
         this.x+= shift;
@@ -47,7 +53,7 @@ class Attack
         this.x-= shift;
         image( loadImage(this.atk_img), this.x, this.y, this.atk_width,  this.atk_height);
         if (this.x>SCREEN_WIDTH)
-            this.thrown=false;
+            this.remove();
     }
     
     void update(ArrayList<Platform> platform_list)
@@ -77,7 +83,7 @@ class Attack
               platform_list.get(i).platform_width, platform_list.get(i).platform_height))
             {
                 //dissapear, no problem if the platform is floor, end, bonus, wotevah
-                  this.thrown=false;                            
+                  this.remove();                          
             }
         }
         

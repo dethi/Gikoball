@@ -46,8 +46,10 @@ class Enemy2
     // COLLISION WITH THE PLAYER
     if (check_collision_with_player(ball.x, ball.y, ball.radius))
     {
+      println("2");
       to_remove = true;
       --ball.nb_lives;
+      println("--coliEn");
     }
 
     // COLLISION WITH KII PLAYER
@@ -79,8 +81,8 @@ class Enemy2
 
   boolean check_collision_with_player(float ball_x, float ball_y, float ball_radius)
   {
-    println("blue ball .x = " +x);
-    println("theball.x = "+ball_x);
+    //println("blue ball .x = " +x);
+    //println("theball.x = "+ball_x);
     if (dist(this.x, this.y, ball_x, ball_y) <= (ball_radius +  this.radius / 4))
     {
       println("has hit"); 

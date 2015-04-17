@@ -278,6 +278,7 @@ void remove_enemy2()
   {
     if (enemy2_list.get(i).to_remove) {
       enemy2_list.remove(i);
+      score.addScore(100,100,100);
       println("toRemove");
     }
   }
@@ -328,7 +329,6 @@ void draw()
         --theBall.nb_lives;
       }
     }
-
 
     remove_enemy2();
     remove_bullet_list();
