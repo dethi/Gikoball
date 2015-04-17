@@ -40,9 +40,9 @@ class Enemy2
     to_remove = false;
   }
 
-  void update(Platform[] platforms, int nb_platforms, Ball ball, Attack atk_ki)
+  void update(ArrayList<Platform> platform_list, Ball ball, Attack atk_ki)
   {
-    update_position(platforms, nb_platforms);
+    update_position(platform_list);
     // COLLISION WITH THE PLAYER
     if (check_collision_with_player(ball.x, ball.y, ball.radius))
     {
@@ -63,14 +63,14 @@ class Enemy2
     image(loadImage(this.enemy_image), this.x - shift, this.y, this.enemy_width, this.enemy_height);
   }
 
-  void update_position(Platform[] platforms, int nb_platforms)
+  void update_position(ArrayList<Platform> platform_list)
   {
-    for (int i = 0; i < nb_platforms; ++i)
+    for (int i = 0; i < platform_list.size(); ++i)
     {
-      if (check_collision_for_rectangle(platforms[i].x, 
-      platforms[i].y, 
-      platforms[i].platform_width, 
-      platforms[i].platform_height))
+      if (check_collision_for_rectangle(platform_list.get(i).x, 
+      platform_list.get(i).y, 
+      platform_list.get(i).platform_width, 
+      platform_list.get(i).platform_height))
         velocity_y = -10;
     }
     velocity_y += gravity_power;
