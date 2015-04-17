@@ -57,12 +57,12 @@ class Enemy1
       is_attacking = false;
   }
 
-  void draw(int shift, float ball_x, PImage bullet_image, ArrayList<Platform> platform_list)
+  void draw(int shift, float ball_x, PImage bullet_image, Platform[] platforms)
   {
     update(ball_x, bullet_image);
     image(loadImage(this.enemy_image), this.x - shift, this.y, this.enemy_width, this.enemy_height);
     for (int i = 0; i < bullet_list.size (); ++i)
-      bullet_list.get(i).draw(shift, platform_list);
+      bullet_list.get(i).draw(shift, platforms);
   }
 
   void update(float ball_x, PImage bullet_image)

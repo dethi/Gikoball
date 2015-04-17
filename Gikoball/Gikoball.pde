@@ -61,10 +61,11 @@ PImage img_floor;
 PImage green_platform;
 PImage red_platform;
 String level_file="level_1.csv"; 
+int nb_platforms;
 
 Table level;
 
-ArrayList<Platform> platform_list = new ArrayList<Platform>();//needs to be for the f*cking initializ of ball
+Platform[] platform_list = new Platform[2];//needs to be for the f*cking initializ of ball
 int nb_collisions = 0;
 
 /*
@@ -85,10 +86,10 @@ PImage enemy1_image;
 PImage enemy2_image;
 PImage bullet_image;
 
-ArrayList<Enemy1> enemy1_list=new ArrayList<Enemy1>();
+Enemy1[] enemy1_list;
 int nb_enemies1 = 0;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-ArrayList<Enemy2> enemy2_list = new ArrayList<Enemy2>();
+ArrayList<Enemy2> enemy2 = new ArrayList<Enemy2>();
 
 /* 
  * Ending screen
@@ -108,6 +109,8 @@ void setup()
 {
   level = loadTable(level_file, "header");
   int n_lines=level.getRowCount();
+  platform_list = new Platform[n_lines - 1];//-1 for length
+  nb_platforms = 0;
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
   f = createFont("Arial", 32, true);
   img_story = loadImage("roshi.png");
@@ -121,6 +124,7 @@ void setup()
   bullet_image = loadImage("bullet.png");
   //skinBall = loadImage("ball.png");
 
+  enemy1_list = new Enemy1[10];
   TableRow row = level.getRow(0);
   level_length = row.getInt("x");
   println(level_length);
@@ -132,20 +136,56 @@ void setup()
     row = level.getRow(i);
     int x = row.getInt("x");
     int y = row.getInt("y");
-    int p_height = row.getInt("platform_height");
-    int p_width = row.getInt("platform_width");
-    String p_image = row.getString("platform_image");
-    if (p_image.equals("enemy1.png") == false && p_image.equals("enemy2.png") == false)
+    int platform_height = row.getInt("platform_height");
+    int platform_width = row.getInt("platform_width");
+    String platform_image = row.getString("platform_image");
+    if (platform_image.equals("enemy1.png") == false && platform_image.equals("enemy2.png") == false)
     {
-      platform_list.add(new Platform(x, y, p_width, p_height, p_image));
-    } else if (p_image.equals("enemy1.png"))
-    {
-       enemy1_list.add(new Enemy1(x, y, p_width, p_height, p_image));
-    } else if (p_image.equals("enemy2.png")) 
-    {
-      enemy2_list.add(new Enemy2(x, y, p_width, p_height, p_image));
-    }
+      platform_list[i - 1 - enemy_shift] = new Platform(x, y, platform_width, platform_height, platform_image);
+      ++nb_platforms;
+    } else
+      ++enemy_shift;
   }
+
+  // Load the enemy1 only
+  int platform_shift = 0;
+  for (int i = 1; i < n_lines; ++i)
+  {
+    println("line number " + i + " is read");
+    row = level.getRow(i);
+    int x = row.getInt("x");
+    int y = row.getInt("y");
+    int enemy_height = row.getInt("platform_height");
+    int enemy_width = row.getInt("platform_width");
+    String enemy_image = row.getString("platform_image");
+    if (enemy_image.equals("enemy1.png"))
+    {
+      enemy1_list[i - 1 - platform_shift] = new Enemy1(x, y, enemy_width, enemy_height, enemy_image);
+      println(i - platform_shift + "new enemy1 loaded at index "+ (i-1 - platform_shift));
+      ++nb_enemies1;
+    } else
+      ++platform_shift;
+  }
+  //Load the enemy2 only
+  platform_shift = 0;
+  for (int i = 1; i < n_lines; ++i)
+  {
+    println("line number " + i + " is read");
+    row = level.getRow(i);
+    int x = row.getInt("x");
+    int y = row.getInt("y");
+    int enemy_height = row.getInt("platform_height");
+    int enemy_width = row.getInt("platform_width");
+    String enemy_image = row.getString("platform_image");
+    if (enemy_image.equals("enemy2.png"))
+    {
+      enemy2.add(new Enemy2(x, y, enemy_width, enemy_height, enemy_image));
+    } else
+      ++platform_shift;
+  }
+
+
+
 
   // ENDING SCREEN
   congratulations_screen = loadImage("congratulations.jpg");
@@ -253,8 +293,8 @@ void update_bullet_list()
 {
   for (int i = 0; i < nb_enemies1; ++i)
   {
-    for (int j = 0; j < enemy1_list.get(i).bullet_list.size(); ++j)
-      bullets.add(enemy1_list.get(i).bullet_list.get(j));
+    for (int j = 0; j < enemy1_list[i].bullet_list.size (); ++j)
+      bullets.add(enemy1_list[i].bullet_list.get(j));
   }
 }
 
@@ -266,10 +306,10 @@ void remove_bullet_list()
 
 void remove_enemy2()
 {
-  for (int i = 0; i < enemy2_list.size (); i++)
+  for (int i = 0; i < enemy2.size (); i++)
   {
-    if (enemy2_list.get(i).to_remove)
-      enemy2_list.remove(i);
+    if (enemy2.get(i).to_remove)
+      enemy2.remove(i);
   }
 }
 
@@ -300,14 +340,14 @@ void draw()
       atk_ki.draw(platform_list, shift);
 
     update_bullet_list();
-    for (int i = 0; i < platform_list.size(); ++i)
-      platform_list.get(i).draw(shift);
+    for (int i = 0; i < nb_platforms; ++i)
+      platform_list[i].draw(shift);
     for (int i = 0; i < nb_enemies1; ++i)
-      enemy1_list.get(i).draw(shift, theBall.x, bullet_image, platform_list);
-    for (int i = 0; i < enemy2_list.size (); ++i)
+      enemy1_list[i].draw(shift, theBall.x, bullet_image, platform_list);
+    for (int i = 0; i < enemy2.size (); ++i)
     {
-      enemy2_list.get(i).draw(shift);
-      enemy2_list.get(i).update(platform_list, theBall, atk_ki);
+      enemy2.get(i).draw(shift);
+      enemy2.get(i).update(platform_list, nb_platforms, theBall, atk_ki);
     }
 
     for (int i = 0; i < bullets.size (); ++i)
