@@ -32,9 +32,9 @@ class Enemy2
     this.skin = skin;
 
     // Positions for collisions
-    left = x;
-    right = x + enemy_width;
-    top = y;
+    left = x - radius;
+    right = x + radius;
+    top = y - radius;
     bottom = y + enemy_height;
     velocity_y = 0;
     this.radius = this.enemy_width / 2;
@@ -63,7 +63,7 @@ class Enemy2
 
   void draw(int shift)
   {
-    image(this.skin, this.x - shift - radius, this.y - radius, 2 * radius, 2 * radius);
+        image(this.skin, x - radius, y-radius, radius*2, radius*2);
   }
 
   void update_position(ArrayList<Platform> platform_list)
@@ -102,9 +102,9 @@ class Enemy2
     float distance_x = abs(this.x - rectangleX - platform_width / 2);
     float distance_y = abs(this.y - rectangleY - platform_height / 2);
 
-    if (distance_x > (platform_width / 2 + this.radius * 2))
+    if (distance_x > (platform_width / 2 + this.radius))
       return false;
-    if (distance_y > (platform_height/2 + this.radius * 2)) 
+    if (distance_y > (platform_height/2 + this.radius)) 
       return false;
     if (distance_x <= (platform_width/2))
       return true;
@@ -112,8 +112,8 @@ class Enemy2
       return true;
 
 
-    float corner_distance_sq = pow(distance_x - platform_width/2, 2) +
-      pow(distance_y - platform_height/2, 2);
+    float corner_distance_sq = pow(distance_x - platform_width / 2, 2) +
+      pow(distance_y - platform_height / 2, 2);
 
     return (corner_distance_sq <= pow(radius, 2));
   }

@@ -195,13 +195,13 @@ class Ball
       return false;
     if (distance_y > (platform_height/2 + this.radius)) 
       return false;
-    if (distance_x <= (platform_width/2))
+    if (distance_x <= (platform_width / 2))
       return true;
-    if (distance_y <= (platform_height/2))
+    if (distance_y <= (platform_height / 2))
       return true;
 
 
-    float corner_distance_sq = pow(distance_x - platform_width/2, 2) +
+    float corner_distance_sq = pow(distance_x - platform_width / 2, 2) +
       pow(distance_y - platform_height/2, 2);
 
     return (corner_distance_sq <= pow(radius, 2));
