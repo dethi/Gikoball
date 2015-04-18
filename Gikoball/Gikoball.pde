@@ -148,15 +148,15 @@ void load_level(String level_f) {
     if (p_image.equals("enemy1.png") == false && p_image.equals("enemy2.png") == false)
     {
       println("platform");
-      platform_list.add(new Platform(x, y, p_width, p_height, p_image));
+      platform_list.add(new Platform(x, y, p_width, p_height, loadImage(p_image), p_image));
     } else if (p_image.equals("enemy1.png"))
     {
       println("enemy1");
-       enemy1_list.add(new Enemy1(x, y, p_width, p_height, p_image));
+       enemy1_list.add(new Enemy1(x, y, p_width, p_height, loadImage(p_image)));
     } else if (p_image.equals("enemy2.png")) 
     {
       println("enemy2");
-      enemy2_list.add(new Enemy2(x, y, p_width, p_height, p_image));
+      enemy2_list.add(new Enemy2(x, y, p_width, p_height, loadImage(p_image)));
     }
   }
 }

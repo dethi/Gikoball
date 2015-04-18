@@ -11,18 +11,19 @@ class Enemy1
   float enemy_width;
   float enemy_height;
   boolean is_attacking;
-  String enemy_image;
+  PImage skin;
   int nb_max_bullets = 3;
   int nb_bullets;
   ArrayList<Bullet> bullet_list;
   int t;
-  float speed_y;
+  float speed_y;  
   float gravityPower = 0.97;
   int WEIGHT = 50;
   int tmp_fire;
   boolean to_add;
+  
   Enemy1(float x, float y, float enemy_width, float enemy_height, 
-  String enemy_image)
+  PImage skin)
   {
     // Coordonnates
     this.x = x;
@@ -30,7 +31,7 @@ class Enemy1
     this.enemy_height = enemy_height;
     this.enemy_width = enemy_width;
     // Sprite
-    this.enemy_image = enemy_image;
+    this.skin = skin;
 
     to_add = true;
     // Positions for collisions
@@ -60,7 +61,7 @@ class Enemy1
   void draw(int shift, float ball_x, PImage bullet_image, ArrayList<Platform> platform_list)
   {
     update(ball_x, bullet_image);
-    image(loadImage(this.enemy_image), this.x - shift, this.y, this.enemy_width, this.enemy_height);
+    image(this.skin, this.x - shift, this.y, this.enemy_width, this.enemy_height);
     for (int i = 0; i < bullet_list.size (); ++i)
       bullet_list.get(i).draw(shift, platform_list);
   }

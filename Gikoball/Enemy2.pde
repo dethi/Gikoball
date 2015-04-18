@@ -18,9 +18,10 @@ class Enemy2
   float velocity_y;
   float radius;
   boolean to_remove;
+  PImage skin;
 
   Enemy2(float x, float y, float enemy_width, float enemy_height, 
-  String enemy_image)
+  PImage skin)
   {
     // Coordonnates
     this.x = x;
@@ -28,7 +29,7 @@ class Enemy2
     this.enemy_height = enemy_height;
     this.enemy_width = enemy_width;
     // Sprite
-    this.enemy_image = enemy_image;
+    this.skin = skin;
 
     // Positions for collisions
     left = x;
@@ -62,12 +63,12 @@ class Enemy2
 
   void draw(int shift)
   {
-    image(loadImage(this.enemy_image), this.x - shift, this.y, this.enemy_width, this.enemy_height);
+    image(this.skin, this.x - shift - radius, this.y - radius, 2 * radius, 2 * radius);
   }
 
   void update_position(ArrayList<Platform> platform_list)
   {
-    for (int i = 0; i < platform_list.size(); ++i)
+    for (int i = 0; i < platform_list.size (); ++i)
     {
       if (check_collision_for_rectangle(platform_list.get(i).x, 
       platform_list.get(i).y, 
@@ -83,8 +84,9 @@ class Enemy2
   {
     //println("blue ball .x = " +x);
     //println("theball.x = "+ball_x);
-    if (dist(this.x, this.y, ball_x, ball_y) <= (ball_radius +  this.radius / 4))
+    if (dist(this.x, this.y, ball_x, ball_y) <= (ball_radius +  this.radius))
     {
+      println("this x"+x+"this.y"+y+"ball_x"+ball_x+"ball_y"+ball_y);
       println("has hit"); 
       return true;
     } else
