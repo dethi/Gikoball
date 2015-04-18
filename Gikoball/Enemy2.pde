@@ -63,7 +63,7 @@ class Enemy2
 
   void draw(int shift)
   {
-        image(this.skin, x - radius, y-radius, radius*2, radius*2);
+        image(this.skin, x - radius - shift, y - radius, radius*2, radius*2);
   }
 
   void update_position(ArrayList<Platform> platform_list)
@@ -78,15 +78,18 @@ class Enemy2
     }
     velocity_y += gravity_power;
     this.y += velocity_y;
+    
+    right = x + radius;
+    left = x - radius;
+    top = y - radius;
+    bottom = y + radius;    
   }
 
   boolean check_collision_with_player(float ball_x, float ball_y, float ball_radius)
   {
-    //println("blue ball .x = " +x);
-    //println("theball.x = "+ball_x);
-    if (dist(this.x, this.y, ball_x, ball_y) <= (ball_radius +  this.radius))
+    if (dist(this.x, this.y, ball_x+ shift, ball_y) <= (ball_radius +  this.radius))
     {
-      println("this x"+x+"this.y"+y+"ball_x"+ball_x+"ball_y"+ball_y);
+      println("this x"+x+"this.y"+y+"ball_x"+ball_x + shift+"ball_y"+ball_y);
       println("has hit"); 
       return true;
     } else

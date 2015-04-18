@@ -1,5 +1,6 @@
 class Ball
 {
+  // REAL POSITION X = X + SHIFT !!!!!
   float x, y;
   float right, left, bottom, top;  
   float speedX, speedY;
@@ -180,6 +181,7 @@ class Ball
     left = x - radius;
     top = y - radius;
     bottom = y + radius;
+    println("position ball x"+this.x);
   }
 
   boolean is_ball_collinding_with_platform(
@@ -283,7 +285,7 @@ class Ball
         platform_list.get(i).y, platform_list.get(i).platform_width, platform_list.get(i).platform_height))
       {
         // A collision is detected between the ball and platform_list[i].
-        if (platform_list.get(i).platform_image.equals("end_level.png") &&condition1) 
+        if (platform_list.get(i).platform_image.equals("end_level.png")) 
         {
           currentUI = UIState.ENDING;
           ending_state = ENDING_STATE.WIN;
