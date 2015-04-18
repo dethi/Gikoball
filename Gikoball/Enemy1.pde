@@ -73,7 +73,7 @@ class Enemy1
     if (tmp_fire >= 50)
     {
       tmp_fire = 0;
-      attack(ball_x, bullet_image);
+      attack(ball_x + shift, bullet_image);
     }
     remove_bullets();
   }

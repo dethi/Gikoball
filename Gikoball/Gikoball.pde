@@ -129,14 +129,14 @@ void load_level(String level_f) {
   enemy1_list=new ArrayList<Enemy1>();
   bullets = new ArrayList<Bullet>();
   enemy2_list = new ArrayList<Enemy2>();
-  
+
   level = loadTable(level_f, "header");
-  
+
   TableRow row = level.getRow(0);
   level_length = row.getInt("x");
   println(level_length);
 
-  for (int i=1; i< level.getRowCount(); i++)
+  for (int i=1; i< level.getRowCount (); i++)
   {
     println("line number " + (i) + " is read");
     row = level.getRow(i);
@@ -152,7 +152,7 @@ void load_level(String level_f) {
     } else if (p_image.equals("enemy1.png"))
     {
       println("enemy1");
-       enemy1_list.add(new Enemy1(x, y, p_width, p_height, loadImage(p_image)));
+      enemy1_list.add(new Enemy1(x, y, p_width, p_height, loadImage(p_image)));
     } else if (p_image.equals("enemy2.png")) 
     {
       println("enemy2");
@@ -259,10 +259,13 @@ void scrolling() //maybe in another class instead of a function?
 
 void update_bullet_list()
 {
-  for (int i = 0; i < enemy1_list.size(); ++i)
+  for (int i = 0; i < enemy1_list.size (); ++i)
   {
-    for (int j = 0; j < enemy1_list.get(i).bullet_list.size(); ++j)
-      bullets.add(enemy1_list.get(i).bullet_list.get(j));
+    for (int j = 0; j < enemy1_list.get (i).bullet_list.size(); ++j)
+    {
+      if (!enemy1_list.get(i).bullet_list.get(j).has_reached)
+        bullets.add(enemy1_list.get(i).bullet_list.get(j));
+    }
   }
 }
 
@@ -278,11 +281,23 @@ void remove_enemy2()
   {
     if (enemy2_list.get(i).to_remove) {
       enemy2_list.remove(i);
-      score.addScore(100,100,100);
+      score.addScore(100, 100, 100);
       println("toRemove");
     }
   }
 }
+
+/*void remove_enemy1()
+ {
+ for (int i = 0; i < enemy1_list.size (); i++)
+ {
+ if (enemy1_list.get(i).to_remove) {
+ enemy1_list.remove(i);
+ score.addScore(100,100,100);
+ println("toRemove");
+ }
+ }
+ }*/
 
 void draw()
 {
@@ -311,9 +326,10 @@ void draw()
       atk_ki.draw(platform_list, shift);
 
     update_bullet_list();
-    for (int i = 0; i < platform_list.size(); ++i)
+
+    for (int i = 0; i < platform_list.size (); ++i)
       platform_list.get(i).draw(shift);
-    for (int i = 0; i < enemy1_list.size(); ++i)
+    for (int i = 0; i < enemy1_list.size (); ++i)
       enemy1_list.get(i).draw(shift, theBall.x, bullet_image, platform_list);
     for (int i = 0; i < enemy2_list.size (); ++i)
     {
@@ -321,9 +337,10 @@ void draw()
       enemy2_list.get(i).update(platform_list, theBall, atk_ki);
     }
 
-    for (int i = 0; i < bullets.size (); ++i)
+    for (int i = 0; i < bullets.size(); ++i)
     {
-      if (theBall.is_ball_collinding_with_platform(bullets.get(i).x, bullets.get(i).y, 
+      println("position bullet "+bullets.get(i).x);
+      if (theBall.is_ball_collinding_with_platform(bullets.get(i).x - shift, bullets.get(i).y, 
       bullets.get(i).bullet_width, bullets.get(i).bullet_height))
       {
         --theBall.nb_lives;

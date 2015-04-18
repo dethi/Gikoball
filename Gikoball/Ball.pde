@@ -181,7 +181,6 @@ class Ball
     left = x - radius;
     top = y - radius;
     bottom = y + radius;
-    println("position ball x"+this.x);
   }
 
   boolean is_ball_collinding_with_platform(
