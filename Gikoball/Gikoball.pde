@@ -280,8 +280,8 @@ void remove_enemy2()
   for (int i = 0; i < enemy2_list.size (); i++)
   {
     if (enemy2_list.get(i).to_remove) {
+      score.addScore(100, (int)enemy2_list.get(i).x+10, (int)enemy2_list.get(i).y+10);
       enemy2_list.remove(i);
-      score.addScore(100, 100, 100);
       println("toRemove");
     }
   }
@@ -292,8 +292,8 @@ void remove_enemy2()
  for (int i = 0; i < enemy1_list.size (); i++)
  {
  if (enemy1_list.get(i).to_remove) {
+      score.addScore(100, (int)enemy1_list.get(i).x+10, (int)enemy1_list.get(i).y+10);
  enemy1_list.remove(i);
- score.addScore(100,100,100);
  println("toRemove");
  }
  }
@@ -318,7 +318,7 @@ void draw()
   case GAME:
     background.draw();
     scrolling();
-    score.printScore();
+    score.printScore(theBall);
     //score.addScore(100, int(theBall.x)+10,int(theBall.y)+10);
     theBall.check_loose();
     theBall.draw(platform_list, shift);
@@ -343,10 +343,10 @@ void draw()
       if (theBall.is_ball_collinding_with_platform(bullets.get(i).x - shift, bullets.get(i).y, 
       bullets.get(i).bullet_width, bullets.get(i).bullet_height))
       {
-        --theBall.nb_lives;
+        if(!bullets.get(i).to_remove) --theBall.nb_lives;
+        bullets.get(i).to_remove = true;
       }
     }
-
     remove_enemy2();
     remove_bullet_list();
     break;

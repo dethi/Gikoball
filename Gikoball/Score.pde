@@ -3,17 +3,29 @@ class Score
   int currentScore;
   int animation;
   IntList scoreAnimation; //i=score, i+1=x, i+2=y, i+3=timer
+  IntList lifeUpAnimation;
+  int scoreNeeded; //score needed for addtional lives
   
   Score()
   {
     currentScore = 0;
     animation = 0;
     scoreAnimation = new IntList();
+    lifeUpAnimation = new IntList();
+    scoreNeeded = 100;
   }
-  void printScore()
+  void printScore(Ball theBall)
   {
     text("Score: "+currentScore, 10, 10);
+    text("Lives left: "+theBall.nb_lives, 10, 30);
     animScore();
+    if(currentScore >= scoreNeeded)
+    {
+      theBall.nb_lives = theBall.nb_lives + (currentScore-scoreNeeded+100)/100;
+      addLife((currentScore - scoreNeeded + 100)/100, (int)theBall.x+42, (int)theBall.y+10);
+      scoreNeeded = currentScore + 100-currentScore%100;
+    }
+    animLifeUp();
   }
   void addScore(int addScore, int x, int y)
   {
@@ -21,7 +33,7 @@ class Score
     scoreAnimation.append(addScore);
     scoreAnimation.append(x);
     scoreAnimation.append(y);
-    scoreAnimation.append(10);//time during which the animation will last
+    scoreAnimation.append(42);//time during which the animation will last
   }
   void animScore()
   {
@@ -42,25 +54,30 @@ class Score
       }
     }
   }
-}
-/*if (bullet_list.size() < nb_max_bullets)
-      {
-        bullet_list.add(new Bullet(this.x - 100, this.y, 50.0, 25.0, 
-        "bullet.png", (-9.0)));
-      }
-    } else
+  void addLife(int addLife, int x, int y)
+  {
+    lifeUpAnimation.append(addLife);
+    lifeUpAnimation.append(x);
+    lifeUpAnimation.append(y);
+    lifeUpAnimation.append(42);//time during which the animation will last
+  }
+  void animLifeUp()
+  {
+    int i;
+    //int currentAnim = 1;
+    for(i=0;i<lifeUpAnimation.size();i=i+4)
     {
-      if (bullet_list.size() < nb_max_bullets)
+      text("Life Up!: "+lifeUpAnimation.get(i)+"!",lifeUpAnimation.get(i+1),lifeUpAnimation.get(i+2));
+      lifeUpAnimation.set(i+2,lifeUpAnimation.get(i+2)-1); //the score slowly goes up
+      lifeUpAnimation.set(i+3,lifeUpAnimation.get(i+3)-1); //the timer goes down
+      if(scoreAnimation.get(i+3) == 0)
       {
-        bullet_list.add(new Bullet(this.x + 100, this.y, 50.0, 25.0, 
-        "bullet.png", (9.0)));
+        lifeUpAnimation.remove(i);
+        lifeUpAnimation.remove(i);
+        lifeUpAnimation.remove(i);
+        lifeUpAnimation.remove(i);
+        i-=4;
       }
     }
   }
-
-  void remove_bullets()
-  {
-    for (int i = 0; i < bullet_list.size (); ++i)
-    {
-      if (bullet_list.get(i).to_remove)
-        bullet_list.remove(i);*/
+}
