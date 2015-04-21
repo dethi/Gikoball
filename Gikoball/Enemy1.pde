@@ -60,28 +60,36 @@ class Enemy1
       is_attacking = false;
   }
 
-  void draw(int shift, float ball_x, PImage bullet_image, ArrayList<Platform> platform_list, Attack atk_ki)
+  void draw(int shift, Ball ball, PImage bullet_image, ArrayList<Platform> platform_list, Attack atk_ki)
   {
-    update(ball_x, bullet_image);
+    update(ball, bullet_image);
     image(this.skin, this.x - shift, this.y, this.enemy_width, this.enemy_height);
     for (int i = 0; i < bullet_list.size (); ++i)
       bullet_list.get(i).draw(shift, platform_list);
   }
 
-  void update(float ball_x, PImage bullet_image)
+  void update(Ball ball, PImage bullet_image)
   {
     ++tmp_fire;
-    update_is_attacking(ball_x);
+    update_is_attacking(ball.x);
     if (tmp_fire >= 50)
     {
       tmp_fire = 0;
-      attack(ball_x + shift, bullet_image);
+      attack(ball.x + shift, bullet_image);
+    }
+
+    // COLLISION WITH THE PLAYER
+    if (check_collision_with_player(ball.x, ball.y, ball.radius))
+    {
+      --ball.nb_lives;
+      ball.check_loose();
+      to_remove = true;
     }
 
     // COLLISION WITH KII PLAYER
     if (check_collision_for_rectangle(atk_ki.x, atk_ki.y, atk_ki.atk_width, atk_ki.atk_height))
     {
-      to_remove = true;
+      //to_remove = true;
       atk_ki.thrown = false;
     }
 
@@ -173,6 +181,14 @@ class Enemy1
       pow(distance_y - platform_height / 2, 2);
 
     return (corner_distance_sq <= pow(radius, 2));
+  }
+
+  boolean check_collision_with_player(float ball_x, float ball_y, float ball_radius)
+  {
+    if (dist(this.x, this.y, ball_x+ shift, ball_y) <= (ball_radius +  this.radius))
+      return true;
+    else
+      return false;
   }
 }
 

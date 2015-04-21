@@ -330,7 +330,7 @@ void draw()
     for (int i = 0; i < platform_list.size (); ++i)
       platform_list.get(i).draw(shift);
     for (int i = 0; i < enemy1_list.size (); ++i)
-      enemy1_list.get(i).draw(shift, theBall.x, bullet_image, platform_list, atk_ki);
+      enemy1_list.get(i).draw(shift, theBall, bullet_image, platform_list, atk_ki);
     for (int i = 0; i < enemy2_list.size (); ++i)
     {
       enemy2_list.get(i).draw(shift);
