@@ -339,7 +339,7 @@ void draw()
 
     for (int i = 0; i < bullets.size (); ++i)
     {
-      println("position bullet "+bullets.get(i).x);
+ 
       if (theBall.is_ball_collinding_with_platform(bullets.get(i).x - shift, bullets.get(i).y, 
       bullets.get(i).bullet_width, bullets.get(i).bullet_height))
       {

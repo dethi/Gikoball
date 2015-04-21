@@ -64,7 +64,9 @@ class Enemy1
   void draw(int shift, Ball ball, PImage bullet_image, ArrayList<Platform> platform_list, Attack atk_ki)
   {
     update(ball, bullet_image);
-    image(this.skin, left - shift, this.y, this.enemy_width, this.enemy_height);
+    image(this.skin, x - shift - radius, this.y, this.enemy_width, this.enemy_height);
+    println(x);
+    
     for (int i = 0; i < bullet_list.size (); ++i)
       bullet_list.get(i).draw(shift, platform_list);
   }
@@ -117,11 +119,11 @@ class Enemy1
       if (ball_x < this.x)
       {
         fire(0, bullet_image);// Attack left
-        println("Will attack left. x= "+this.x+" ball_x : "+ball_x);
+        //println("Will attack left. x= "+this.x+" ball_x : "+ball_x);
       } else
       {
         fire(1, bullet_image);// Attack right
-        println("Will attack right. x= "+this.x+" ball_x : "+ball_x);
+       // println("Will attack right. x= "+this.x+" ball_x : "+ball_x);
       }
     }
   }
@@ -137,14 +139,14 @@ class Enemy1
     {
       if (bullet_list.size() < nb_max_bullets)
       {
-        bullet_list.add(new Bullet(this.x - 100, this.y, 15.0, 15.0, 
+        bullet_list.add(new Bullet(left, y + radius, 15.0, 15.0, 
         "bullet.png", (-9.0)));
       }
     } else
     {
       if (bullet_list.size() < nb_max_bullets)
       {
-        bullet_list.add(new Bullet(this.x + 100, this.y, 15.0, 15.0, 
+        bullet_list.add(new Bullet(right, y + radius, 15.0, 15.0, 
         "bullet.png", (9.0)));
       }
     }
