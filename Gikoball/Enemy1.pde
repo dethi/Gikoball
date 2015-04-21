@@ -36,9 +36,10 @@ class Enemy1
     this.radius = enemy_width / 2;
     to_add = true;
     // Positions for collisions
-    left = x;
-    right = x + enemy_width;
-    top = y;
+    // Positions for collisions
+    left = x - radius;
+    right = x + radius;
+    top = y - radius;
     bottom = y + enemy_height;
 
     // Relevant for fights
@@ -63,7 +64,7 @@ class Enemy1
   void draw(int shift, Ball ball, PImage bullet_image, ArrayList<Platform> platform_list, Attack atk_ki)
   {
     update(ball, bullet_image);
-    image(this.skin, this.x - shift, this.y, this.enemy_width, this.enemy_height);
+    image(this.skin, left - shift, this.y, this.enemy_width, this.enemy_height);
     for (int i = 0; i < bullet_list.size (); ++i)
       bullet_list.get(i).draw(shift, platform_list);
   }

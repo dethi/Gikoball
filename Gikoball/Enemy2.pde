@@ -47,7 +47,8 @@ class Enemy2
     // COLLISION WITH THE PLAYER
     if (check_collision_with_player(ball.x, ball.y, ball.radius))
     {
-      --ball.nb_lives;
+      if (!ball.condition2)
+        --ball.nb_lives;
       ball.check_loose();
       to_remove = true;
     }

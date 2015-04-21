@@ -53,12 +53,18 @@ class Ball
     this.y = 100;
     this.nb_lives=1;
     this.condition1=false;
-    this.condition2=false;    
+    this.condition2=false;   
+     this.skin=loadImage("ball.png");
+     nb_lives=1;
+     score = new Score();
+    
     /* We need to also reboot enemies and collections*/
   }
   void keyPressed() 
   {
-    if (key == CODED)
+    if (key=='A')
+      this.speedY=-10;
+     if (key == CODED)
     {
       if (keyCode==LEFT)
         leftPressed = true;
@@ -284,7 +290,7 @@ class Ball
         platform_list.get(i).y, platform_list.get(i).platform_width, platform_list.get(i).platform_height))
       {
         // A collision is detected between the ball and platform_list[i].
-        if (platform_list.get(i).platform_image.equals("end_level.png")) 
+        if (platform_list.get(i).platform_image.equals("end_level.png")&&condition1) 
         {
           currentUI = UIState.ENDING;
           ending_state = ENDING_STATE.WIN;
@@ -300,9 +306,12 @@ class Ball
         } else if (platform_list.get(i).platform_image.equals("pu_02.png") == true) 
         {
           this.condition2=true;
-          /*
-                   things, like enabling the kamehameha
-           */
+          this.skin=loadImage("ball3.png");
+          //"erasing"
+          platform_list.get(i).platform_image="empty.png";
+          platform_list.get(i).platform_width=1;
+          platform_list.get(i).platform_height=1;
+          
         } else if (platform_list.get(i).platform_image.equals("empty.png") == true) 
         {
           /* nothing */
