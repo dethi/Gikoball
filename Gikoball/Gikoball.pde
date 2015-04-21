@@ -279,25 +279,25 @@ void remove_enemy2()
 {
   for (int i = 0; i < enemy2_list.size (); i++)
   {
-    if (enemy2_list.get(i).to_remove) {
+    if (enemy2_list.get(i).to_remove)
+    {
       score.addScore(100, (int)enemy2_list.get(i).x+10, (int)enemy2_list.get(i).y+10);
       enemy2_list.remove(i);
-      println("toRemove");
     }
   }
 }
 
-/*void remove_enemy1()
- {
- for (int i = 0; i < enemy1_list.size (); i++)
- {
- if (enemy1_list.get(i).to_remove) {
+void remove_enemy1()
+{
+  for (int i = 0; i < enemy1_list.size (); i++)
+  {
+    if (enemy1_list.get(i).to_remove)
+    {
       score.addScore(100, (int)enemy1_list.get(i).x+10, (int)enemy1_list.get(i).y+10);
- enemy1_list.remove(i);
- println("toRemove");
- }
- }
- }*/
+      enemy1_list.remove(i);
+    }
+  }
+}
 
 void draw()
 {
@@ -330,23 +330,24 @@ void draw()
     for (int i = 0; i < platform_list.size (); ++i)
       platform_list.get(i).draw(shift);
     for (int i = 0; i < enemy1_list.size (); ++i)
-      enemy1_list.get(i).draw(shift, theBall.x, bullet_image, platform_list);
+      enemy1_list.get(i).draw(shift, theBall.x, bullet_image, platform_list, atk_ki);
     for (int i = 0; i < enemy2_list.size (); ++i)
     {
       enemy2_list.get(i).draw(shift);
       enemy2_list.get(i).update(platform_list, theBall, atk_ki);
     }
 
-    for (int i = 0; i < bullets.size(); ++i)
+    for (int i = 0; i < bullets.size (); ++i)
     {
       println("position bullet "+bullets.get(i).x);
       if (theBall.is_ball_collinding_with_platform(bullets.get(i).x - shift, bullets.get(i).y, 
       bullets.get(i).bullet_width, bullets.get(i).bullet_height))
       {
-        if(!bullets.get(i).to_remove) --theBall.nb_lives;
+        if (!bullets.get(i).to_remove) --theBall.nb_lives;
         bullets.get(i).to_remove = true;
       }
     }
+    remove_enemy1();
     remove_enemy2();
     remove_bullet_list();
     break;

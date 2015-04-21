@@ -21,7 +21,8 @@ class Enemy1
   int WEIGHT = 50;
   int tmp_fire;
   boolean to_add;
-  
+  boolean to_remove;
+  float radius;
   Enemy1(float x, float y, float enemy_width, float enemy_height, 
   PImage skin)
   {
@@ -32,7 +33,7 @@ class Enemy1
     this.enemy_width = enemy_width;
     // Sprite
     this.skin = skin;
-
+    this.radius = enemy_width / 2;
     to_add = true;
     // Positions for collisions
     left = x;
@@ -47,6 +48,7 @@ class Enemy1
     nb_bullets = 0;
     t = 0;
     tmp_fire = 0;
+    to_remove = false;
   }
 
   // If the enemy and the ball are close enough, the enemy will attack
@@ -58,7 +60,7 @@ class Enemy1
       is_attacking = false;
   }
 
-  void draw(int shift, float ball_x, PImage bullet_image, ArrayList<Platform> platform_list)
+  void draw(int shift, float ball_x, PImage bullet_image, ArrayList<Platform> platform_list, Attack atk_ki)
   {
     update(ball_x, bullet_image);
     image(this.skin, this.x - shift, this.y, this.enemy_width, this.enemy_height);
@@ -75,6 +77,14 @@ class Enemy1
       tmp_fire = 0;
       attack(ball_x + shift, bullet_image);
     }
+
+    // COLLISION WITH KII PLAYER
+    if (check_collision_for_rectangle(atk_ki.x, atk_ki.y, atk_ki.atk_width, atk_ki.atk_height))
+    {
+      to_remove = true;
+      atk_ki.thrown = false;
+    }
+
     remove_bullets();
   }
 
@@ -138,6 +148,31 @@ class Enemy1
       if (bullet_list.get(i).to_remove)
         bullet_list.remove(i);
     }
+  }
+
+  boolean check_collision_for_rectangle(
+  float rectangleX, 
+  float rectangleY, 
+  float platform_width, 
+  float platform_height)
+  {
+    float distance_x = abs(this.x - rectangleX - platform_width / 2);
+    float distance_y = abs(this.y - rectangleY - platform_height / 2);
+
+    if (distance_x > (platform_width / 2 + this.radius))
+      return false;
+    if (distance_y > (platform_height/2 + this.radius)) 
+      return false;
+    if (distance_x <= (platform_width/2))
+      return true;
+    if (distance_y <= (platform_height/2))
+      return true;
+
+
+    float corner_distance_sq = pow(distance_x - platform_width / 2, 2) +
+      pow(distance_y - platform_height / 2, 2);
+
+    return (corner_distance_sq <= pow(radius, 2));
   }
 }
 

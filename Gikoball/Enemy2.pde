@@ -47,10 +47,7 @@ class Enemy2
     // COLLISION WITH THE PLAYER
     if (check_collision_with_player(ball.x, ball.y, ball.radius))
     {
-      println("2");
-      to_remove = true;
       --ball.nb_lives;
-      println("--coliEn");
     }
 
     // COLLISION WITH KII PLAYER
@@ -63,7 +60,7 @@ class Enemy2
 
   void draw(int shift)
   {
-        image(this.skin, x - radius - shift, y - radius, radius*2, radius*2);
+    image(this.skin, x - radius - shift, y - radius, radius*2, radius*2);
   }
 
   void update_position(ArrayList<Platform> platform_list)
@@ -74,25 +71,22 @@ class Enemy2
       platform_list.get(i).y, 
       platform_list.get(i).platform_width, 
       platform_list.get(i).platform_height))
-        velocity_y = -10;
+        velocity_y = -20;
     }
     velocity_y += gravity_power;
     this.y += velocity_y;
-    
+
     right = x + radius;
     left = x - radius;
     top = y - radius;
-    bottom = y + radius;    
+    bottom = y + radius;
   }
 
   boolean check_collision_with_player(float ball_x, float ball_y, float ball_radius)
   {
     if (dist(this.x, this.y, ball_x+ shift, ball_y) <= (ball_radius +  this.radius))
-    {
-      println("this x"+x+"this.y"+y+"ball_x"+ball_x + shift+"ball_y"+ball_y);
-      println("has hit"); 
       return true;
-    } else
+    else
       return false;
   }
 
