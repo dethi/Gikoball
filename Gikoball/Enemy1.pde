@@ -92,7 +92,7 @@ class Enemy1
     // COLLISION WITH KII PLAYER
     if (check_collision_for_rectangle(atk_ki.x, atk_ki.y, atk_ki.atk_width, atk_ki.atk_height))
     {
-      to_remove = true;
+      //to_remove = true;
       atk_ki.thrown = false;
     }
 
