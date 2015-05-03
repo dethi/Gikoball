@@ -139,7 +139,7 @@ class Enemy1
         {
             if (bullet_list.size() < nb_max_bullets)
             {
-                bullet_list.add(new Bullet(left, y + radius, 15.0, 15.0, 
+                bullet_list.add(new Bullet(left, y + radius, 30.0, 30.0, 
                             "bullet.png", (-9.0)));
             }
         } else

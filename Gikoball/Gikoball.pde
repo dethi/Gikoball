@@ -49,6 +49,12 @@ String story4 = "- Remember to collect food and Staffs\n"+
 // BACKGROUND 
 PImage img_background;
 PImage img_floor;
+PImage img_baner;
+PImage img_ball_01;
+PImage img_ball_02;
+PImage img_ball_03;
+PImage img_heart;
+PImage img_goku_00;
 //PImage skinBall;
 
 /**********************************************
@@ -108,14 +114,20 @@ void setup()
     size(SCREEN_WIDTH, SCREEN_HEIGHT);
     f = createFont("Arial", 32, true);
     img_story = loadImage("roshi.png");
-    img_background = loadImage("background2.jpg");
+    img_background = loadImage("background.png");
     img_floor = loadImage("floor.png");
+    img_baner=loadImage("baner2.png");
+    img_ball_01=loadImage("ball_01.png");
+    img_ball_02=loadImage("ball_02.png");
+    img_ball_03=loadImage("ball_03.png");
+    img_heart=loadImage("heart.png");
     green_platform = loadImage("green_platform.png");
     red_platform = loadImage("red_platform.png");
-    theBall.setSkin(loadImage("ball.png"));
+    img_goku_00=loadImage("goku_00.png");    
     enemy1_image = loadImage("enemy1.png");
     enemy2_image = loadImage("enemy2.png");
     bullet_image = loadImage("bullet.png");
+    theBall.setSkin(img_goku_00);
 
     // ENDING SCREEN
     congratulations_screen = loadImage("congratulations.jpg");
@@ -326,7 +338,6 @@ void draw()
                 atk_ki.draw(platform_list, shift);
 
             update_bullet_list();
-
             for (int i = 0; i < platform_list.size (); ++i)
                 platform_list.get(i).draw(shift);
             for (int i = 0; i < enemy1_list.size (); ++i)
@@ -336,10 +347,8 @@ void draw()
                 enemy2_list.get(i).draw(shift);
                 enemy2_list.get(i).update(platform_list, theBall, atk_ki);
             }
-
             for (int i = 0; i < bullets.size (); ++i)
             {
-
                 if (theBall.is_ball_collinding_with_platform(bullets.get(i).x - shift, bullets.get(i).y, 
                             bullets.get(i).bullet_width, bullets.get(i).bullet_height))
                 {
@@ -347,6 +356,20 @@ void draw()
                     bullets.get(i).to_remove = true;
                 }
             }
+            
+            //
+            image(img_baner,0,0);            
+            for (int i=0;i<theBall.nb_lives;i++)
+              image(img_heart,40*i+7,20,50,50);     
+             text("Score: "+score.currentScore, 10, 30); 
+             text(userName,10,20);
+            if (theBall.condition1)
+              image(img_ball_01,0,60,30,30);
+            if (theBall.condition2)
+              image(img_ball_02,30,60,30,30);
+            if (theBall.condition3)
+              image(img_ball_03,60,60,30,30);
+            //
             remove_enemy1();
             remove_enemy2();
             remove_bullet_list();

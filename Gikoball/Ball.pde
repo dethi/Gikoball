@@ -17,6 +17,8 @@ class Ball
 
     boolean condition1;
     boolean condition2;
+    boolean condition3;
+    boolean power;
 
     //movement of the ball
     boolean downPressed = false;
@@ -28,6 +30,8 @@ class Ball
         nb_lives = 1;
         condition1 = false;
         condition2 = false;
+        condition3 = false;
+        power=false;
         this.x = x;
         this.y = y;
         speedX = 0;
@@ -54,15 +58,16 @@ class Ball
         this.nb_lives=1;
         this.condition1=false;
         this.condition2=false;   
-        this.skin=loadImage("ball.png");
-        nb_lives=1;
+        this.condition3=false; 
+        this.power=false;
+        this.skin=img_goku_00;
         score = new Score();
 
         /* We need to also reboot enemies and collections*/
     }
     void keyPressed() 
     {
-        if (key=='A')
+        if (key=='a')
             this.speedY=-10;
         if (key == CODED)
         {
@@ -158,11 +163,6 @@ class Ball
         x+= shift;
         update(platform_list);
         x-= shift;
-
-        //Extras 
-        image(loadImage("baner_01.png"), 5, 30, 100, 50);
-        if (condition1)
-            image(loadImage("pu_01.png"), 105, 45, 30, 30);
 
         image(this.skin, x - radius, y-radius, radius*2, radius*2);
     }
@@ -295,23 +295,35 @@ class Ball
                     currentUI = UIState.ENDING;
                     ending_state = ENDING_STATE.WIN;
                     restart = 1;
-                } else if (platform_list.get(i).platform_image.equals("pu_01.png") == true) 
+                } else if (platform_list.get(i).platform_image.equals("ball_01.png") == true) 
                 { 
                     this.condition1=true;
-                    this.skin=loadImage("ball2.png");
                     //"erasing"
                     platform_list.get(i).platform_image="empty.png";
                     platform_list.get(i).platform_width=1;
                     platform_list.get(i).platform_height=1;
-                } else if (platform_list.get(i).platform_image.equals("pu_02.png") == true) 
+                } else if (platform_list.get(i).platform_image.equals("ball_02.png") == true) 
                 {
                     this.condition2=true;
-                    this.skin=loadImage("ball3.png");
+                    //"erasing"
+                    platform_list.get(i).platform_image="empty.png";
+                    platform_list.get(i).platform_width=1;
+                    platform_list.get(i).platform_height=1;                
+                } else if (platform_list.get(i).platform_image.equals("ball_03.png") == true) 
+                {
+                    this.condition3=true;
                     //"erasing"
                     platform_list.get(i).platform_image="empty.png";
                     platform_list.get(i).platform_width=1;
                     platform_list.get(i).platform_height=1;
-
+                } else if (platform_list.get(i).platform_image.equals("pu_00.png") == true) 
+                {                    
+                    this.power=true;
+                    this.skin=loadImage("goku_01.png");
+                    //"erasing"
+                    platform_list.get(i).platform_image="empty.png";
+                    platform_list.get(i).platform_width=1;
+                    platform_list.get(i).platform_height=1;                    
                 } else if (platform_list.get(i).platform_image.equals("empty.png") == true) 
                 {
                     /* nothing */

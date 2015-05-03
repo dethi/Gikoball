@@ -16,8 +16,6 @@ class Score
     }
     void printScore(Ball theBall)
     {
-        text("Score: "+currentScore, 10, 10);
-        text("Lives left: "+theBall.nb_lives, 10, 30);
         animScore();
         if(currentScore >= scoreNeeded)
         {
