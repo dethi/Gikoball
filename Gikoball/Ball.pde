@@ -18,6 +18,10 @@ class Ball
     boolean condition1;
     boolean condition2;
     boolean condition3;
+    boolean condition4;
+    boolean condition5;
+    boolean condition6;    
+    boolean condition7; 
     boolean power;
 
     //movement of the ball
@@ -290,7 +294,7 @@ class Ball
                         platform_list.get(i).y, platform_list.get(i).platform_width, platform_list.get(i).platform_height))
             {
                 // A collision is detected between the ball and platform_list[i].
-                if (platform_list.get(i).platform_image.equals("end_level.png")&&condition1) 
+                if (platform_list.get(i).platform_image.equals("end_level.png")&&condition1&&condition2&&condition3&&condition4&&condition5&&condition6&&condition7) 
                 {
                     currentUI = UIState.ENDING;
                     ending_state = ENDING_STATE.WIN;
@@ -312,6 +316,34 @@ class Ball
                 } else if (platform_list.get(i).platform_image.equals("ball_03.png") == true) 
                 {
                     this.condition3=true;
+                    //"erasing"
+                    platform_list.get(i).platform_image="empty.png";
+                    platform_list.get(i).platform_width=1;
+                    platform_list.get(i).platform_height=1;
+                    } else if (platform_list.get(i).platform_image.equals("ball_04.png") == true) 
+                {
+                    this.condition4=true;
+                    //"erasing"
+                    platform_list.get(i).platform_image="empty.png";
+                    platform_list.get(i).platform_width=1;
+                    platform_list.get(i).platform_height=1;
+                    } else if (platform_list.get(i).platform_image.equals("ball_05.png") == true) 
+                {
+                    this.condition5=true;
+                    //"erasing"
+                    platform_list.get(i).platform_image="empty.png";
+                    platform_list.get(i).platform_width=1;
+                    platform_list.get(i).platform_height=1;
+                    } else if (platform_list.get(i).platform_image.equals("ball_06.png") == true) 
+                {
+                    this.condition6=true;
+                    //"erasing"
+                    platform_list.get(i).platform_image="empty.png";
+                    platform_list.get(i).platform_width=1;
+                    platform_list.get(i).platform_height=1;
+                    } else if (platform_list.get(i).platform_image.equals("ball_07.png") == true) 
+                {
+                    this.condition7=true;
                     //"erasing"
                     platform_list.get(i).platform_image="empty.png";
                     platform_list.get(i).platform_width=1;

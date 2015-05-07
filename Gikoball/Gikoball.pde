@@ -53,6 +53,10 @@ PImage img_baner;
 PImage img_ball_01;
 PImage img_ball_02;
 PImage img_ball_03;
+PImage img_ball_04;
+PImage img_ball_05;
+PImage img_ball_06;
+PImage img_ball_07;
 PImage img_heart;
 PImage img_goku_00;
 //PImage skinBall;
@@ -66,7 +70,7 @@ PImage img_goku_00;
  */
 PImage green_platform;
 PImage red_platform;
-String level_file="level_1.csv"; 
+String level_file="level_test.csv"; 
 
 Table level;
 
@@ -114,12 +118,16 @@ void setup()
     size(SCREEN_WIDTH, SCREEN_HEIGHT);
     f = createFont("Arial", 32, true);
     img_story = loadImage("roshi.png");
-    img_background = loadImage("background.png");
+    img_background = loadImage("background2.png");
     img_floor = loadImage("floor.png");
     img_baner=loadImage("baner2.png");
     img_ball_01=loadImage("ball_01.png");
     img_ball_02=loadImage("ball_02.png");
     img_ball_03=loadImage("ball_03.png");
+    img_ball_04=loadImage("ball_04.png");
+    img_ball_05=loadImage("ball_05.png");
+    img_ball_06=loadImage("ball_06.png");
+    img_ball_07=loadImage("ball_07.png");
     img_heart=loadImage("heart.png");
     green_platform = loadImage("green_platform.png");
     red_platform = loadImage("red_platform.png");
@@ -361,14 +369,22 @@ void draw()
             image(img_baner,0,0);            
             for (int i=0;i<theBall.nb_lives;i++)
               image(img_heart,40*i+7,20,50,50);     
-             text("Score: "+score.currentScore, 10, 30); 
-             text(userName,10,20);
+            text("Score: "+score.currentScore, 10, 30); 
+            text(userName,10,20);
             if (theBall.condition1)
               image(img_ball_01,0,60,30,30);
             if (theBall.condition2)
               image(img_ball_02,30,60,30,30);
             if (theBall.condition3)
               image(img_ball_03,60,60,30,30);
+            if (theBall.condition4)
+              image(img_ball_04,90,60,30,30);
+            if (theBall.condition5)
+              image(img_ball_05,120,60,30,30);
+            if (theBall.condition6)
+              image(img_ball_06,150,60,30,30);
+            if (theBall.condition7)
+              image(img_ball_07,180,60,30,30);
             //
             remove_enemy1();
             remove_enemy2();
