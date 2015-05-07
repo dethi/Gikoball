@@ -93,6 +93,8 @@ class Attack
                         enemy1_list.get(i).enemy_width, enemy1_list.get(i).enemy_height))
             {
                 //Time to kill
+              enemy1_list.get(i).to_remove = true;
+              this.thrown = false;
             }        
         }
 
@@ -102,6 +104,8 @@ class Attack
                         enemy2_list.get(i).enemy_width, enemy2_list.get(i).enemy_height))
             {
                 //Time to kill
+              enemy2_list.get(i).to_remove = true;
+              this.thrown = false;
             }       
         }
 

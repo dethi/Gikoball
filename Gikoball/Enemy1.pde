@@ -65,7 +65,6 @@ class Enemy1
     {
         update(ball, bullet_image);
         image(this.skin, x - shift - radius, this.y, this.enemy_width, this.enemy_height);
-        println(x);
 
         for (int i = 0; i < bullet_list.size (); ++i)
             bullet_list.get(i).draw(shift, platform_list);
@@ -93,6 +92,7 @@ class Enemy1
         // COLLISION WITH KII PLAYER
         if (check_collision_for_rectangle(atk_ki.x, atk_ki.y, atk_ki.atk_width, atk_ki.atk_height))
         {
+          println("hi1!");
             to_remove = true;
             atk_ki.thrown = false;
         }
