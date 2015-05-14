@@ -274,6 +274,7 @@ class Ball
             {
                 //println("The ball is on the top");
                 speedY = -abs(speedY) * COEFF_FROTTEMENT;
+                if(speedY<2 && downPressed) speedY-=2;//easier to go up when the ball isn't bouncing well enough
                 this.y += speedY-1;
             }
         // Ball is on the bottom of the platform

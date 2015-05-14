@@ -158,7 +158,7 @@ void load_level(String level_f) {
 
     for (int i=1; i< level.getRowCount (); i++)
     {
-        println("line number " + (i) + " is read");
+        //println("line number " + (i) + " is read");
         row = level.getRow(i);
         int x = row.getInt("x");
         int y = row.getInt("y");
@@ -167,15 +167,15 @@ void load_level(String level_f) {
         String p_image = row.getString("platform_image");
         if (p_image.equals("enemy1.png") == false && p_image.equals("enemy2.png") == false)
         {
-            println("platform");
+            //println("platform");
             platform_list.add(new Platform(x, y, p_width, p_height, loadImage(p_image), p_image));
         } else if (p_image.equals("enemy1.png"))
         {
-            println("enemy1");
+            //println("enemy1");
             enemy1_list.add(new Enemy1(x, y, p_width, p_height, loadImage(p_image)));
         } else if (p_image.equals("enemy2.png")) 
         {
-            println("enemy2");
+            //println("enemy2");
             enemy2_list.add(new Enemy2(x, y, p_width, p_height, loadImage(p_image)));
         }
     }
@@ -339,7 +339,6 @@ void draw()
             background.draw();
             scrolling();
             score.printScore(theBall);
-            //score.addScore(100, int(theBall.x)+10,int(theBall.y)+10);
             theBall.check_loose();
             theBall.draw(platform_list, shift);
             if (atk_ki.thrown)
@@ -395,7 +394,7 @@ void draw()
                 ending.ending_screen = gameover_screen;
             else
                 ending.ending_screen = congratulations_screen;
-            ending.draw();
+            ending.draw(score);
             break;
     }
 }

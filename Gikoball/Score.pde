@@ -35,6 +35,7 @@ class Score
     }
     void animScore()
     {
+        println("longueurIntList: " + scoreAnimation.size());
         int i;
         //int currentAnim = 1;
         for(i=0;i<scoreAnimation.size();i=i+4)

@@ -7,9 +7,11 @@ class Ending
         this.ending_screen = screen;
     }
 
-    void draw()
+    void draw(Score score)
     {
         image(ending_screen, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        text("Your finished with a score of:",50,275);
+        text(score.currentScore,125,300);
     }
 
     void keyPressed()
