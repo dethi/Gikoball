@@ -1,4 +1,4 @@
-enum UIState 
+enum UIState
 {
     WELCOME,
     GREETING,
@@ -9,6 +9,6 @@ enum UIState
 
 enum ENDING_STATE
 {
-    GAME_OVER, 
+    GAME_OVER,
     WIN,
 }

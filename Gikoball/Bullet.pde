@@ -3,7 +3,7 @@ class Bullet
     // Postions
     float initial_x;
     float x;
-    float y; 
+    float y;
     float left;
     float right;
     float top;
@@ -16,7 +16,7 @@ class Bullet
     boolean has_reached;
     boolean to_remove;
 
-    Bullet(float x, float y, float bullet_width, float bullet_height, 
+    Bullet(float x, float y, float bullet_width, float bullet_height,
             String bullet_image, float velocity)
     {
         initial_x = x;
@@ -54,7 +54,7 @@ class Bullet
         this.x += velocity_x;
         for (int i = 0; i < platform_list.size(); ++i)
         {
-            if (is_collinding_with_platform(platform_list.get(i).x, 
+            if (is_collinding_with_platform(platform_list.get(i).x,
                         platform_list.get(i).y, platform_list.get(i).platform_width, platform_list.get(i).platform_height))
                 has_reached = true;
         }
@@ -67,9 +67,9 @@ class Bullet
     }
 
     boolean is_collinding_with_platform(
-            float rectangleX, 
-            float rectangleY, 
-            float platform_width, 
+            float rectangleX,
+            float rectangleY,
+            float platform_width,
             float platform_height)
     {
         float distance_x = abs((this.x+this.bullet_width/2) - rectangleX - platform_width / 2);
@@ -77,7 +77,7 @@ class Bullet
 
         if (distance_x > (platform_width / 2 + this.bullet_width/2))
             return false;
-        if (distance_y > (platform_height/2 + this.bullet_height/2)) 
+        if (distance_y > (platform_height/2 + this.bullet_height/2))
             return false;
         if (distance_x <= (platform_width/2))
             return true;

@@ -16,14 +16,14 @@ class Enemy1
     int nb_bullets;
     ArrayList<Bullet> bullet_list;
     int t;
-    float speed_y;  
+    float speed_y;
     float gravityPower = 0.97;
     int WEIGHT = 50;
     int tmp_fire;
     boolean to_add;
     boolean to_remove;
     float radius;
-    Enemy1(float x, float y, float enemy_width, float enemy_height, 
+    Enemy1(float x, float y, float enemy_width, float enemy_height,
             PImage skin)
     {
         // Coordonnates
@@ -57,7 +57,7 @@ class Enemy1
     {
         if (abs(ball_x - this.x) <= (SCREEN_WIDTH / 2))
             is_attacking = true;
-        else  
+        else
             is_attacking = false;
     }
 
@@ -84,7 +84,7 @@ class Enemy1
         if (check_collision_with_player(ball.x, ball.y, ball.radius))
         {
             if(!ball.power)
-              --ball.nb_lives;
+                --ball.nb_lives;
             ball.check_loose();
             to_remove = true;
         }
@@ -92,7 +92,7 @@ class Enemy1
         // COLLISION WITH KII PLAYER
         if (check_collision_for_rectangle(atk_ki.x, atk_ki.y, atk_ki.atk_width, atk_ki.atk_height))
         {
-          println("hi1!");
+            println("hi1!");
             to_remove = true;
             atk_ki.thrown = false;
         }
@@ -140,14 +140,14 @@ class Enemy1
         {
             if (bullet_list.size() < nb_max_bullets)
             {
-                bullet_list.add(new Bullet(left, y + radius, 30.0, 30.0, 
+                bullet_list.add(new Bullet(left, y + radius, 30.0, 30.0,
                             "bullet.png", (-9.0)));
             }
         } else
         {
             if (bullet_list.size() < nb_max_bullets)
             {
-                bullet_list.add(new Bullet(right, y + radius, 15.0, 15.0, 
+                bullet_list.add(new Bullet(right, y + radius, 15.0, 15.0,
                             "bullet.png", (9.0)));
             }
         }
@@ -163,9 +163,9 @@ class Enemy1
     }
 
     boolean check_collision_for_rectangle(
-            float rectangleX, 
-            float rectangleY, 
-            float platform_width, 
+            float rectangleX,
+            float rectangleY,
+            float platform_width,
             float platform_height)
     {
         float distance_x = abs(this.x - rectangleX - platform_width / 2);
@@ -173,7 +173,7 @@ class Enemy1
 
         if (distance_x > (platform_width / 2 + this.radius))
             return false;
-        if (distance_y > (platform_height/2 + this.radius)) 
+        if (distance_y > (platform_height/2 + this.radius))
             return false;
         if (distance_x <= (platform_width/2))
             return true;

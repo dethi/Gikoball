@@ -2,7 +2,7 @@ class Ball
 {
     // REAL POSITION X = X + SHIFT !!!!!
     float x, y;
-    float right, left, bottom, top;  
+    float right, left, bottom, top;
     float speedX, speedY;
     int WEIGHT = 50;
     int acceleration = 1;
@@ -20,8 +20,8 @@ class Ball
     boolean condition3;
     boolean condition4;
     boolean condition5;
-    boolean condition6;    
-    boolean condition7; 
+    boolean condition6;
+    boolean condition7;
     boolean power;
 
     //movement of the ball
@@ -52,7 +52,7 @@ class Ball
         //println("left :"+left+" right :"+right+" top :"+top+" bottom :"+bottom);
     }
 
-    void reborn() 
+    void reborn()
     {
         shift = 0;
         this.speedX = 0;
@@ -61,15 +61,15 @@ class Ball
         this.y = 100;
         this.nb_lives=1;
         this.condition1=false;
-        this.condition2=false;   
-        this.condition3=false; 
+        this.condition2=false;
+        this.condition3=false;
         this.power=false;
         this.skin=img_goku_00;
         score = new Score();
 
         /* We need to also reboot enemies and collections*/
     }
-    void keyPressed() 
+    void keyPressed()
     {
         if (key=='a')
             this.speedY=-10;
@@ -156,11 +156,11 @@ class Ball
         speedY += (9.81 * WEIGHT / 1000);
 
         speedX = speedX * 0.97;
-        this.x -= speedX; 
+        this.x -= speedX;
         this.y += speedY;
     }
 
-    void draw(ArrayList<Platform> platform_list, int shift) 
+    void draw(ArrayList<Platform> platform_list, int shift)
     {
         moveBall();
         Gravity();
@@ -181,7 +181,7 @@ class Ball
 
     void update(ArrayList<Platform> platform_list)
     {
-        update_position(); 
+        update_position();
         collides(platform_list);
     }
 
@@ -194,9 +194,9 @@ class Ball
     }
 
     boolean is_ball_collinding_with_platform(
-            float rectangleX, 
-            float rectangleY, 
-            float platform_width, 
+            float rectangleX,
+            float rectangleY,
+            float platform_width,
             float platform_height)
     {
         float distance_x = abs(this.x - rectangleX - platform_width / 2);
@@ -204,7 +204,7 @@ class Ball
 
         if (distance_x > (platform_width / 2 + this.radius))
             return false;
-        if (distance_y > (platform_height/2 + this.radius)) 
+        if (distance_y > (platform_height/2 + this.radius))
             return false;
         if (distance_x <= (platform_width / 2))
             return true;
@@ -220,7 +220,7 @@ class Ball
 
     void update_position_collision(Platform platform)
     {
-        // Ball is on the right of the platform 
+        // Ball is on the right of the platform
         //println(this.left >= platform.right);
         if (this.x <= platform.left + abs(speedX) && this.y <= platform.top + abs(speedY))
         {//top left corner
@@ -250,7 +250,7 @@ class Ball
             speedY = abs(speedY);
             this.x -= speedX-1;
             this.y += speedY+1;
-        } else 
+        } else
             if (this.left >= platform.right - abs(speedX)/* && this.top <= platform.bottom &&
                                                             this.bottom >= platform.top && this.top <= platform.bottom*/)
             {
@@ -291,76 +291,76 @@ class Ball
     {
         for (int i = 0; i < platform_list.size(); ++i)
         {
-            if (is_ball_collinding_with_platform(platform_list.get(i).x, 
+            if (is_ball_collinding_with_platform(platform_list.get(i).x,
                         platform_list.get(i).y, platform_list.get(i).platform_width, platform_list.get(i).platform_height))
             {
                 // A collision is detected between the ball and platform_list[i].
-                if (platform_list.get(i).platform_image.equals("end_level.png")&&condition1&&condition2&&condition3&&condition4&&condition5&&condition6&&condition7) 
+                if (platform_list.get(i).platform_image.equals("end_level.png")&&condition1&&condition2&&condition3&&condition4&&condition5&&condition6&&condition7)
                 {
                     currentUI = UIState.ENDING;
                     ending_state = ENDING_STATE.WIN;
                     restart = 1;
-                } else if (platform_list.get(i).platform_image.equals("ball_01.png") == true) 
-                { 
+                } else if (platform_list.get(i).platform_image.equals("ball_01.png") == true)
+                {
                     this.condition1=true;
                     //"erasing"
                     platform_list.get(i).platform_image="empty.png";
                     platform_list.get(i).platform_width=1;
                     platform_list.get(i).platform_height=1;
-                } else if (platform_list.get(i).platform_image.equals("ball_02.png") == true) 
+                } else if (platform_list.get(i).platform_image.equals("ball_02.png") == true)
                 {
                     this.condition2=true;
                     //"erasing"
                     platform_list.get(i).platform_image="empty.png";
                     platform_list.get(i).platform_width=1;
-                    platform_list.get(i).platform_height=1;                
-                } else if (platform_list.get(i).platform_image.equals("ball_03.png") == true) 
+                    platform_list.get(i).platform_height=1;
+                } else if (platform_list.get(i).platform_image.equals("ball_03.png") == true)
                 {
                     this.condition3=true;
                     //"erasing"
                     platform_list.get(i).platform_image="empty.png";
                     platform_list.get(i).platform_width=1;
                     platform_list.get(i).platform_height=1;
-                    } else if (platform_list.get(i).platform_image.equals("ball_04.png") == true) 
+                } else if (platform_list.get(i).platform_image.equals("ball_04.png") == true)
                 {
                     this.condition4=true;
                     //"erasing"
                     platform_list.get(i).platform_image="empty.png";
                     platform_list.get(i).platform_width=1;
                     platform_list.get(i).platform_height=1;
-                    } else if (platform_list.get(i).platform_image.equals("ball_05.png") == true) 
+                } else if (platform_list.get(i).platform_image.equals("ball_05.png") == true)
                 {
                     this.condition5=true;
                     //"erasing"
                     platform_list.get(i).platform_image="empty.png";
                     platform_list.get(i).platform_width=1;
                     platform_list.get(i).platform_height=1;
-                    } else if (platform_list.get(i).platform_image.equals("ball_06.png") == true) 
+                } else if (platform_list.get(i).platform_image.equals("ball_06.png") == true)
                 {
                     this.condition6=true;
                     //"erasing"
                     platform_list.get(i).platform_image="empty.png";
                     platform_list.get(i).platform_width=1;
                     platform_list.get(i).platform_height=1;
-                    } else if (platform_list.get(i).platform_image.equals("ball_07.png") == true) 
+                } else if (platform_list.get(i).platform_image.equals("ball_07.png") == true)
                 {
                     this.condition7=true;
                     //"erasing"
                     platform_list.get(i).platform_image="empty.png";
                     platform_list.get(i).platform_width=1;
                     platform_list.get(i).platform_height=1;
-                } else if (platform_list.get(i).platform_image.equals("pu_00.png") == true) 
-                {                    
+                } else if (platform_list.get(i).platform_image.equals("pu_00.png") == true)
+                {
                     this.power=true;
                     this.skin=loadImage("goku_01.png");
                     //"erasing"
                     platform_list.get(i).platform_image="empty.png";
                     platform_list.get(i).platform_width=1;
-                    platform_list.get(i).platform_height=1;                    
-                } else if (platform_list.get(i).platform_image.equals("empty.png") == true) 
+                    platform_list.get(i).platform_height=1;
+                } else if (platform_list.get(i).platform_image.equals("empty.png") == true)
                 {
                     /* nothing */
-                } else 
+                } else
                 {
                     update_position_collision(platform_list.get(i));
                 }

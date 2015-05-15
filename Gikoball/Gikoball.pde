@@ -4,7 +4,7 @@ String userName = "";
 
 // Greeting
 int starting_greeting_time;
-int count_down_greeting_launched = 0; 
+int count_down_greeting_launched = 0;
 
 // STORY
 PImage img_story;
@@ -14,7 +14,7 @@ int restart = 0;
 // Story count down
 int story_countdown;
 int starting_time;
-int count_down_story_launched = 0; 
+int count_down_story_launched = 0;
 
 // Story String
 String story1 = "- C'mon Goku! The earth needs you!";
@@ -29,7 +29,7 @@ String story2 = "- We don't have the whole day!\n"+
 "Take care, even being you this will\n"+
 "be a hard task.\n";
 
-String story3 = "- What?! Broken?! How a magic cloud\n"+ 
+String story3 = "- What?! Broken?! How a magic cloud\n"+
 "can be broken...?\n"+
 "Okay okay, then it will be even harder!\n"+
 "You have to bounce around trying not \n"+
@@ -46,7 +46,7 @@ String story4 = "- Remember to collect food and Staffs\n"+
 "don't have time right now!!! So if we\n"+
 "meet in the city I will teach you then!\n";
 
-// BACKGROUND 
+// BACKGROUND
 PImage img_background;
 PImage img_floor;
 PImage img_baner;
@@ -70,7 +70,7 @@ PImage img_goku_00;
  */
 PImage green_platform;
 PImage red_platform;
-String level_file="level_test.csv"; 
+String level_file="level_test.csv";
 
 Table level;
 
@@ -98,7 +98,7 @@ ArrayList<Enemy1> enemy1_list=new ArrayList<Enemy1>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy2> enemy2_list = new ArrayList<Enemy2>();
 
-/* 
+/*
  * Ending screen
  */
 PImage congratulations_screen;
@@ -112,9 +112,9 @@ int shift = 0;
 int level_length=1600; //just to initialize
 
 
-void setup() 
+void setup()
 {
-    load_level(level_file);  
+    load_level(level_file);
     size(SCREEN_WIDTH, SCREEN_HEIGHT);
     f = createFont("Arial", 32, true);
     img_story = loadImage("roshi.png");
@@ -131,7 +131,7 @@ void setup()
     img_heart=loadImage("heart.png");
     green_platform = loadImage("green_platform.png");
     red_platform = loadImage("red_platform.png");
-    img_goku_00=loadImage("goku_00.png");    
+    img_goku_00=loadImage("goku_00.png");
     enemy1_image = loadImage("enemy1.png");
     enemy2_image = loadImage("enemy2.png");
     bullet_image = loadImage("bullet.png");
@@ -144,7 +144,7 @@ void setup()
     ending_state = ENDING_STATE.GAME_OVER;
 }
 
-void load_level(String level_f) {  
+void load_level(String level_f) {
     platform_list = new ArrayList<Platform>();
     enemy1_list=new ArrayList<Enemy1>();
     bullets = new ArrayList<Bullet>();
@@ -173,7 +173,7 @@ void load_level(String level_f) {
         {
             //println("enemy1");
             enemy1_list.add(new Enemy1(x, y, p_width, p_height, loadImage(p_image)));
-        } else if (p_image.equals("enemy2.png")) 
+        } else if (p_image.equals("enemy2.png"))
         {
             //println("enemy2");
             enemy2_list.add(new Enemy2(x, y, p_width, p_height, loadImage(p_image)));
@@ -258,7 +258,7 @@ void draw_story()
 
 void scrolling() //maybe in another class instead of a function?
 {
-    if (theBall.x > 550) {    
+    if (theBall.x > 550) {
         if (shift + 800<level_length) {
             if (theBall.speedX<0) //scroll if it is moving forward
             {
@@ -266,11 +266,11 @@ void scrolling() //maybe in another class instead of a function?
                 theBall.setX(theBall.getX() + theBall.speedX);
             }
         }
-    } else if (theBall.x < 250) {      
+    } else if (theBall.x < 250) {
         if (shift > 0) {
             if (theBall.speedX>0) //scroll if it is moving backward
             {
-                shift-=abs(theBall.speedX);   
+                shift-=abs(theBall.speedX);
                 theBall.setX(theBall.getX() + theBall.speedX);
             }
         }
@@ -323,7 +323,7 @@ void draw()
 {
     if (keyPressed && currentUI == UIState.GAME)
         theBall.keyPressed();
-    switch(currentUI) 
+    switch(currentUI)
     {
         case WELCOME:
             welcome.draw();
@@ -331,7 +331,7 @@ void draw()
         case GREETING:
             draw_menu_greeting();
             break;
-        case STORY: 
+        case STORY:
             draw_story();
             //currentUI = UIState.GAME;
             break;
@@ -356,34 +356,34 @@ void draw()
             }
             for (int i = 0; i < bullets.size (); ++i)
             {
-                if (theBall.is_ball_collinding_with_platform(bullets.get(i).x - shift, bullets.get(i).y, 
+                if (theBall.is_ball_collinding_with_platform(bullets.get(i).x - shift, bullets.get(i).y,
                             bullets.get(i).bullet_width, bullets.get(i).bullet_height))
                 {
                     if (!bullets.get(i).to_remove) --theBall.nb_lives;
                     bullets.get(i).to_remove = true;
                 }
             }
-            
+
             //
-            image(img_baner,0,0);            
+            image(img_baner,0,0);
             for (int i=0;i<theBall.nb_lives;i++)
-              image(img_heart,40*i+7,20,50,50);     
-            text("Score: "+score.currentScore, 10, 30); 
+                image(img_heart,40*i+7,20,50,50);
+            text("Score: "+score.currentScore, 10, 30);
             text(userName,10,20);
             if (theBall.condition1)
-              image(img_ball_01,0,60,30,30);
+                image(img_ball_01,0,60,30,30);
             if (theBall.condition2)
-              image(img_ball_02,30,60,30,30);
+                image(img_ball_02,30,60,30,30);
             if (theBall.condition3)
-              image(img_ball_03,60,60,30,30);
+                image(img_ball_03,60,60,30,30);
             if (theBall.condition4)
-              image(img_ball_04,90,60,30,30);
+                image(img_ball_04,90,60,30,30);
             if (theBall.condition5)
-              image(img_ball_05,120,60,30,30);
+                image(img_ball_05,120,60,30,30);
             if (theBall.condition6)
-              image(img_ball_06,150,60,30,30);
+                image(img_ball_06,150,60,30,30);
             if (theBall.condition7)
-              image(img_ball_07,180,60,30,30);
+                image(img_ball_07,180,60,30,30);
             //
             remove_enemy1();
             remove_enemy2();
@@ -406,9 +406,9 @@ void keyPressed() //the method keyPressed is bullshit
         case WELCOME:
             welcome.keyPressed();
             break;
-        case GREETING: 
+        case GREETING:
             break;
-        case STORY: 
+        case STORY:
             break;
         case GAME:
             if ((key=='x'||key=='X')&& !atk_ki.thrown) {

@@ -1,4 +1,4 @@
-class Attack 
+class Attack
 {
     float x, y;
     float speedX, atk_speed;
@@ -30,7 +30,7 @@ class Attack
         } else if (atk_img.equals("atk_kame.png")) {
             this.damage=4;
             this.atk_speed=5;
-        } 
+        }
     }
 
     void setX (float x) {
@@ -46,7 +46,7 @@ class Attack
         this.y=0;
     }
 
-    void draw(ArrayList<Platform> platform_list, int shift) 
+    void draw(ArrayList<Platform> platform_list, int shift)
     {
         this.x+= shift;
         update(platform_list);
@@ -58,7 +58,7 @@ class Attack
 
     void update(ArrayList<Platform> platform_list)
     {
-        update_position(); 
+        update_position();
         collides(platform_list);
     }
 
@@ -68,8 +68,8 @@ class Attack
         left = x - this.atk_width/2;
         top = y - this.atk_height/2;
         bottom = y + this.atk_height/2;
-        if (this.thrown) 
-            this.speedX=this.atk_speed;        
+        if (this.thrown)
+            this.speedX=this.atk_speed;
 
         this.x+=this.speedX;
     }
@@ -83,7 +83,7 @@ class Attack
                         platform_list.get(i).platform_width, platform_list.get(i).platform_height))
             {
                 //dissapear, no problem if the platform is floor, end, bonus, wotevah
-                this.remove();                          
+                this.remove();
             }
         }
 
@@ -93,9 +93,9 @@ class Attack
                         enemy1_list.get(i).enemy_width, enemy1_list.get(i).enemy_height))
             {
                 //Time to kill
-              enemy1_list.get(i).to_remove = true;
-              this.thrown = false;
-            }        
+                enemy1_list.get(i).to_remove = true;
+                this.thrown = false;
+            }
         }
 
         //enemy2 collision
@@ -104,17 +104,17 @@ class Attack
                         enemy2_list.get(i).enemy_width, enemy2_list.get(i).enemy_height))
             {
                 //Time to kill
-              enemy2_list.get(i).to_remove = true;
-              this.thrown = false;
-            }       
+                enemy2_list.get(i).to_remove = true;
+                this.thrown = false;
+            }
         }
 
     }
 
     boolean is_atk_collinding_with_platform(
-            float rectangleX, 
-            float rectangleY, 
-            float platform_width, 
+            float rectangleX,
+            float rectangleY,
+            float platform_width,
             float platform_height)
     {
         float distance_x = abs((this.x+this.atk_width/2) - rectangleX - platform_width / 2);
@@ -122,7 +122,7 @@ class Attack
 
         if (distance_x > (platform_width / 2 + this.atk_width/2))
             return false;
-        if (distance_y > (platform_height/2 + this.atk_height/2)) 
+        if (distance_y > (platform_height/2 + this.atk_height/2))
             return false;
         if (distance_x <= (platform_width/2))
             return true;

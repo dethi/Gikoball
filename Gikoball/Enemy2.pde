@@ -20,7 +20,7 @@ class Enemy2
     boolean to_remove;
     PImage skin;
 
-    Enemy2(float x, float y, float enemy_width, float enemy_height, 
+    Enemy2(float x, float y, float enemy_width, float enemy_height,
             PImage skin)
     {
         // Coordonnates
@@ -56,7 +56,7 @@ class Enemy2
         // COLLISION WITH KII PLAYER
         if (check_collision_for_rectangle(atk_ki.x, atk_ki.y, atk_ki.atk_width, atk_ki.atk_height))
         {
-        
+
             to_remove = true;
             atk_ki.thrown = false;
         }
@@ -71,9 +71,9 @@ class Enemy2
     {
         for (int i = 0; i < platform_list.size (); ++i)
         {
-            if (check_collision_for_rectangle(platform_list.get(i).x, 
-                        platform_list.get(i).y, 
-                        platform_list.get(i).platform_width, 
+            if (check_collision_for_rectangle(platform_list.get(i).x,
+                        platform_list.get(i).y,
+                        platform_list.get(i).platform_width,
                         platform_list.get(i).platform_height))
                 velocity_y = -20;
         }
@@ -95,9 +95,9 @@ class Enemy2
     }
 
     boolean check_collision_for_rectangle(
-            float rectangleX, 
-            float rectangleY, 
-            float platform_width, 
+            float rectangleX,
+            float rectangleY,
+            float platform_width,
             float platform_height)
     {
         float distance_x = abs(this.x - rectangleX - platform_width / 2);
@@ -105,7 +105,7 @@ class Enemy2
 
         if (distance_x > (platform_width / 2 + this.radius))
             return false;
-        if (distance_y > (platform_height/2 + this.radius)) 
+        if (distance_y > (platform_height/2 + this.radius))
             return false;
         if (distance_x <= (platform_width/2))
             return true;

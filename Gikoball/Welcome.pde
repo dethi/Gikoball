@@ -1,10 +1,10 @@
-class Welcome 
+class Welcome
 {
-    Welcome() 
-    { 
+    Welcome()
+    {
     }
 
-    void draw() 
+    void draw()
     {
         background(0);
 
@@ -22,7 +22,7 @@ class Welcome
         text(typing, 400-95, 335);
     }
 
-    void keyPressed() 
+    void keyPressed()
     {
         if (key == ENTER || key == RETURN) {
             userName = typing;
@@ -31,7 +31,7 @@ class Welcome
             currentUI = UIState.GREETING;
         } else if (key != CODED) {
             if (key == BACKSPACE) {
-                if (typing.length()-1>=0) 
+                if (typing.length()-1>=0)
                     typing=typing.substring(0, typing.length()-1);
             } else {
                 if (typing.length()<22)
