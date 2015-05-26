@@ -56,9 +56,9 @@ class Enemy1
     void update_is_attacking(float ball_x, float shift)
     {
         if (abs(ball_x+ shift - this.x) <= (SCREEN_WIDTH / 2))
-            {is_attacking = true; println("Is attacking = true");}
+            {is_attacking = true;}
         else
-        {println("Is attacking = false");
+        {
             is_attacking = false;
         }
     }
@@ -85,10 +85,17 @@ class Enemy1
         // COLLISION WITH THE PLAYER
         if (check_collision_with_player(ball.x, ball.y, ball.radius))
         {
+          if(!ball.aura)
+          {
             if(!ball.power)
                 --ball.nb_lives;
             ball.check_loose();
             to_remove = true;
+          }
+          else
+          {
+             to_remove = true; 
+          }
         }
 
         // COLLISION WITH KII PLAYER

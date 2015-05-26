@@ -12,3 +12,9 @@ enum ENDING_STATE
     GAME_OVER,
     WIN,
 }
+
+enum ATTACK
+{
+   KII,
+   AURA,  
+}
