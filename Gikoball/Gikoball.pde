@@ -79,8 +79,8 @@ ArrayList<Platform> platform_list = new ArrayList<Platform>();//needs to be for 
 /*
  * Comment / uncomment on of both for debugging or presentation
  */
-UIState currentUI = UIState.WELCOME;
-//UIState currentUI = UIState.GAME;
+//UIState currentUI = UIState.WELCOME;
+UIState currentUI = UIState.GAME;
 Welcome welcome = new Welcome();
 Score score = new Score();
 Background background = new Background();

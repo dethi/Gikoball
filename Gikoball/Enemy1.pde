@@ -53,12 +53,14 @@ class Enemy1
     }
 
     // If the enemy and the ball are close enough, the enemy will attack
-    void update_is_attacking(float ball_x)
+    void update_is_attacking(float ball_x, float shift)
     {
-        if (abs(ball_x - this.x) <= (SCREEN_WIDTH / 2))
-            is_attacking = true;
+        if (abs(ball_x+ shift - this.x) <= (SCREEN_WIDTH / 2))
+            {is_attacking = true; println("Is attacking = true");}
         else
+        {println("Is attacking = false");
             is_attacking = false;
+        }
     }
 
     void draw(int shift, Ball ball, PImage bullet_image, ArrayList<Platform> platform_list, Attack atk_ki)
@@ -73,7 +75,7 @@ class Enemy1
     void update(Ball ball, PImage bullet_image)
     {
         ++tmp_fire;
-        update_is_attacking(ball.x);
+        update_is_attacking(ball.x, shift);
         if (tmp_fire >= 50)
         {
             tmp_fire = 0;
