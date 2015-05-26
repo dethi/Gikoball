@@ -7,11 +7,11 @@ class Ending
         this.ending_screen = screen;
     }
 
-    void draw(Score score)
+    void draw(Score score, String userName)
     {
         image(ending_screen, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        text("Your finished with a score of:",50,275);
-        text(score.currentScore,125,300);
+        text("Your finished with a score of:",0,275);
+        text(userName+ ": " + score.currentScore,0,300);
     }
 
     void keyPressed()

@@ -1,6 +1,6 @@
 PFont f;
 String typing = "";
-String userName = "";
+String userName = "Sangoku";
 
 // Greeting
 int starting_greeting_time;
@@ -368,8 +368,7 @@ void draw()
             image(img_baner,0,0);
             for (int i=0;i<theBall.nb_lives;i++)
                 image(img_heart,40*i+7,20,50,50);
-            text("Score: "+score.currentScore, 10, 30);
-            text(userName,10,20);
+            text(userName + ": Score: "+score.currentScore, 10, 100);
             if (theBall.condition1)
                 image(img_ball_01,0,60,30,30);
             if (theBall.condition2)
@@ -394,7 +393,7 @@ void draw()
                 ending.ending_screen = gameover_screen;
             else
                 ending.ending_screen = congratulations_screen;
-            ending.draw(score);
+            ending.draw(score,userName);
             break;
     }
 }
