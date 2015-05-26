@@ -79,8 +79,8 @@ ArrayList<Platform> platform_list = new ArrayList<Platform>();//needs to be for 
 /*
  * Comment / uncomment on of both for debugging or presentation
  */
-//UIState currentUI = UIState.WELCOME;
-UIState currentUI = UIState.GAME;
+UIState currentUI = UIState.WELCOME;
+//UIState currentUI = UIState.GAME;
 Welcome welcome = new Welcome();
 Score score = new Score();
 Background background = new Background();
@@ -225,21 +225,21 @@ void draw_story()
     if (count_down_story_launched == 0)
         launch_story_countdown();
 
-    if (story_countdown <= 30) {
+    if (story_countdown <= 45) {
         story_countdown = (millis() - starting_time) / 1000;
 
         f = createFont("Arial", 16, true);
 
         if (story_countdown < 3)
             text(story1, 400 - 300, 100);
-        else if (story_countdown >= 4 && story_countdown < 12)
+        else if (story_countdown >= 4 && story_countdown < 17)
         {
             text(story1, 400 - 300, 100);
             text(story2, 400 - 300, 150);
-        } else if (story_countdown >= 13 && story_countdown < 22)
+        } else if (story_countdown >= 18 && story_countdown < 35)
         {
             text(story3, 400 - 300, 100);
-        } else if (story_countdown >= 23)
+        } else if (story_countdown >= 36)
         {
             text(story4, 400 - 300, 100);
         }
