@@ -94,6 +94,8 @@ PImage enemy1_image;
 PImage enemy2_image;
 PImage bullet_image;
 
+
+PImage aura_image;
 ArrayList<Enemy1> enemy1_list=new ArrayList<Enemy1>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy2> enemy2_list = new ArrayList<Enemy2>();
@@ -136,7 +138,7 @@ void setup()
     enemy2_image = loadImage("enemy2.png");
     bullet_image = loadImage("bullet.png");
     theBall.setSkin(img_goku_00);
-
+    aura_image = loadImage("bubble.png");
     // ENDING SCREEN
     congratulations_screen = loadImage("congratulations.jpg");
     gameover_screen = loadImage("gameover.jpg");
